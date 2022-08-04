@@ -11,6 +11,7 @@ public class BattleStateMachine : StateMachine
     public int currentPlayerIndex = 0;
     public UIController ui;
     public Board board;
+    public GameObject cameraController;
     public void nextUnit()
     {
         currentPlayerIndex = (currentPlayerIndex + 1) % characters.Count;

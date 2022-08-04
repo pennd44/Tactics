@@ -18,6 +18,7 @@ public class ExploringState : BattleState
         for(int i = 0; i < board.tiles.Count; i++){
             board.tiles[i].occupied = false;
         }
+        stateMachine.cameraController.GetComponent<BattleCameraMovement>().enabled = false;
      }
     public override void handleInput() {
         if (Input.GetKeyDown(KeyCode.N))
@@ -51,5 +52,6 @@ public class ExploringState : BattleState
                 characters[i].currentTile = board.getClosestTile(characters[i].gameObject.transform.position);
                 characters[i].snapToTile();
             }
+        stateMachine.cameraController.GetComponent<BattleCameraMovement>().enabled = true;
     }
 }
