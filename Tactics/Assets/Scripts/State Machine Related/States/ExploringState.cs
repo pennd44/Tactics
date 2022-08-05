@@ -19,6 +19,8 @@ public class ExploringState : BattleState
             board.tiles[i].occupied = false;
         }
         stateMachine.cameraController.GetComponent<BattleCameraMovement>().enabled = false;
+                stateMachine.cameraController.GetComponent<ExploreCameraMovement>().enabled = true;
+
      }
     public override void handleInput() {
         if (Input.GetKeyDown(KeyCode.N))
@@ -46,12 +48,14 @@ public class ExploringState : BattleState
     public override void exit() {
         for (int i = 0; i < characters.Count; i++) 
             {
+                characters[i].gameObject.GetComponent<Movement>().exit();
                 characters[i].gameObject.GetComponent<Movement>().enabled = false;
                 characters[i].gameObject.GetComponent<NavMeshAgent>().enabled = false;
                 // characters[i].gameObject.GetComponent<NavMeshAgent>().isStopped = true;
                 characters[i].currentTile = board.getClosestTile(characters[i].gameObject.transform.position);
                 characters[i].snapToTile();
             }
+        stateMachine.cameraController.GetComponent<ExploreCameraMovement>().enabled = false;
         stateMachine.cameraController.GetComponent<BattleCameraMovement>().enabled = true;
     }
 }

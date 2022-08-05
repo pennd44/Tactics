@@ -42,3 +42,20 @@ public abstract class BattleMovement : MonoBehaviour
     //         yield return null;
     // }
 }
+
+
+
+//getTile return array
+//if (t in getTile(currentTile.pos)).height > currentTile.height
+//  we have a ceiling
+//  if cieling.height - targetTile.height < 1
+//      cant access space is too small
+//      continue
+//  if (t in getTile(targetTile.pos)).height > targetTile.height
+//      target tile has a ceiling
+//      if targetCieling.height  - targetTile.height < 1
+
+
+//CHECK IF WE HAVE A CIELING TOO LOW TO GO TO LEAVE 1 METER OF SPACE ABOVE TARGET TILE FLOOR
+//CHECK IF TARGET TILE HAS A CIELING TOO LOW TO LEAVE 1 METER OF SPACE ABOVE TARGET TILE FLOOR
+//

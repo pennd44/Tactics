@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class ExploreCameraMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
+    Transform partyLeader;
     void Start()
     {
-        
+        partyLeader = GameObject.FindObjectOfType<Player>().transform;
     }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        transform.position = partyLeader.position;
     }
 }

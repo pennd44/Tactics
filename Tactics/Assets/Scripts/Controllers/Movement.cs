@@ -22,7 +22,7 @@ public class Movement : MonoBehaviour
     // private void Update() {
     //     entityMovement.Tick();
     // }
-
+    private Character character;
     private bool partyLeader;
     private bool ally;
 
@@ -32,6 +32,7 @@ public class Movement : MonoBehaviour
     public NavMeshAgent agent;
        
     void Start () {
+        character = GetComponent<Character>();
         NavMeshAgent agent = GetComponent<NavMeshAgent>();
         if(GetComponent<Player>()){
            partyLeader = true;
@@ -100,18 +101,23 @@ public class Movement : MonoBehaviour
 
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
                 controller.Move(moveDir.normalized * speed * Time.deltaTime);
+                character.unitAnimator.SetFloat("Speed", 1);
+            }else{
+                character.unitAnimator.SetFloat("Speed", 0);
             }
     }
             else if(ally){
             agent.SetDestination(player.position);
             if(Vector3.Distance (transform.position, player.position)>3){
                 agent.isStopped = false;
+                character.unitAnimator.SetFloat("Speed", 1);
             }else{
                 agent.isStopped = true;
+                character.unitAnimator.SetFloat("Speed", 0);
             }
         }
         }
-
-
-        
+    public void exit(){
+        character.unitAnimator.SetFloat("Speed", 0);
+    }       
 }
