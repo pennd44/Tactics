@@ -63,6 +63,41 @@ public class Board : MonoBehaviour
     //     }
     //     return retValue;
     // }
+
+//Turn this search below back on 
+
+    // public List<Tile> Search (Tile start, Func<Tile, Tile, bool> addTile)
+    // {
+    //     List<Tile> retValue = new List<Tile>();
+    //     retValue.Add(start);
+
+    //     ClearSearch();
+    //     Queue<Tile> checkNext = new Queue<Tile>();
+    //     Queue<Tile> checkNow = new Queue<Tile>();
+    //     start.distance = 0;
+    //     checkNow.Enqueue(start);
+    //     while(checkNow.Count > 0)
+    //     {
+    //         Tile t = checkNow.Dequeue();
+    //         for(int i = 0; i < 4; ++i)
+    //         {
+    //             Tile next = getTile(t.pos + dirs[i]);
+    //             if (next == null || next.distance <= t.distance + 1)
+    //                 continue;
+    //             if (addTile(t, next))
+    //             {
+    //                 next.distance = t.distance + 1;
+    //                 next.prev = t;
+    //                 checkNext.Enqueue(next);
+    //                 retValue.Add(next);
+    //             }
+    //         }
+    //         if(checkNow.Count == 0)
+    //             SwapReference(ref checkNow, ref checkNext);
+    //     }
+
+    //     return retValue;
+    // }
     public List<Tile> Search (Tile start, Func<Tile, Tile, bool> addTile)
     {
         List<Tile> retValue = new List<Tile>();
@@ -78,15 +113,19 @@ public class Board : MonoBehaviour
             Tile t = checkNow.Dequeue();
             for(int i = 0; i < 4; ++i)
             {
-                Tile next = getTile(t.pos + dirs[i]);
-                if (next == null || next.distance <= t.distance + 1)
-                    continue;
-                if (addTile(t, next))
+                List<Tile> nextTiles = GetTiles(t.pos + dirs[i]);
+                for(int j = 0; j < nextTiles.Count; ++j)
                 {
-                    next.distance = t.distance + 1;
-                    next.prev = t;
-                    checkNext.Enqueue(next);
-                    retValue.Add(next);
+                    Tile next = nextTiles[j];
+                    if (next == null || next.distance <= t.distance + 1)
+                        continue;
+                    if (addTile(t, next))
+                    {
+                        next.distance = t.distance + 1;
+                        next.prev = t;
+                        checkNext.Enqueue(next);
+                        retValue.Add(next);
+                    }
                 }
             }
             if(checkNow.Count == 0)
@@ -133,6 +172,39 @@ public class Board : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public Tile GetCeiling(Tile t){
+        List<Tile> tilesAtCurrentPosition = GetTiles(t.pos);
+        Tile currentTileCeiling = null;
+        float currentCeilingHeight = float.MaxValue; // to make sure we’re only getting the nearest ceiling
+        for (int i = 0; i < tilesAtCurrentPosition.Count; i++)
+        {
+            if (tilesAtCurrentPosition[i].height > t.height && tilesAtCurrentPosition[i].height < currentCeilingHeight)
+            {
+                //current tile has a ceiling
+                currentTileCeiling = tilesAtCurrentPosition[i];
+                currentCeilingHeight = currentTileCeiling.height;
+            }
+        }
+        if(currentTileCeiling != null)
+            return currentTileCeiling;
+        return null;
+    }
+
+    public List<Tile> GetTiles(Point p){
+        List<Tile> ts = new List<Tile>();
+        foreach (Tile t in tiles)
+        {
+            if (t.pos == p)
+            {
+                ts.Add(t);
+            }
+        }
+        if (ts.Count > 0)
+            return ts;
+        else
+            return null;
     }
     public Tile getClosestTile(Vector3 v){
         Debug.Log("hit getClosestTile method");

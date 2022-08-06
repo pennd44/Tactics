@@ -10,6 +10,25 @@ public class WalkMovement : BattleMovement
             return false;
         if ( to.occupied)
             return false;
+        Tile currentTileCeiling = board.GetCeiling(from);
+        Tile targetTileCeiling = board.GetCeiling(to);
+        if (currentTileCeiling != null)
+        {
+            if ((currentTileCeiling.height-to.height) < 2){
+                return false;
+            }
+        }
+        if (targetTileCeiling != null)
+        {
+            if((targetTileCeiling.height - to.height) < 2)
+            {
+                return false;
+            }
+            if ((targetTileCeiling.height - from.height) < 2)
+            {
+                return false;
+            }
+        }
         return base.ExpandSearch(from, to);
     }
 

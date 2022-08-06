@@ -5,9 +5,11 @@ using UnityEngine;
 public abstract class BattleMovement : MonoBehaviour
 {
     protected Character unit;
+    protected Board board;
     // protected Transform jumper;
     protected virtual void Awake() {
         unit = GetComponent<Character>();
+        board = GameObject.FindObjectOfType<Board>();
         // jumper = transform.FindChild("Jumper");
     }
     public virtual List<Tile> GetTilesInRange(Board board)
@@ -59,3 +61,26 @@ public abstract class BattleMovement : MonoBehaviour
 //CHECK IF WE HAVE A CIELING TOO LOW TO GO TO LEAVE 1 METER OF SPACE ABOVE TARGET TILE FLOOR
 //CHECK IF TARGET TILE HAS A CIELING TOO LOW TO LEAVE 1 METER OF SPACE ABOVE TARGET TILE FLOOR
 //
+// Tile [] tilesAtCurrentPosition = board.GetTiles(currentTile.pos);
+// Tile currentTileCeiling;
+// float currentCeilingHeight = float.MaxValue; // to make sure we’re only getting the nearest ceiling
+// for (int i = 0; i currentTile.height && tilesAtCurrentPosition[i].height < currentCeilingHeight;)
+// {
+// //current tile has a ceiling
+// currentTileCeiling = tilesAtCurrentPosition[i];
+// currentCeilingHeight = currentTileCeiling.height;
+// }
+// }
+
+// if (currentTileCeiling.height – targetTile.height < 1)
+// {
+// //space is large enough for unit to fit
+// //I'd make a function to get the tile above a given tile but im not sure off the top of my head how to get around that it would sometimes return a tile and sometimes nothing
+// if ( targetTile.GetCeiling() == null)
+// //add tile
+// if(targetTile.GetCeiling != null && targetTile.GetCeiling().height -targetTile.height)
+// {
+// //theres enough space on target tile
+// //add tile
+// }
+// }
