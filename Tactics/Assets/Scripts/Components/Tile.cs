@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    public Color originalColor;
+    public Material originalMaterial;
     public Point pos;
     public float height;
     List<Tile> neighbors = new List<Tile>();
@@ -23,6 +23,15 @@ public class Tile : MonoBehaviour
     private void Awake() {
         pos = new Point(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z));
         height = transform.position.y;
-        originalColor = gameObject.GetComponent<Renderer>().material.GetColor("_Color");
+        originalMaterial = gameObject.GetComponent<Renderer>().material;
     }
+    public void changeHighlight(Material material){
+        Material [] newMaterials = new Material [] {originalMaterial, material};
+        GetComponent<Renderer>().materials = newMaterials;
+    }
+    public void removeHighlight(){
+        Material [] newMaterials = new Material [] {originalMaterial};
+        GetComponent<Renderer>().materials = newMaterials;
+    }
+
 }

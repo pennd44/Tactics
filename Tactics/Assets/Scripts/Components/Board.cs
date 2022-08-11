@@ -15,17 +15,18 @@ public class Board : MonoBehaviour
         new Point(1, 0),
         new Point(-1, 0)
     };
-    public void SelectTiles(List<Tile> tiles, Color color)
+    public void SelectTiles(List<Tile> tiles, Material material)
     {
         for (int i = tiles.Count - 1; i >= 0; --i){
-            tiles[i].GetComponent<Renderer>().material.color= color;
+            tiles[i].changeHighlight(material);
             tiles[i].selectable = true;
         }
     }
     public void DeSelectTiles(List<Tile> tiles)
     {
         for (int i = tiles.Count - 1; i >= 0; --i){
-            tiles[i].GetComponent<Renderer>().material.color= tiles[i].originalColor;
+            // tiles[i].GetComponent<Renderer>().material.color= tiles[i].originalColor;
+            tiles[i].removeHighlight();
             tiles[i].selectable = false;
         }
     }

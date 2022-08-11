@@ -14,10 +14,7 @@ public class ActionSelectState : BattleState
     public override void enter() {
         ActionRange attack = unit.GetComponent<ActionRange>();
         actionables = attack.GetTilesInRange(board);
-        board.SelectTiles(actionables, Color.red);
-        // unit.currentTile.distance = 0;
-        // actionables = board.Search(unit.currentTile, unit.attackRange);
-        // board.SelectTiles(actionables, Color.red);
+        board.SelectTiles(actionables, stateMachine.actionSelect);
     }
     public override void Tick(){
         handleInput();
@@ -26,8 +23,7 @@ public class ActionSelectState : BattleState
         board.DeSelectTiles(actionables);
     }
 
-    GameObject prevSelectedTile;
-    Color prevColor = Color.white;
+    Tile prevTile;
 
     public override void handleInput() {
         /// Highlight tile mouse is hovering over
@@ -37,18 +33,17 @@ public class ActionSelectState : BattleState
         if (Physics.Raycast(ray, out hit))
         {
             GameObject hitObj = hit.transform.gameObject;
-            if (hitObj.tag == "Tile")
+            if (hitObj.tag == "Tile" && hitObj.GetComponent<Tile>().selectable)
             {
                 hitTile = hitObj.GetComponent<Tile>();
-                if (prevSelectedTile != null)
+                if (prevTile != null)
                 {
-                    prevSelectedTile.GetComponent<Tile>().selected = false;
-                    prevSelectedTile.GetComponent<Renderer>().material.color = prevColor; // green -> blue but want green -> white
+                    prevTile.selected = false;
+                    prevTile.changeHighlight(stateMachine.actionSelect);
                 }
-                prevSelectedTile = hitObj;
+                prevTile = hitTile;
                 hitTile.selected = true;
-                prevColor = hitTile.GetComponent<Renderer>().material.color;
-                hitTile.GetComponent<Renderer>().material.color= Color.green;
+                hitTile.changeHighlight(stateMachine.actionHover);
                 handleClick(hitTile);
             }
         }

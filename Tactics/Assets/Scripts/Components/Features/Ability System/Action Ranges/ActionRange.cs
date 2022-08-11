@@ -14,21 +14,21 @@ public abstract class ActionRange : MonoBehaviour
     public virtual List<Tile> GetTilesInRange(Board board)
     {
         List<Tile> retValue = board.Search(unit.currentTile, ExpandSearch);
-        // Filter(retValue);
+        Filter(retValue);
         return retValue;    
     }
     protected virtual bool ExpandSearch (Tile from, Tile to)
     {
         return (from.distance + 1 <= unit.attackRange);
     }
-    // protected virtual void Filter(List<Tile> tiles)
-    // {
-    //     for (int i = tiles.Count - 1; i >= 0; --i)
-    //     {
-    //        if(!tiles[i].occupied){
-    //         tiles.RemoveAt(i);
-    //        }
-    //     }
+    protected virtual void Filter(List<Tile> tiles)
+    {
+        for (int i = tiles.Count - 1; i >= 0; --i)
+        {
+           if(tiles[i] == unit.currentTile){
+            tiles.RemoveAt(i);
+           }
+        }
 
-    // }
+    }
 }
