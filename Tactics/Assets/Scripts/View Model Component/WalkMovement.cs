@@ -71,7 +71,7 @@ public class WalkMovement : BattleMovement
         unit.unitAnimator.SetFloat("Speed", 0);
     }
 
-    public void Turn(Vector3 target)
+    public override void Turn(Vector3 target)
     {
         Vector3 direction = (target - unit.transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));

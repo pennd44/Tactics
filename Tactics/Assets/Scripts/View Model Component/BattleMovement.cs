@@ -33,6 +33,7 @@ public abstract class BattleMovement : MonoBehaviour
 
     }
     public abstract IEnumerator Traverse(Tile tile);
+    public abstract void Turn(Vector3 target);
     // protected virtual IEnumerator Turn(Directions dir){
     //     TransformLocalEulerTweener t = (TransformLocalEulerTweener) transform.RotateToLocal(dir.ToEuler(), 0.25f, EasingEquations.EaseInOutQuad);
     //     if (Mathf.Approximately(t.startValue.y, 0f) && Mathf.Approximately(t.endValue.y, 270f))

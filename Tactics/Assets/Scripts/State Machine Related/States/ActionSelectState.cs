@@ -11,7 +11,9 @@ public class ActionSelectState : BattleState
 
     protected List<Tile> actionables;
     public ActionSelectState(BattleStateMachine stateMachine) : base(stateMachine){}
+    protected BattleMovement mover;
     public override void enter() {
+        mover = unit.GetComponent<BattleMovement>();
         ActionRange attack = unit.GetComponent<ActionRange>();
         actionables = attack.GetTilesInRange(board);
         board.SelectTiles(actionables, stateMachine.actionSelect);
@@ -57,6 +59,8 @@ public class ActionSelectState : BattleState
         {
             if (hitTile.occupied && hitTile.selectable && hitTile.content.GetComponent<Character>() != null)
             {
+                mover.Turn(hitTile.content.transform.position);
+                unit.unitAnimator.SetTrigger("attacking");
                 Character target = hitTile.content.GetComponent<Character>();
                 target.currentHealth -= unit.attack;
                 unit.canAct = false;
