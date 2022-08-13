@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Fireball", menuName = "Abilities/New Fireball", order = 0)]
-public class Fireball : Ability
+[CreateAssetMenu(fileName = "Punch", menuName = "Abilities/New Punch", order = 0)]
+public class Punch : Ability
 {
-    public int range = 4;
     public override void Use(GameObject parent){
 
     }

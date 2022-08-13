@@ -6,7 +6,7 @@
                 <ui:Label text="Name" display-tooltip-when-elided="true" name="UnitName" style="color: rgb(0, 1, 19);" />
             </ui:VisualElement>
             <ui:VisualElement name="ResourceBars" style="flex-grow: 1;">
-                <ui:ProgressBar title="HP" name="HealthBar" low-value="0" style="flex-grow: 1; opacity: 1; display: flex; color: rgba(255, 0, 0, 255); -unity-background-image-tint-color: rgba(51, 49, 49, 255);" />
+                <ui:ProgressBar title="HP" name="HealthBar" low-value="0" style="flex-grow: 1; opacity: 1; display: flex; color: rgb(255, 0, 0); -unity-background-image-tint-color: rgb(51, 49, 49);" />
                 <ui:ProgressBar title="MP" name="ManaBar" low-value="0" style="flex-grow: 1; opacity: 1; height: auto;" />
                 <ui:ProgressBar title="ST" name="StaminaBar" low-value="0" style="flex-grow: 1; opacity: 1; height: auto; background-color: rgba(0, 0, 0, 0);" />
             </ui:VisualElement>
@@ -21,6 +21,7 @@
                 <ui:Button text="Attack" display-tooltip-when-elided="true" name="Attack" style="display: flex;" />
                 <ui:Button text="Skills" display-tooltip-when-elided="true" name="Skills" style="display: flex;" />
             </ui:ScrollView>
+            <ui:VisualElement name="SkillsMenu" />
             <ui:Button text="&lt;" display-tooltip-when-elided="true" name="BackToBM" style="height: 29px; width: 30px; display: none;" />
         </ui:VisualElement>
     </ui:VisualElement>

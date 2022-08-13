@@ -92,12 +92,16 @@ public class UIController : MonoBehaviour
         stateMachine.setState(new BattleMenuState(stateMachine));
     }
     public void updateBars(){
-        HealthBar.value = stateMachine.characters[stateMachine.currentPlayerIndex].currentHealth;
-        HealthBar.highValue = stateMachine.characters[stateMachine.currentPlayerIndex].maxHealth;
-        ManaBar.value = stateMachine.characters[stateMachine.currentPlayerIndex].currentMana;
-        ManaBar.highValue = stateMachine.characters[stateMachine.currentPlayerIndex].maxMana;
-        StaminaBar.value = stateMachine.characters[stateMachine.currentPlayerIndex].currentStamina;
-        StaminaBar.highValue = stateMachine.characters[stateMachine.currentPlayerIndex].maxStamina;
+        Character unit = stateMachine.characters[stateMachine.currentPlayerIndex];
+        Health health = unit.GetComponent<Health>();
+        Ki ki = unit.GetComponent<Ki>();
+        Stamina stamina = unit.GetComponent<Stamina>();
+        HealthBar.value = health.current;
+        HealthBar.highValue = health.max;
+        ManaBar.value = ki.current;
+        ManaBar.highValue = ki.max;
+        StaminaBar.value = stamina.current;
+        StaminaBar.highValue = stamina.max;
     }
     public void displaySkills(){
         foreach (Ability skill in stateMachine.characters[stateMachine.currentPlayerIndex].skills)
