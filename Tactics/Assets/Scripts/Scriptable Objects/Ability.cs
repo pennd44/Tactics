@@ -13,6 +13,28 @@ public class Ability : ScriptableObject
     List<ActionEffect> effects;
     ActionTargets targetFilter;
     // ActionCost?
-    public virtual void Use(GameObject parent){}
-    public virtual void ShowSelectableTiles(){}
+    public virtual List<Tile> GetSelectableTiles(Board board){
+        return actionRange.GetTilesInRange(board);
+    }
+    public virtual List<Tile> GetTilesInAOE(Tile tile, Board board){
+        return areaOfEffect.GetTilesInArea(board, tile);
+    }
+    public virtual void Use(List<Tile> tiles){
+        for (int i = 0; i < tiles.Count; i++)
+        {
+            if(targetFilter.CheckHit(tiles[i]))
+            {
+                for (int j = 0; j < effects.Count; j++)
+                {
+                    effects[i].AffectTarget(tiles[i].content);
+                }
+            }
+        }
+    }
+
+    //show tiles in range
+    //highlight area of effect
+    //Use
+    //Apply effect to targets in AOE
+    //check if tile meets filter requirements
 }

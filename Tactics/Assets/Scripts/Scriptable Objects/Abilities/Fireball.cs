@@ -5,11 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Fireball", menuName = "Abilities/New Fireball", order = 0)]
 public class Fireball : Ability
 {
-    public int range = 4;
-    public override void Use(GameObject parent){
 
-    }
-    public override void ShowSelectableTiles(){
-
-    }
 }

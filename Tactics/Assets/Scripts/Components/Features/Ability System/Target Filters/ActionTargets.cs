@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class ActionTargets : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public virtual bool CheckHit(Tile tile){
+        if(tile.content.GetComponent<Character>() != null){
+            return true;
+        }
+        return false;
     }
 }

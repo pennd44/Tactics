@@ -5,14 +5,13 @@ using UnityEngine;
 public class DamageEffect : ActionEffect
 {
     [SerializeField]private int damage;
-    public override void AffectTargets(List<Character> targets)
+    public override void AffectTarget(GameObject target)
     {
-        for (int i = 0; i < targets.Count; i++)
-        {
-            Health health = targets[i].GetComponent<Health>();
+       
+            Character unit = target.GetComponent<Character>();
+            Health health = unit.GetComponent<Health>();
             
             health.ReduceCurrent(damage);
-        }
     }
     // public int CalculateDamage(Character unit, Character target, ){
         

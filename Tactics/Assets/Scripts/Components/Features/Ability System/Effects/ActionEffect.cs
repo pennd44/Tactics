@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class ActionEffect : MonoBehaviour
 {
-    public abstract void AffectTargets(List<Character> targets);
+    public abstract void AffectTarget(GameObject target);
 }
