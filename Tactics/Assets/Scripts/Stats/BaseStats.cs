@@ -8,4 +8,8 @@ public class BaseStats : MonoBehaviour
     [SerializeField] int startingLevel = 1;
     [SerializeField] CharacterClass characterClass;
     [SerializeField] Progression progression = null;
+    public int GetHealth()
+    {
+        return 0;
+    }
 }

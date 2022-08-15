@@ -1,7 +1,9 @@
-using UnityEngine;
+//not currently using
 
-public class CharacterStats : MonoBehaviour
-{
-    public Stat damage;
-    public Stat armor;
-}
+// using UnityEngine;
+
+// public class CharacterStats : MonoBehaviour
+// {
+//     public Stat damage;
+//     public Stat armor;
+// }
