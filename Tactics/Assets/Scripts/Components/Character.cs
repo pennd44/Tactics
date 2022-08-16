@@ -37,6 +37,20 @@ public class Character : MonoBehaviour
         transform.position = new Vector3(currentTile.pos.x, currentTile.height, currentTile.pos.y);
         currentTile.occupied = true;
         currentTile.content = this.gameObject;
+        SetDir();
         transform.localEulerAngles = dir.ToEuler();
+    }
+    private void SetDir(){
+        var v = transform.forward;
+        v.y = 0;
+        v.Normalize();     
+        if (Vector3.Angle(v, Vector3.forward) <= 45.0)
+            dir = Directions.North;
+        else if (Vector3.Angle(v, Vector3.right) <= 45.0)
+            dir =  Directions.East;
+        else if (Vector3.Angle(v, Vector3.back) <= 45.0)
+            dir =  Directions.South;
+        else
+            dir = Directions.West;
     }
 }

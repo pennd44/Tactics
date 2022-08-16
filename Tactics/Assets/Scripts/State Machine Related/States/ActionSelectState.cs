@@ -59,7 +59,7 @@ public class ActionSelectState : BattleState
         {
             if (hitTile.occupied && hitTile.selectable && hitTile.content.GetComponent<Character>() != null)
             {
-                mover.Turn(hitTile.content.transform.position);
+                stateMachine.StartCoroutine(mover.ITurn(hitTile.content.transform.position));
                 unit.unitAnimator.SetTrigger("attacking");
                 Character target = hitTile.content.GetComponent<Character>();
                 target.currentHealth -= unit.attack;
