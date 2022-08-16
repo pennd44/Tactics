@@ -45,9 +45,9 @@ public class WalkMovement : BattleMovement
         {
             Tile from = targets[i-1];
             Tile to = targets[i];
-            // Directions dir = from.GetDirection(to);
+            // Directions dir = from.GetDirections(to);
             // if (unit.dir != dir)
-            // yield return StartCoroutine(Turn(dir));
+            // yield return StartCoroutine(ITurn(to.transform.position));
             if (Mathf.Abs(from.height - to.height) < 1)
                 yield return StartCoroutine(Walk(to));
             else if (from.height > to.height)
@@ -68,6 +68,7 @@ public class WalkMovement : BattleMovement
             unit.transform.position = Vector3.MoveTowards(unit.gameObject.transform.position, tilePosition, 3.0f * Time.deltaTime);
             yield return null;
         }
+        Debug.Log("Done walking");
         unit.unitAnimator.SetFloat("Speed", 0);
     }
 
