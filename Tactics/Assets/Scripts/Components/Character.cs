@@ -40,7 +40,7 @@ public class Character : MonoBehaviour
         SetDir();
         transform.localEulerAngles = dir.ToEuler();
     }
-    private void SetDir(){
+   public void SetDir(){
         var v = transform.forward;
         v.y = 0;
         v.Normalize();     

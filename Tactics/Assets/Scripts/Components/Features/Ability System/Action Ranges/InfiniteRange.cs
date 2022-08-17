@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public class InfiniteAbilityRange : ActionRange 
+[System.Serializable]
+public class InfiniteRange : ActionRange 
 {
   public override List<Tile> GetTilesInRange (Board board)
   {

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class SimpleActionRange : ActionRange
 {
     protected override bool ExpandSearch (Tile from, Tile to)

@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionTargets : MonoBehaviour
+[System.Serializable]
+public abstract class ActionTargets
 {
     public virtual bool CheckHit(Tile tile){
         if(tile.content.GetComponent<Character>() != null){

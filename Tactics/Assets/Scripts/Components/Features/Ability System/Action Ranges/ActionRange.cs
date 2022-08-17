@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ActionRange : MonoBehaviour
+[System.Serializable]
+public abstract class ActionRange
 {
-    public int horizontal = 1;
+    [SerializeField] public int horizontal = 1;
     public int vertical = int.MaxValue;
     public virtual bool directionOriented { get { return false; }}
-    protected Character unit;
-    protected virtual void Awake() {
-        unit = GetComponent<Character>();
-    }
+    public Character unit;
     public virtual List<Tile> GetTilesInRange(Board board)
     {
         List<Tile> retValue = board.Search(unit.currentTile, ExpandSearch);

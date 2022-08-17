@@ -45,7 +45,7 @@ public abstract class BattleMovement : MonoBehaviour
             unit.transform.rotation = Quaternion.Slerp(unit.transform.rotation, lookRotation, Time.deltaTime * 5f);
             yield return null;
         }
-        Debug.Log("Done");
+        unit.SetDir();
     }
     // protected virtual IEnumerator Turn(Directions dir){
     //     TransformLocalEulerTweener t = (TransformLocalEulerTweener) transform.RotateToLocal(dir.ToEuler(), 0.25f, EasingEquations.EaseInOutQuad);

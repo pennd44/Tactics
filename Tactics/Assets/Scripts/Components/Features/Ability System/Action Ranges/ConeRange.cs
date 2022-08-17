@@ -1,7 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public class ConeAbilityRange : ActionRange 
+
+[System.Serializable]
+public class ConeRange : ActionRange 
 {
   public override bool directionOriented { get { return true; }}
   public override List<Tile> GetTilesInRange (Board board)

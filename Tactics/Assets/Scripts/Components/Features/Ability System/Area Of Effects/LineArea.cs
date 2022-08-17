@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LineArea : MonoBehaviour
+public class LineArea
 {
 //not implemented yet
 }

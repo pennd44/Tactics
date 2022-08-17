@@ -68,7 +68,7 @@ public class WalkMovement : BattleMovement
             unit.transform.position = Vector3.MoveTowards(unit.gameObject.transform.position, tilePosition, 3.0f * Time.deltaTime);
             yield return null;
         }
-        Debug.Log("Done walking");
+        unit.SetDir();
         unit.unitAnimator.SetFloat("Speed", 0);
     }
 

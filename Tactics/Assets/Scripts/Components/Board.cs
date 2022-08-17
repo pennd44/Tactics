@@ -208,7 +208,6 @@ public class Board : MonoBehaviour
             return null;
     }
     public Tile getClosestTile(Vector3 v){
-        Debug.Log("hit getClosestTile method");
         Tile closest = null;
         float closestDistance = float.MaxValue;
 
@@ -222,8 +221,15 @@ public class Board : MonoBehaviour
                 closestDistance = distance;
             }
         }
-        Debug.Log(closest.pos.x + ", " + closest.pos.y);
+        // Debug.Log(closest.pos.x + ", " + closest.pos.y);
         return closest;
+    }
+    public void ChangeHighlights(List<Tile> tiles, Material material)
+    {
+        for (int i = 0; i < tiles.Count; i++)
+        {
+            tiles[i].changeHighlight(material);
+        }
     }
 
 

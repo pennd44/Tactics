@@ -106,7 +106,17 @@ public class UIController : MonoBehaviour
     public void displaySkills(){
         foreach (Ability skill in stateMachine.characters[stateMachine.currentPlayerIndex].skills)
         {
-         ActionsMenu.Add( new Button() { text = skill.name});   
+         Button skillButton = new Button() { text = skill.name}; 
+         ActionsMenu.Add(skillButton);
+         skillButton.clicked += delegate{SelectSkill(skill, skillButton);};   
         }
+    }
+    public void SelectSkill(Ability skill, Button skillButton){
+        skillButton.clicked -= delegate{SelectSkill(skill, skillButton);};
+        stateMachine.characters[stateMachine.currentPlayerIndex].GetComponent<AbilityHolder>().ChangeAbility(skill);
+        stateMachine.setState(new ActionSelectState(stateMachine));
+    }
+    private void OnDisable() {
+        //unlisten    
     }
 }

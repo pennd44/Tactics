@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class LivingTarget : MonoBehaviour
+[System.Serializable]
+public class LivingTarget : ActionTargets
 {
 
 }
