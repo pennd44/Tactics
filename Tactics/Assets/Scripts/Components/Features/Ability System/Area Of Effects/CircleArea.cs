@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class CircleArea : ActionArea
 {
-    public int horizontal;
+  public int horizontal;
   public int vertical;
   Tile tile;
   public override List<Tile> GetTilesInArea (Board board, Tile tile)

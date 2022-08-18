@@ -12,13 +12,12 @@ public class ActionSelectState : BattleState
     protected List<Tile> actionables;
     public ActionSelectState(BattleStateMachine stateMachine) : base(stateMachine){}
     protected BattleMovement mover;
+    protected AbilityHolder abilityHolder;
     protected Ability ability;
     public override void enter() {
         mover = unit.GetComponent<BattleMovement>();
-        // ActionRange attack = unit.GetComponent<ActionRange>();
-        AbilityHolder abilityHolder = unit.GetComponent<AbilityHolder>();
-        // actionables = attack.GetTilesInRange(board);
-        Ability ability = abilityHolder.ability;
+        abilityHolder = unit.GetComponent<AbilityHolder>();
+        ability = abilityHolder.ability;
         actionables = ability.GetSelectableTiles(board);
         board.SelectTiles(actionables, stateMachine.actionSelect);
     }
@@ -36,7 +35,7 @@ public class ActionSelectState : BattleState
         /// Highlight tile mouse is hovering over
         RaycastHit hit;
         Tile hitTile;
-        List<Tile> areaOfEffect = new List<Tile>();
+        List<Tile> areaEffect = new List<Tile>();
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit))
         {
@@ -44,20 +43,16 @@ public class ActionSelectState : BattleState
             if (hitObj.tag == "Tile" && hitObj.GetComponent<Tile>().selectable)
             {
                 hitTile = hitObj.GetComponent<Tile>();
-                Debug.Log((ability.areaOfEffect != null));
-                Debug.Log(ability.GetTilesInAOE(board, hitTile));
-                areaOfEffect = ability.GetTilesInAOE(board, hitTile);
+                areaEffect = ability.GetTilesInAOE(board, hitTile);
                 if (prevTiles != null)
                 {
                     prevTile.selected = false;
                     board.ChangeHighlights(prevTiles, stateMachine.actionSelect);
-                    // prevTile.changeHighlight(stateMachine.actionSelect);
                 }
                 prevTile = hitTile;
-                prevTiles = areaOfEffect;
+                prevTiles = areaEffect;
                 hitTile.selected = true;
-                board.ChangeHighlights(areaOfEffect, stateMachine.actionHover);
-                // hitTile.changeHighlight(stateMachine.actionHover);
+                board.ChangeHighlights(areaEffect, stateMachine.actionHover);
                 handleClick(hitTile);
             }
         }

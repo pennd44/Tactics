@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: fireball
   m_EditorClassIdentifier: 
   name: Fireball
+  healthCost: 0
   staminaCost: 0
   kiCost: 3
   range: 4
+  abilityEffects: 00000000
+  filter: 1
+  abilityRange: 1
+  AOEType: 3
+  unit: {fileID: 0}

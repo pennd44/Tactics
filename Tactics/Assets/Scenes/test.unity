@@ -53110,12 +53110,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1753490201988524507, guid: a0dca98e571da4a47bfd05e44deceeaf, type: 3}
       propertyPath: skills.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1753490201988524507, guid: a0dca98e571da4a47bfd05e44deceeaf, type: 3}
       propertyPath: skills.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: b706456bbeddb6d408af0df3644ccf65, type: 2}
+    - target: {fileID: 1753490201988524507, guid: a0dca98e571da4a47bfd05e44deceeaf, type: 3}
+      propertyPath: skills.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: ca2258fdd808ba740a35df95aca068d4, type: 2}
     - target: {fileID: 1753490202523122514, guid: a0dca98e571da4a47bfd05e44deceeaf, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

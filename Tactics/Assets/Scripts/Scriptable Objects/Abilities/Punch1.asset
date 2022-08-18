@@ -16,8 +16,9 @@ MonoBehaviour:
   healthCost: 0
   staminaCost: 1
   kiCost: 0
-  areaOfEffect: {fileID: 0}
-  actionRange: {fileID: 0}
-  effects: []
-  targetFilter: {fileID: 0}
+  range: 0
+  abilityEffects: 00000000
+  filter: 1
+  abilityRange: 4
+  AOEType: 3
   unit: {fileID: 0}

@@ -47,50 +47,50 @@ public class Ability : ScriptableObject
         {
         case AbilityRanges.ConeRange:
             actionRange = new ConeRange();
+            // Debug.Log(actionRange);
             break;
         case AbilityRanges.InfiniteRange:
             actionRange = new InfiniteRange();
+            // Debug.Log(actionRange);
             break;
         // case AbilityRanges.LineRange:
         //     actionRange = new LineRange();
         //     break;
         case AbilityRanges.SelfRange:
             actionRange = new SelfRange();
+            // Debug.Log(actionRange);
             break;
         case AbilityRanges.SimpleActionRange:
             actionRange = new SimpleActionRange();
+            // Debug.Log(actionRange);
             break;
         default:
             break;
         }
     }
     private void FindAOEComponent(){
-                    Debug.Log("hit Ability.FindAOEComponent");
+                    // Debug.Log("hit Ability.FindAOEComponent");
 
         switch(AOEType) 
         {
         case AbilityAOEs.CircleArea:
             areaOfEffect = new CircleArea();
-                    Debug.Log(areaOfEffect);
             break;
         case AbilityAOEs.FullRangeArea:
             areaOfEffect = new FullRangeArea();
-                    Debug.Log(areaOfEffect);
             break;
         // case AbilityAOEs.LineArea:
         //     areaOfEffect = new LineArea();
         //     break;
         case AbilityAOEs.SingleUnitArea:
             areaOfEffect = new SingleUnitArea();
-                    Debug.Log(areaOfEffect);
             break;
         default:
             break;
         }
-                    Debug.Log(areaOfEffect);
     }
     private void FindEffects(){
-            Debug.Log("hit Ability.FindEffects");
+            // Debug.Log("hit Ability.FindEffects");
 
         // for (int i = 0; i < abilityEffects.Count; i++)
         // {
@@ -102,7 +102,7 @@ public class Ability : ScriptableObject
     }
     // ActionCost?
     public void OnSelectAbility(){
-        Debug.Log("hit Ability.OnSelectAbility");
+        // Debug.Log("hit Ability.OnSelectAbility");
         FindAbilityComponents();
         actionRange.unit = unit;
 
