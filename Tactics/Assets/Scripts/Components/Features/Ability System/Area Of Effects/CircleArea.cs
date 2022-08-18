@@ -5,11 +5,16 @@ using UnityEngine;
 [System.Serializable]
 public class CircleArea : ActionArea
 {
-  public int horizontal;
-  public int vertical;
+  [SerializeField] public int horizontal;
+  [SerializeField] public int vertical;
   Tile tile;
-  public override List<Tile> GetTilesInArea (Board board, Tile tile)
+  public CircleArea(int hor, int vert){
+    this.horizontal = hor;
+    this.vertical = vert;
+  }
+  public override List<Tile> GetTilesInArea (Board board, Tile ti)
   {
+    tile = ti;
     return board.Search(tile, ExpandSearch);
   }
   bool ExpandSearch (Tile from, Tile to)

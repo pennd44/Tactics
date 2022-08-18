@@ -64,7 +64,8 @@ public class WalkMovement : BattleMovement
         unit.unitAnimator.SetFloat("Speed", 1);
         while (unit.gameObject.transform.position != tilePosition)
         {
-            Turn(tilePosition); 
+            Turn(tilePosition);
+            CameraFollow(); 
             unit.transform.position = Vector3.MoveTowards(unit.gameObject.transform.position, tilePosition, 3.0f * Time.deltaTime);
             yield return null;
         }

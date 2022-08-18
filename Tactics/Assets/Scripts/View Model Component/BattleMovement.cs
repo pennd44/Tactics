@@ -6,10 +6,12 @@ public abstract class BattleMovement : MonoBehaviour
 {
     protected Character unit;
     protected Board board;
+    protected BattleCameraMovement camera;
     // protected Transform jumper;
     protected virtual void Awake() {
         unit = GetComponent<Character>();
         board = GameObject.FindObjectOfType<Board>();
+        camera = GameObject.FindObjectOfType<BattleCameraMovement>();
         // jumper = transform.FindChild("Jumper");
     }
     public virtual List<Tile> GetTilesInRange(Board board)
@@ -46,6 +48,10 @@ public abstract class BattleMovement : MonoBehaviour
             yield return null;
         }
         unit.SetDir();
+    }
+    public virtual void CameraFollow()
+    {
+        camera.transform.position = unit.transform.position;
     }
     // protected virtual IEnumerator Turn(Directions dir){
     //     TransformLocalEulerTweener t = (TransformLocalEulerTweener) transform.RotateToLocal(dir.ToEuler(), 0.25f, EasingEquations.EaseInOutQuad);

@@ -26,10 +26,13 @@ public class ActionSelectState : BattleState
     }
     public override void exit(){
         board.DeSelectTiles(actionables);
+        board.DeSelectTiles(board.tiles);
     }
+
 
     Tile prevTile;
     List<Tile> prevTiles;
+    // List<Tile> selectedTiles;
 
     public override void handleInput() {
         /// Highlight tile mouse is hovering over
@@ -37,21 +40,38 @@ public class ActionSelectState : BattleState
         Tile hitTile;
         List<Tile> areaEffect = new List<Tile>();
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit))
+        int layerMask = 1 << 6;
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
         {
             GameObject hitObj = hit.transform.gameObject;
-            if (hitObj.tag == "Tile" && hitObj.GetComponent<Tile>().selectable)
+                if (prevTiles != null)
+                {
+                    for (int i = 0; i < prevTiles.Count; i++)
+                    {
+                        prevTiles[i].selected = false;
+                        // selectedTiles.Remove(prevTiles[i]);
+                        if(board.Selectables(prevTiles).Contains(prevTiles[i]))
+                            prevTiles[i].changeHighlight(stateMachine.actionSelect);
+                        else
+                            prevTiles[i].removeHighlight();
+                            //if another highlight could effect this change this
+                    }
+                
+                }
+            if (hitObj.GetComponent<Tile>().selectable)
+            //hitObj.tag == "Tile" && 
             {
                 hitTile = hitObj.GetComponent<Tile>();
                 areaEffect = ability.GetTilesInAOE(board, hitTile);
-                if (prevTiles != null)
-                {
-                    prevTile.selected = false;
-                    board.ChangeHighlights(prevTiles, stateMachine.actionSelect);
-                }
                 prevTile = hitTile;
                 prevTiles = areaEffect;
-                hitTile.selected = true;
+                for (int i = 0; i < areaEffect.Count; i++)
+                {
+                    areaEffect[i].selected = true;
+                    // selectedTiles.Add(areaEffect[i]);
+                }
+                
+                // hitTile.selected = true;
                 board.ChangeHighlights(areaEffect, stateMachine.actionHover);
                 handleClick(hitTile);
             }
@@ -64,9 +84,9 @@ public class ActionSelectState : BattleState
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (hitTile.occupied && hitTile.selectable && hitTile.content.GetComponent<Character>() != null)
+            if (hitTile.selectable)
             {
-                stateMachine.StartCoroutine(mover.ITurn(hitTile.content.transform.position));
+                stateMachine.StartCoroutine(mover.ITurn(hitTile.transform.position));
                 unit.unitAnimator.SetTrigger("attacking");
                 ability.Use(ability.GetTilesInAOE(board, hitTile));
                 // Character target = hitTile.content.GetComponent<Character>();

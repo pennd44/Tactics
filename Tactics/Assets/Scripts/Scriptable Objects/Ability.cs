@@ -9,6 +9,8 @@ public class Ability : ScriptableObject
     [SerializeField] public int staminaCost;
     [SerializeField] public int kiCost;
     [SerializeField] public int range;
+    [SerializeField] public int hor;
+    [SerializeField] public int vert;
     [SerializeField] List<AbilityEffects> abilityEffects;
     [SerializeField] TargetFilters filter;
     [SerializeField] AbilityRanges abilityRange;
@@ -74,7 +76,7 @@ public class Ability : ScriptableObject
         switch(AOEType) 
         {
         case AbilityAOEs.CircleArea:
-            areaOfEffect = new CircleArea();
+            areaOfEffect = new CircleArea(hor, vert);
             break;
         case AbilityAOEs.FullRangeArea:
             areaOfEffect = new FullRangeArea();

@@ -30,6 +30,15 @@ public class Board : MonoBehaviour
             tiles[i].selectable = false;
         }
     }
+    public List<Tile> Selectables(List<Tile> tiles){
+        List<Tile> selectables = new List<Tile>();
+        for (int i = 0; i < tiles.Count; i++)
+        {
+            if(tiles[i].selectable)
+                selectables.Add(tiles[i]);
+        }
+        return selectables;
+    }
     // public List<Tile> Search(Tile start, int range)
     // {
 
