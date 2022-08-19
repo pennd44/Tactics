@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7753216194712113688}
   - component: {fileID: 7753216194712113689}
   - component: {fileID: 7753216194712113694}
-  - component: {fileID: 7753216194712113691}
   - component: {fileID: 7753216194712113690}
   - component: {fileID: 7753216194712113893}
   m_Layer: 0
@@ -87,19 +86,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7753216194712113695}
   m_Enabled: 1
---- !u!114 &7753216194712113691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7753216194712113695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebf935b558da88245b0d4473864e9261, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cinemachineVirtualCamera: {fileID: 0}
 --- !u!114 &7753216194712113690
 MonoBehaviour:
   m_ObjectHideFlags: 0

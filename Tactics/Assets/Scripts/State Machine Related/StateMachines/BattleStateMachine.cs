@@ -18,10 +18,24 @@ public class BattleStateMachine : StateMachine
     public Material actionHover;
     public void nextUnit()
     {
+        Debug.Log(currentPlayerIndex);
         currentPlayerIndex = (currentPlayerIndex + 1) % characters.Count;
+        Debug.Log(currentPlayerIndex);
+        StartCoroutine(MoveCamera(characters[currentPlayerIndex].transform.position));
         characters[currentPlayerIndex].canMove = true;
         characters[currentPlayerIndex].canAct = true;
         ui.updateBars();
+    }
+    public IEnumerator MoveCamera(Vector3 targetPosition)
+    {
+        Debug.Log("start");
+        while(cameraController.transform.position != targetPosition)
+        {
+        Debug.Log("mid");
+            cameraController.transform.position = Vector3.MoveTowards(cameraController.transform.position, targetPosition, 20*Time.deltaTime);
+            yield return null;
+        }
+        Debug.Log("done");
     }
     // public void hoverCursor(Tile prevTile){
    

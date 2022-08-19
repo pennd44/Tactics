@@ -11,16 +11,21 @@ public class MovingState : BattleState
     }
     public override void enter() {
         mover = unit.GetComponent<BattleMovement>();
+        // stateMachine.StartCoroutine(stateMachine.MoveCamera(unit.transform.position));
         stateMachine.StartCoroutine(Sequence());
     }
 
       
   IEnumerator Sequence ()
   {
+    yield return stateMachine.StartCoroutine(stateMachine.MoveCamera(unit.transform.position));
     yield return stateMachine.StartCoroutine(mover.Traverse(targetTile));
     stateMachine.setState(new BattleMenuState(stateMachine));
 
   }
+  // IEnumerator CameraMove()
+  // {
+  // }
     // public IEnumerator Traverse(Tile end)
     // {
 

@@ -17,8 +17,10 @@ MonoBehaviour:
   staminaCost: 0
   kiCost: 3
   range: 4
+  hor: 3
+  vert: 5
   abilityEffects: 00000000
   filter: 1
-  abilityRange: 1
-  AOEType: 3
+  abilityRange: 4
+  AOEType: 0
   unit: {fileID: 0}
