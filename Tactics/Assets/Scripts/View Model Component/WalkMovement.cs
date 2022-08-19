@@ -66,7 +66,7 @@ public class WalkMovement : BattleMovement
         {
             Turn(tilePosition);
             CameraFollow(); 
-            unit.transform.position = Vector3.MoveTowards(unit.gameObject.transform.position, tilePosition, 3.0f * Time.deltaTime);
+            unit.transform.position = Vector3.MoveTowards(unit.gameObject.transform.position, tilePosition, 5.0f * Time.deltaTime);
             yield return null;
         }
         unit.SetDir();

@@ -5,6 +5,6 @@ using UnityEngine;
 public class Health : ResourceStat
 {   
     private void Start() {
-        current = GetComponent<BaseStats>().GetHealth();
+        // current = GetComponent<BaseStats>().GetHealth();
     }
 }

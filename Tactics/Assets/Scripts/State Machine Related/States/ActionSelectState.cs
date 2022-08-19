@@ -14,12 +14,14 @@ public class ActionSelectState : BattleState
     protected BattleMovement mover;
     protected AbilityHolder abilityHolder;
     protected Ability ability;
+
     public override void enter() {
         mover = unit.GetComponent<BattleMovement>();
         abilityHolder = unit.GetComponent<AbilityHolder>();
         ability = abilityHolder.ability;
         actionables = ability.GetSelectableTiles(board);
         board.SelectTiles(actionables, stateMachine.actionSelect);
+
     }
     public override void Tick(){
         handleInput();

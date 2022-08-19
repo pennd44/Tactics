@@ -53385,10 +53385,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7753216194712113691, guid: b0950a185c044fe4887adbe873d878bc, type: 3}
-      propertyPath: cinemachineVirtualCamera
-      value: 
-      objectReference: {fileID: 232756296}
     - target: {fileID: 7753216194712113695, guid: b0950a185c044fe4887adbe873d878bc, type: 3}
       propertyPath: m_Name
       value: Main Camera

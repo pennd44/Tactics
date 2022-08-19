@@ -32,10 +32,15 @@ public class BattleStateMachine : StateMachine
         while(cameraController.transform.position != targetPosition)
         {
         Debug.Log("mid");
-            cameraController.transform.position = Vector3.MoveTowards(cameraController.transform.position, targetPosition, 20*Time.deltaTime);
+            cameraController.transform.position = Vector3.MoveTowards(cameraController.transform.position, targetPosition, 30*Time.deltaTime);
             yield return null;
         }
         Debug.Log("done");
+    }
+
+    public void OnUnitDeath(Character unit){
+        // unit.Die();
+        characters.Remove(unit);
     }
     // public void hoverCursor(Tile prevTile){
    

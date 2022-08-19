@@ -53,4 +53,7 @@ public class Character : MonoBehaviour
         else
             dir = Directions.West;
     }
+    public void Die(){
+        unitAnimator.SetBool("Death", true);
+    }
 }

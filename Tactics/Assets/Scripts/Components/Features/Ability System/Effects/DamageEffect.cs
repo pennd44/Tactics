@@ -12,6 +12,10 @@ public class DamageEffect : ActionEffect
             Health health = unit.GetComponent<Health>();
             
             health.ReduceCurrent(damage);
+            if(health.current == 0)
+            {
+                unit.Die();
+            }
     }
     // public int CalculateDamage(Character unit, Character target, ){
         
