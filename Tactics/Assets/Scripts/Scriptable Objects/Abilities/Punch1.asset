@@ -19,7 +19,7 @@ MonoBehaviour:
   range: 0
   hor: 0
   vert: 0
-  effectAmmount: 05000000
+  effectAmmount: 0a000000
   abilityEffects: 00000000
   filter: 1
   abilityRange: 4
