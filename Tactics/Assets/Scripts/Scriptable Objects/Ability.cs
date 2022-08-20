@@ -11,6 +11,7 @@ public class Ability : ScriptableObject
     [SerializeField] public int range;
     [SerializeField] public int hor;
     [SerializeField] public int vert;
+    [SerializeField] public int [] effectAmmount;
     [SerializeField] List<AbilityEffects> abilityEffects;
     [SerializeField] TargetFilters filter;
     [SerializeField] AbilityRanges abilityRange;
@@ -121,6 +122,7 @@ public class Ability : ScriptableObject
         return areaOfEffect.GetTilesInArea(board, tile);
     }
     public virtual void Use(List<Tile> tiles){
+        Debug.Log("hit use");
         for (int i = 0; i < tiles.Count; i++)
         {
             if(targetFilter.CheckHit(tiles[i]))

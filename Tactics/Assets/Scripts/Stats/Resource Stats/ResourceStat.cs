@@ -7,7 +7,9 @@ public abstract class ResourceStat : MonoBehaviour
     [SerializeField] public int current;
     [SerializeField] public int max;
     public void ReduceCurrent(int ammount){
+        Debug.Log(current);
         current = Mathf.Max(current - ammount, 0);
+        Debug.Log(current);
     }
     public void ReduceMax(int ammount){
         max = Mathf.Max(max - ammount, 0);

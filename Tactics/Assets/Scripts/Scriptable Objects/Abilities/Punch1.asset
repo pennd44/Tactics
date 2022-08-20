@@ -17,6 +17,9 @@ MonoBehaviour:
   staminaCost: 1
   kiCost: 0
   range: 0
+  hor: 0
+  vert: 0
+  effectAmmount: 05000000
   abilityEffects: 00000000
   filter: 1
   abilityRange: 4

@@ -7,13 +7,16 @@ public class DamageEffect : ActionEffect
     [SerializeField]private int damage;
     public override void AffectTarget(GameObject target)
     {
-       
+               Debug.Log("hit affect target");
+
             Character unit = target.GetComponent<Character>();
             Health health = unit.GetComponent<Health>();
             
-            health.ReduceCurrent(damage);
+            health.ReduceCurrent(5);
+               Debug.Log(health.current);
             if(health.current == 0)
             {
+               Debug.Log("h0h");
                 unit.Die();
             }
     }

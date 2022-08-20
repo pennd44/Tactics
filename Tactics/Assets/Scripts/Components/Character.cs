@@ -54,6 +54,7 @@ public class Character : MonoBehaviour
             dir = Directions.West;
     }
     public void Die(){
-        unitAnimator.SetBool("Death", true);
+                Debug.Log("hit die");
+        unitAnimator.SetBool("Dead", true);
     }
 }
