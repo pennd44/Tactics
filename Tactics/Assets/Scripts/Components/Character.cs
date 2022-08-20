@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    private BattleStateMachine battleStateMachine;
+    private void Awake() {
+        battleStateMachine = GameObject.FindObjectOfType<BattleStateMachine>();
+    }
     [SerializeField] public Animator unitAnimator;
     [Header("Exploring Phase Variables")]
     public float interactDistance = 3f;
@@ -25,6 +29,7 @@ public class Character : MonoBehaviour
     [SerializeField] public int currentStamina = 10;
     [SerializeField] public int maxStamina = 10;
     [SerializeField] public int attack = 2;
+    public bool isDead = false;
     public List<Ability> skills = new List<Ability>();
     public void Place(Tile target){
         if( currentTile != null && currentTile.content == gameObject)
@@ -54,7 +59,8 @@ public class Character : MonoBehaviour
             dir = Directions.West;
     }
     public void Die(){
-                Debug.Log("hit die");
+        isDead = true;
+        battleStateMachine.OnUnitDeath(this);
         unitAnimator.SetBool("Dead", true);
     }
 }

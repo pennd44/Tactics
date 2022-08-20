@@ -16,11 +16,22 @@ public class BattleStateMachine : StateMachine
     public Material moveHover;
     public Material actionSelect;
     public Material actionHover;
+    private void IncrementCurrentPlayerIndex()
+    {
+        currentPlayerIndex = (currentPlayerIndex + 1) % characters.Count;
+        if(characters[currentPlayerIndex].isDead)
+        {
+            IncrementCurrentPlayerIndex();
+        }        
+    }
     public void nextUnit()
     {
-        Debug.Log(currentPlayerIndex);
-        currentPlayerIndex = (currentPlayerIndex + 1) % characters.Count;
-        Debug.Log(currentPlayerIndex);
+        // Debug.Log("on Next Unit index: " + currentPlayerIndex);
+        // Debug.Log("on Next Unit count: " + characters.Count);
+        IncrementCurrentPlayerIndex();
+        // Debug.Log("on Next Unit index after: " + currentPlayerIndex);
+        // Debug.Log("on Next Unit count: " + characters.Count);
+        // Debug.Log(currentPlayerIndex);
         StartCoroutine(MoveCamera(characters[currentPlayerIndex].transform.position));
         characters[currentPlayerIndex].canMove = true;
         characters[currentPlayerIndex].canAct = true;
@@ -40,7 +51,11 @@ public class BattleStateMachine : StateMachine
 
     public void OnUnitDeath(Character unit){
         // unit.Die();
-        characters.Remove(unit);
+        Debug.Log("on Unit Death index: " + currentPlayerIndex);
+        Debug.Log("on Unit Death count: " + characters.Count);
+        // characters.Remove(unit);
+        Debug.Log("on Unit Death index after: " + currentPlayerIndex);
+        Debug.Log("on Unit Death count after: " + characters.Count);
     }
     // public void hoverCursor(Tile prevTile){
    
