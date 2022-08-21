@@ -10,6 +10,8 @@ public class ExploringState : BattleState
 {
     public ExploringState(BattleStateMachine stateMachine) : base(stateMachine){}
     public override void enter() {
+        stateMachine.cameraController.transform.rotation = Quaternion.Euler(0,0,0);
+        stateMachine.victoryCondition = null; 
         for (int i = 0; i < characters.Count; i++) 
         {
             characters[i].gameObject.GetComponent<Movement>().enabled = true;
@@ -27,6 +29,8 @@ public class ExploringState : BattleState
         {
             /// come back and change first turn to depend on speed
             // stateMachine.setState(new EnterBattleState(stateMachine, characters, board, ui, 0));
+            stateMachine.victoryCondition = new DefeatAllEnemiesCondition();
+            stateMachine.victoryCondition.battleStateMachine = stateMachine;
             stateMachine.setState(new BattleMenuState(stateMachine));
         }
         if(Input.GetKeyDown(KeyCode.F))

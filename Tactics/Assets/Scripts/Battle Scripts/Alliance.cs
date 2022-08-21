@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class Alliance : MonoBehaviour
 {
-    [SerializeField] public Alliances alliance;
+    [SerializeField] public Alliances type;
 }

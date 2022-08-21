@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: -8636868424011287353}
   - component: {fileID: 7069907016120724985}
   - component: {fileID: 3453338784877843897}
+  - component: {fileID: 125394521113253695}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -122,6 +123,7 @@ MonoBehaviour:
   currentStamina: 10
   maxStamina: 10
   attack: 2
+  isDead: 0
   skills:
   - {fileID: 11400000, guid: b706456bbeddb6d408af0df3644ccf65, type: 2}
   - {fileID: 11400000, guid: ca2258fdd808ba740a35df95aca068d4, type: 2}
@@ -184,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6467ee2a046e36439d7bece471e9736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraController: {fileID: 0}
 --- !u!114 &3353045370303322826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,6 +257,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ability: {fileID: 0}
+--- !u!114 &125394521113253695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753490201988524455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 103483eee9b933749bf76d6ce10c5cdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alliance: 0
 --- !u!1001 &464860451696153082
 PrefabInstance:
   m_ObjectHideFlags: 0

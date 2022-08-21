@@ -62,5 +62,10 @@ public class Character : MonoBehaviour
         isDead = true;
         battleStateMachine.OnUnitDeath(this);
         unitAnimator.SetBool("Dead", true);
+        battleStateMachine.victoryCondition.CheckForGameOver();
+        if(battleStateMachine.victoryCondition.victor == Alliances.Hero)
+        {
+            battleStateMachine.setState(new ExploringState(battleStateMachine));
+        }
     }
 }

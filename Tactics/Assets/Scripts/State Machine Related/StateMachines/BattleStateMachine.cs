@@ -16,6 +16,7 @@ public class BattleStateMachine : StateMachine
     public Material moveHover;
     public Material actionSelect;
     public Material actionHover;
+    public VictoryCondition victoryCondition;
     private void IncrementCurrentPlayerIndex()
     {
         currentPlayerIndex = (currentPlayerIndex + 1) % characters.Count;

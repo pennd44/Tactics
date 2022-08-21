@@ -8549,6 +8549,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 125394521113253695, guid: a0dca98e571da4a47bfd05e44deceeaf, type: 3}
+      propertyPath: alliance
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 515602522847805346, guid: a0dca98e571da4a47bfd05e44deceeaf, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
@@ -45746,6 +45750,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 125394521113253695, guid: a0dca98e571da4a47bfd05e44deceeaf, type: 3}
+      propertyPath: alliance
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 515602522847805346, guid: a0dca98e571da4a47bfd05e44deceeaf, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
@@ -52992,6 +53000,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 125394521113253695, guid: a0dca98e571da4a47bfd05e44deceeaf, type: 3}
+      propertyPath: alliance
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 460425101625564858, guid: a0dca98e571da4a47bfd05e44deceeaf, type: 3}
       propertyPath: m_RootOrder
       value: 1
