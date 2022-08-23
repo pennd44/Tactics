@@ -124,6 +124,8 @@ public class Board : MonoBehaviour
             for(int i = 0; i < 4; ++i)
             {
                 List<Tile> nextTiles = GetTiles(t.pos + dirs[i]);
+                if(nextTiles == null)
+                    continue;
                 for(int j = 0; j < nextTiles.Count; ++j)
                 {
                     Tile next = nextTiles[j];
