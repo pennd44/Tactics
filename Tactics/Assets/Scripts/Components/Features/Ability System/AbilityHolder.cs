@@ -10,8 +10,10 @@ public class AbilityHolder : MonoBehaviour
         unit = GetComponent<Character>();
     }
     public void ChangeAbility(Ability abi){
+        Debug.Log("Changing ability");
         ability = abi;
         ability.unit = unit;
+        Debug.Log(ability.unit);
         ability.OnSelectAbility();
     }
     // enum AbilityState{available, active, unavailable}

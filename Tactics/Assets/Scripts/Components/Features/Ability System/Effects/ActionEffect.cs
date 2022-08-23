@@ -6,6 +6,6 @@ using UnityEngine;
 public abstract class ActionEffect
 {
     [SerializeField] public int ammount;
-    public Character unit;
+    public Character user;
     public abstract void AffectTarget(GameObject target);
 }

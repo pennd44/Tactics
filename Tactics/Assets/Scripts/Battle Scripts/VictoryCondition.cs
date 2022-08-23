@@ -11,8 +11,8 @@ public abstract class VictoryCondition
     // }
     protected virtual bool PartyDefeated(Alliances type)
     {
-        Debug.Log("Alliance " + type);
-        Debug.Log("bsm c c " + battleStateMachine.characters.Count);
+        // Debug.Log("Alliance " + type);
+        // Debug.Log("bsm c c " + battleStateMachine.characters.Count);
         for (int i = 0; i < battleStateMachine.characters.Count; ++i)
         {
             Alliance a = battleStateMachine.characters[i].GetComponent<Alliance>();

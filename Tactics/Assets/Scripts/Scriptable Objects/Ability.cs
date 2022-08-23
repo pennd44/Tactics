@@ -24,13 +24,20 @@ public class Ability : ScriptableObject
     [SerializeField] ActionTargets targetFilter;
     public Character unit;
 
+    // private void Awake() {
+    //     Debug.Log("Ability Awake");
+    //     FindAbilityComponents();
+    // }
     public void FindAbilityComponents(){
-                    Debug.Log("hit Ability.FindAbilityComponents");
-
+        Debug.Log("hit FindAbilityComps");
         FindRangeComponent();
+        Debug.Log(actionRange != null);
         FindAOEComponent();
+        Debug.Log(areaOfEffect != null);
         FindTargetComponent();
+        Debug.Log(targetFilter != null);
         FindEffects();
+        Debug.Log(effects.Count > 0);
     }
     private void FindTargetComponent(){
         switch(filter) 
@@ -49,22 +56,22 @@ public class Ability : ScriptableObject
         switch(abilityRange) 
         {
         case AbilityRanges.ConeRange:
-            actionRange = new ConeRange();
+            actionRange = new ConeRange(range, int.MaxValue);
             // Debug.Log(actionRange);
             break;
         case AbilityRanges.InfiniteRange:
-            actionRange = new InfiniteRange();
+            actionRange = new InfiniteRange(range, int.MaxValue);
             // Debug.Log(actionRange);
             break;
         // case AbilityRanges.LineRange:
         //     actionRange = new LineRange();
         //     break;
         case AbilityRanges.SelfRange:
-            actionRange = new SelfRange();
+            actionRange = new SelfRange(range, int.MaxValue);
             // Debug.Log(actionRange);
             break;
         case AbilityRanges.SimpleActionRange:
-            actionRange = new SimpleActionRange();
+            actionRange = new SimpleActionRange(range, int.MaxValue);
             // Debug.Log(actionRange);
             break;
         default:
@@ -99,6 +106,7 @@ public class Ability : ScriptableObject
         // {
             
         // }
+        effects = new List<ActionEffect>();
         if (abilityEffects.Contains(AbilityEffects.DamageEffect)){
             effects.Add(new DamageEffect());
         }
@@ -106,12 +114,16 @@ public class Ability : ScriptableObject
     // ActionCost?
     public void OnSelectAbility(){
         // Debug.Log("hit Ability.OnSelectAbility");
-        FindAbilityComponents();
+        // FindAbilityComponents();
+        Debug.Log("OnSelect action range not null? ");
+        Debug.Log(actionRange != null);
+        Debug.Log("OnSelect unit not null? ");
+        Debug.Log("OnSelect unit not null? " + unit != null);
         actionRange.unit = unit;
 
         for (int i = 0; i < effects.Count; i++)
         {
-            effects[i].unit = unit;
+            effects[i].user = unit;
         }
     }
     public virtual List<Tile> GetSelectableTiles(Board board){
@@ -122,22 +134,30 @@ public class Ability : ScriptableObject
         return areaOfEffect.GetTilesInArea(board, tile);
     }
     public virtual void Use(List<Tile> tiles){
-        Debug.Log("hit use");
+        Debug.Log("Tiles Count in Use " + tiles.Count);
         for (int i = 0; i < tiles.Count; i++)
         {
-            if(targetFilter.CheckHit(tiles[i]))
+            Debug.Log("i = " + i);
+            if(!targetFilter.CheckHit(tiles[i]))
             {
-                for (int j = 0; j < effects.Count; j++)
-                {
-                    effects[i].AffectTarget(tiles[i].content);
-                }
+                Debug.Log("No valid target");
+                continue;
+            }
+                Debug.Log("Target found!");
+            for (int j = 0; j < effects.Count; j++)
+            {
+                Debug.Log("Inside effects for loop");
+                Debug.Log("j = " + j);
+                effects[j].AffectTarget(tiles[i].content);
             }
         }
     }
 
-    //show tiles in range
-    //highlight area of effect
-    //Use
-    //Apply effect to targets in AOE
-    //check if tile meets filter requirements
+    //Debug Method
+    public void LogComponents(){
+        Debug.Log(actionRange);
+        Debug.Log(areaOfEffect);
+        Debug.Log(targetFilter);
+        Debug.Log(effects);
+    }
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class ConeRange : ActionRange 
 {
   public override bool directionOriented { get { return true; }}
+  public ConeRange(int hor, int vert) : base(hor,vert){}
   public override List<Tile> GetTilesInRange (Board board)
   {
     Point pos = unit.currentTile.pos;

@@ -7,6 +7,10 @@ public class Character : MonoBehaviour
     private BattleStateMachine battleStateMachine;
     private void Awake() {
         battleStateMachine = GameObject.FindObjectOfType<BattleStateMachine>();
+        for (int i = 0; i < skills.Count; i++)
+        {
+            skills[i].FindAbilityComponents();
+        }
     }
     [SerializeField] public Animator unitAnimator;
     [Header("Exploring Phase Variables")]

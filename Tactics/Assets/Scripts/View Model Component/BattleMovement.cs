@@ -38,12 +38,10 @@ public abstract class BattleMovement : MonoBehaviour
     public abstract void Turn(Vector3 target);
     public virtual IEnumerator ITurn(Vector3 target)
     {
-        Debug.Log("ITURN start");
         Vector3 direction = (target - unit.transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0f, direction.z));
         while(Quaternion.Angle(unit.transform.rotation, lookRotation) >= 0.01f)
         {
-            Debug.Log(unit.transform.rotation == lookRotation);
             unit.transform.rotation = Quaternion.Slerp(unit.transform.rotation, lookRotation, Time.deltaTime * 5f);
             yield return null;
         }

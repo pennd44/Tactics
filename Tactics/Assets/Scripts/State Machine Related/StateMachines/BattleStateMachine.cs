@@ -40,23 +40,20 @@ public class BattleStateMachine : StateMachine
     }
     public IEnumerator MoveCamera(Vector3 targetPosition)
     {
-        Debug.Log("start");
         while(cameraController.transform.position != targetPosition)
         {
-        Debug.Log("mid");
             cameraController.transform.position = Vector3.MoveTowards(cameraController.transform.position, targetPosition, 30*Time.deltaTime);
             yield return null;
         }
-        Debug.Log("done");
     }
 
     public void OnUnitDeath(Character unit){
         // unit.Die();
-        Debug.Log("on Unit Death index: " + currentPlayerIndex);
-        Debug.Log("on Unit Death count: " + characters.Count);
-        // characters.Remove(unit);
-        Debug.Log("on Unit Death index after: " + currentPlayerIndex);
-        Debug.Log("on Unit Death count after: " + characters.Count);
+        // Debug.Log("on Unit Death index: " + currentPlayerIndex);
+        // Debug.Log("on Unit Death count: " + characters.Count);
+        // // characters.Remove(unit);
+        // Debug.Log("on Unit Death index after: " + currentPlayerIndex);
+        // Debug.Log("on Unit Death count after: " + characters.Count);
     }
     // public void hoverCursor(Tile prevTile){
    

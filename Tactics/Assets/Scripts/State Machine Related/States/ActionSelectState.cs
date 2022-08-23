@@ -35,14 +35,14 @@ public class ActionSelectState : BattleState
     Tile prevTile;
     List<Tile> prevTiles;
     // List<Tile> selectedTiles;
+    int layerMask = 1 << 6;
+    RaycastHit hit;
+    Tile hitTile;
+    List<Tile> areaEffect = new List<Tile>();
 
     public override void handleInput() {
         /// Highlight tile mouse is hovering over
-        RaycastHit hit;
-        Tile hitTile;
-        List<Tile> areaEffect = new List<Tile>();
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        int layerMask = 1 << 6;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layerMask))
         {
             GameObject hitObj = hit.transform.gameObject;
@@ -90,6 +90,7 @@ public class ActionSelectState : BattleState
             {
                 stateMachine.StartCoroutine(mover.ITurn(hitTile.transform.position));
                 unit.unitAnimator.SetTrigger("attacking");
+                Debug.Log("AOE tiles " + ability.GetTilesInAOE(board, hitTile).Count);
                 ability.Use(ability.GetTilesInAOE(board, hitTile));
                 // Character target = hitTile.content.GetComponent<Character>();
                 // target.currentHealth -= unit.attack;

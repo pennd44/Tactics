@@ -16,8 +16,8 @@ MonoBehaviour:
   healthCost: 0
   staminaCost: 1
   kiCost: 0
-  range: 0
-  hor: 0
+  range: 1
+  hor: 1
   vert: 0
   effectAmmount: 0a000000
   abilityEffects: 00000000
