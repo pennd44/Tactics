@@ -6,7 +6,8 @@ public abstract class StateMachine : MonoBehaviour
 {
     protected State currentState;
 
-    public void setState(State state){
+    public void setState(State state)
+    {
         if (currentState != null)
         {
             currentState.exit();

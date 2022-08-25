@@ -116,7 +116,7 @@ public class Movement : MonoBehaviour
                 character.unitAnimator.SetFloat("Speed", 0);
             }
         }
-        }
+    }
     public void exit(){
         character.unitAnimator.SetFloat("Speed", 0);
     }       

@@ -1,17 +1,18 @@
-using System.Collections;
-
-
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Security.Cryptography;
-using System.Threading;
 using UnityEngine;
 
 public class PlayerMovement : EntityMovement
 {
+    public PlayerMovement(GameObject gameObject) : base(gameObject){}
     public CharacterController controller;
+    public Transform groundCheck;
+    public LayerMask groundMask;
     // public Transform cam;
-
+    public override void enter()
+    {
+        controller = gameObject.GetComponent<CharacterController>();
+        groundCheck = gameObject.transform.GetChild(0);
+        groundMask = LayerMask.GetMask("Ground");
+    }
     public float speed = 6;
     // public float gravity = -9.81f;
     public float gravity = -30;
@@ -19,9 +20,7 @@ public class PlayerMovement : EntityMovement
     Vector3 velocity;
     public bool isGrounded;
 
-    public Transform groundCheck;
     public float groundDistance = 0.4f;
-    public LayerMask groundMask;
 
     float turnSmoothVelocity;
     public float turnSmoothTime = 0.1f;
@@ -57,8 +56,8 @@ public class PlayerMovement : EntityMovement
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg; 
             // + cam.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            float angle = Mathf.SmoothDampAngle(gameObject.transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            gameObject.transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * speed * Time.deltaTime);

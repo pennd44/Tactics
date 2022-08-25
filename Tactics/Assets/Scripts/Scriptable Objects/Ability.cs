@@ -22,6 +22,8 @@ public class Ability : ScriptableObject
     [SerializeField] ActionRange actionRange;
     [SerializeField] List<ActionEffect> effects = new List<ActionEffect>();
     [SerializeField] ActionTargets targetFilter;
+
+    // [SerializeField] public Material greenBeen;
     public Character unit;
 
     // private void Awake() {
@@ -113,12 +115,6 @@ public class Ability : ScriptableObject
     }
     // ActionCost?
     public void OnSelectAbility(){
-        // Debug.Log("hit Ability.OnSelectAbility");
-        // FindAbilityComponents();
-        Debug.Log("OnSelect action range not null? ");
-        Debug.Log(actionRange != null);
-        Debug.Log("OnSelect unit not null? ");
-        Debug.Log("OnSelect unit not null? " + unit != null);
         actionRange.unit = unit;
 
         for (int i = 0; i < effects.Count; i++)
@@ -137,10 +133,10 @@ public class Ability : ScriptableObject
         Debug.Log("Tiles Count in Use " + tiles.Count);
         for (int i = 0; i < tiles.Count; i++)
         {
-            Debug.Log("i = " + i);
+            Debug.Log(i);
+            Debug.Log(tiles[i]);
             if(!targetFilter.CheckHit(tiles[i]))
             {
-                Debug.Log("No valid target");
                 continue;
             }
                 Debug.Log("Target found!");

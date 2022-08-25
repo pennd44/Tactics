@@ -7,7 +7,6 @@ public class Tile : MonoBehaviour
     public Material originalMaterial;
     public Point pos;
     public float height;
-    List<Tile> neighbors = new List<Tile>();
     public int distance = int.MaxValue;
     public Tile prev;
     public GameObject content;
@@ -17,9 +16,6 @@ public class Tile : MonoBehaviour
     public bool visited = false;
     public int cost = 1;
 
-    private void findNeighbors(){
-
-    }
     private void Awake() {
         pos = new Point(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z));
         height = transform.position.y;

@@ -24,4 +24,5 @@ MonoBehaviour:
   filter: 1
   abilityRange: 4
   AOEType: 3
+  greenBeen: {fileID: 2100000, guid: 1d8c8eafd5b45f8468911207eef709c4, type: 2}
   unit: {fileID: 0}

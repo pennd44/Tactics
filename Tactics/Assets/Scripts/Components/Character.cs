@@ -5,12 +5,14 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     private BattleStateMachine battleStateMachine;
+    public BattleMovement mover;
     private void Awake() {
         battleStateMachine = GameObject.FindObjectOfType<BattleStateMachine>();
         for (int i = 0; i < skills.Count; i++)
         {
             skills[i].FindAbilityComponents();
         }
+        mover = GetComponent<BattleMovement>();
     }
     [SerializeField] public Animator unitAnimator;
     [Header("Exploring Phase Variables")]
@@ -71,5 +73,9 @@ public class Character : MonoBehaviour
         {
             battleStateMachine.setState(new ExploringState(battleStateMachine));
         }
+    }
+    public void AquireSkill(Ability skill)
+    {
+        skill.FindAbilityComponents();
     }
 }

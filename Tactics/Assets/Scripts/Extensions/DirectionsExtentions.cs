@@ -16,4 +16,20 @@ public static class DirectionsExtentions
     {
         return new Vector3(0, (int)d * 90, 0);
     }
+    public static Point ToPoint (this Directions d)
+    {
+        switch (d)
+        {
+            case Directions.North:
+                return new Point(0, 1);
+            case Directions.South:
+                return new Point(0, -1);
+            case Directions.East:
+                return new Point(1, 0);
+            case Directions.West:
+                return new Point(-1, 0);
+            default:
+                return new Point(0,0);
+        }
+    }
 }
