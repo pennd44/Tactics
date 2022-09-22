@@ -11,12 +11,12 @@ public class ActionSelectState : BattleState
 
     protected List<Tile> actionables;
     public ActionSelectState(BattleStateMachine stateMachine) : base(stateMachine){}
-    protected BattleMovement mover;
+    protected BattleMovementStateMachine mover;
     protected AbilityHolder abilityHolder;
     protected Ability ability;
 
     public override void enter() {
-        mover = unit.GetComponent<BattleMovement>();
+        mover = unit.mover;
         abilityHolder = unit.GetComponent<AbilityHolder>();
         ability = abilityHolder.ability;
         actionables = ability.GetSelectableTiles(board);
@@ -88,14 +88,16 @@ public class ActionSelectState : BattleState
         {
             if (hitTile.selectable)
             {
-                stateMachine.StartCoroutine(mover.ITurn(hitTile.transform.position));
+                stateMachine.StartCoroutine(mover.currentMovement.ITurn(hitTile.transform.position));
                 unit.unitAnimator.SetTrigger("attacking");
                 Debug.Log("AOE tiles " + ability.GetTilesInAOE(board, hitTile).Count);
                 ability.Use(ability.GetTilesInAOE(board, hitTile));
                 // Character target = hitTile.content.GetComponent<Character>();
                 // target.currentHealth -= unit.attack;
                 unit.canAct = false;
+                if(stateMachine.victoryCondition != null){
                 stateMachine.setState(new BattleMenuState(stateMachine));
+                }
                 ui.updateBars();
             }
         }

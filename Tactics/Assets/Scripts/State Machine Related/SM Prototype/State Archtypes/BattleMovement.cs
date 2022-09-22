@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BattleMovement : MonoBehaviour
+public abstract class BattleMovement
 {
+    protected BattleMovementStateMachine stateMachine;
     protected Character unit;
     protected Board board;
-    public BattleCameraMovement cameraController;
-    // protected Transform jumper;
-    protected virtual void Awake() {
-        unit = GetComponent<Character>();
-        board = GameObject.FindObjectOfType<Board>();
-        cameraController = GameObject.FindObjectOfType<BattleCameraMovement>();
-        // jumper = transform.FindChild("Jumper");
+    protected BattleCameraMovement cameraController;
+    public BattleMovement(BattleMovementStateMachine stateMachine)
+    {
+        this.stateMachine = stateMachine;
+        this.unit = stateMachine.unit;
+        this.board = stateMachine.board;
+        this.cameraController = stateMachine.cameraController;
     }
     public virtual List<Tile> GetTilesInRange(Board board)
     {
@@ -20,7 +21,7 @@ public abstract class BattleMovement : MonoBehaviour
         Filter(retValue);
         return retValue;    
     }
-    protected virtual bool ExpandSearch (Tile from, Tile to)
+    public virtual bool ExpandSearch (Tile from, Tile to)
     {
         return (from.distance + 1 <= unit.range);
     }

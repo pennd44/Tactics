@@ -5,8 +5,9 @@ using UnityEngine;
 public class ExploreCameraMovement : MonoBehaviour
 {
     Transform partyLeader;
-    void Start()
+    private void OnEnable()
     {
+        Debug.Log("ExploreCameraMovement OnEnable");
         partyLeader = GameObject.FindObjectOfType<Player>().transform;
     }
     void Update()

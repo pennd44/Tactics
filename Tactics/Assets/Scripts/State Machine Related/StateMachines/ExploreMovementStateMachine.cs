@@ -5,7 +5,9 @@ public class ExploreMovementStateMachine : StateMachine
     [SerializeField] private Roles role;
     Transform target;
 
-    private void Start() {
+    private void OnEnable() {
+        Debug.Log("ExploreCameraMovementSM OnEnable");
+
         switch (role)
         {
             case Roles.Player:
@@ -36,6 +38,7 @@ public class ExploreMovementStateMachine : StateMachine
     private Transform FindPlayer()
     {
         ExploreMovementStateMachine [] units = GameObject.FindObjectsOfType<ExploreMovementStateMachine>();
+        Debug.Log(units.Length);
         for (int i = 0; i < units.Length; i++)
         {
             if(units[i].role == Roles.Player)
@@ -44,5 +47,8 @@ public class ExploreMovementStateMachine : StateMachine
             }
         }
         return null;
+    }
+    private void OnDisable() {
+        currentState.exit();
     }
 }

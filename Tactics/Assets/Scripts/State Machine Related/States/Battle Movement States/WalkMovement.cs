@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class WalkMovement : BattleMovement
 {
-    protected override bool ExpandSearch (Tile from, Tile to)
+    public WalkMovement(BattleMovementStateMachine stateMachine) : base(stateMachine){}
+    public override bool ExpandSearch (Tile from, Tile to)
     {
         if((Mathf.Abs(from.height - to.height) > unit.jumpHeight))
             return false;
@@ -49,11 +50,11 @@ public class WalkMovement : BattleMovement
             // if (unit.dir != dir)
             // yield return StartCoroutine(ITurn(to.transform.position));
             if (Mathf.Abs(from.height - to.height) < 1)
-                yield return StartCoroutine(Walk(to));
+                yield return stateMachine.StartCoroutine(Walk(to));
             else if (from.height > to.height)
-                yield return StartCoroutine(JumpDown(to));
+                yield return stateMachine.StartCoroutine(JumpDown(to));
             else if (from.height < to.height)
-                yield return StartCoroutine(JumpUp(to));
+                yield return stateMachine.StartCoroutine(JumpUp(to));
         }
     }
     public IEnumerator Walk(Tile target)

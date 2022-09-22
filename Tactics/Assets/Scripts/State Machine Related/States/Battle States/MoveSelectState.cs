@@ -7,7 +7,7 @@ public class MoveSelectState : BattleState
     protected List<Tile> movables;
     public MoveSelectState(BattleStateMachine stateMachine) : base(stateMachine){}
     public override void enter(){
-        BattleMovement mover = unit.GetComponent<BattleMovement>();
+        BattleMovementStateMachine mover = unit.mover;
         movables = mover.GetTilesInRange(board);
         // unit.currentTile.distance = 0;
         // movables = board.Search(unit.currentTile, unit.range);

@@ -5,14 +5,14 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     private BattleStateMachine battleStateMachine;
-    public BattleMovement mover;
+    public BattleMovementStateMachine mover;
     private void Awake() {
         battleStateMachine = GameObject.FindObjectOfType<BattleStateMachine>();
         for (int i = 0; i < skills.Count; i++)
         {
             skills[i].FindAbilityComponents();
         }
-        mover = GetComponent<BattleMovement>();
+        mover = GetComponent<BattleMovementStateMachine>();
     }
     [SerializeField] public Animator unitAnimator;
     [Header("Exploring Phase Variables")]

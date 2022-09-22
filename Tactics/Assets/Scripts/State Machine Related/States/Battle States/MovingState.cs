@@ -5,12 +5,12 @@ using UnityEngine;
 public class MovingState : BattleState
 {
     protected Tile targetTile;
-    protected BattleMovement mover;
+    protected BattleMovementStateMachine mover;
     public MovingState(BattleStateMachine stateMachine, Tile tile) : base(stateMachine){
         this.targetTile = tile;
     }
     public override void enter() {
-        mover = unit.GetComponent<BattleMovement>();
+        mover = unit.mover;
         // stateMachine.StartCoroutine(stateMachine.MoveCamera(unit.transform.position));
         stateMachine.StartCoroutine(Sequence());
     }
@@ -19,7 +19,7 @@ public class MovingState : BattleState
   IEnumerator Sequence ()
   {
     yield return stateMachine.StartCoroutine(stateMachine.MoveCamera(unit.transform.position));
-    yield return stateMachine.StartCoroutine(mover.Traverse(targetTile));
+    yield return stateMachine.StartCoroutine(mover.currentMovement.Traverse(targetTile));
     stateMachine.setState(new BattleMenuState(stateMachine));
 
   }
