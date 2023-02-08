@@ -2,12 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 [System.Serializable]
 public class Stat
 {
-    [SerializeField] protected int baseValue;
-    public int GetValue ()
-    {
-        return baseValue;
+    public Stats name;
+    public int baseValue;
+    public Stat(Stats name){
+        this.name = name;
+        this.baseValue = 0;
     }
+    public void incrementStat(int amount){
+        baseValue += amount;
+    }
+   
+    // [SerializeField] protected int baseValue;
+    // public int GetValue ()
+    // {
+    //     return baseValue;
+    // }
 }

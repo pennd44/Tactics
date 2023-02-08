@@ -26,7 +26,7 @@ public class ExploringState : BattleState
         Debug.Log("Battle Camera Movement =" + stateMachine.cameraController.GetComponent<BattleCameraMovement>().enabled + "should be false");
                 stateMachine.cameraController.GetComponent<ExploreCameraMovement>().enabled = true;
         Debug.Log("Explore Camera Movement =" + stateMachine.cameraController.GetComponent<ExploreCameraMovement>().enabled + "should be true");
-
+    ui.hideResourceBars();
      }
     public override void handleInput() {
         if (Input.GetKeyDown(KeyCode.N))
@@ -36,6 +36,10 @@ public class ExploringState : BattleState
             stateMachine.victoryCondition = new DefeatAllEnemiesCondition();
             stateMachine.victoryCondition.battleStateMachine = stateMachine;
             stateMachine.setState(new BattleMenuState(stateMachine));
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            stateMachine.setState(new TestCharacterMenuState(stateMachine));
         }
         if(Input.GetKeyDown(KeyCode.F))
         {

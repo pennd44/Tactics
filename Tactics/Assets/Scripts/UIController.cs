@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour
     public Button Skills;
     public Button BackToBM;
     public VisualElement BattleMenu;
+    public VisualElement CharacterMenu;
     public ScrollView ActionsMenu;
     public ProgressBar HealthBar;
     public ProgressBar ManaBar;
@@ -29,6 +30,7 @@ public class UIController : MonoBehaviour
         Skills = root.Q<Button>("Skills");
         BackToBM = root.Q<Button>("BackToBM");
         BattleMenu = root.Q<VisualElement>("BattleMenu");
+        CharacterMenu = root.Q<VisualElement>("CharacterMenu");
         ActionsMenu = root.Q<ScrollView>("ActionsMenu");
         HealthBar = root.Q<ProgressBar>("HealthBar");
         ManaBar = root.Q<ProgressBar>("ManaBar");
@@ -90,6 +92,16 @@ public class UIController : MonoBehaviour
     }
     public void backToBMPressed(){
         stateMachine.setState(new BattleMenuState(stateMachine));
+    }
+    public void displayResourceBars(){
+        HealthBar.style.display = DisplayStyle.Flex;
+        ManaBar.style.display = DisplayStyle.Flex;      
+        StaminaBar.style.display = DisplayStyle.Flex;  
+    }
+    public void hideResourceBars(){
+        HealthBar.style.display = DisplayStyle.None;
+        ManaBar.style.display = DisplayStyle.None;      
+        StaminaBar.style.display = DisplayStyle.None;  
     }
     public void updateBars(){
         Character unit = stateMachine.characters[stateMachine.currentPlayerIndex];

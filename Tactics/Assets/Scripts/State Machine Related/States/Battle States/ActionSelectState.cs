@@ -21,6 +21,7 @@ public class ActionSelectState : BattleState
         ability = abilityHolder.ability;
         actionables = ability.GetSelectableTiles(board);
         board.SelectTiles(actionables, stateMachine.actionSelect);
+        ui.displayResourceBars();
 
     }
     public override void Tick(){

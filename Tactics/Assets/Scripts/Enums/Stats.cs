@@ -1,4 +1,4 @@
-enum Stats
+public enum Stats
 {
     LVL,
     EXP,
