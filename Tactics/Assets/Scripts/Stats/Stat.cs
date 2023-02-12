@@ -21,4 +21,7 @@ public class Stat
     // {
     //     return baseValue;
     // }
+    public string Stringify(){
+        return $"{name}: {baseValue}";
+    }
 }

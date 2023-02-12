@@ -39,7 +39,7 @@ public class ExploringState : BattleState
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
-            stateMachine.setState(new TestCharacterMenuState(stateMachine));
+            ui.alternateCharacterMenu();
         }
         if(Input.GetKeyDown(KeyCode.F))
         {
@@ -48,6 +48,8 @@ public class ExploringState : BattleState
             {
                 if(hitCollider.GetComponent<Interactable>() != null)
                 {
+                    unit.findStatbyName(Stats.EXP).incrementStat(1);
+                    ui.updateUi();   
                     Debug.Log(hitCollider.name);
                 }
                 

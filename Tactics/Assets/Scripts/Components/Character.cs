@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,16 @@ public class Character : MonoBehaviour
 {
     private BattleStateMachine battleStateMachine;
     public BattleMovementStateMachine mover;
+
+    public List<Stat> stats;  /// testing
+
     private void Awake() {
+        Stat newStat; 
+        foreach (var val in Enum.GetValues(typeof(Stats)))
+        {
+            newStat = new Stat((Stats)val);
+            stats.Add(newStat);
+        }
         battleStateMachine = GameObject.FindObjectOfType<BattleStateMachine>();
         for (int i = 0; i < skills.Count; i++)
         {
@@ -77,5 +87,15 @@ public class Character : MonoBehaviour
     public void AquireSkill(Ability skill)
     {
         skill.FindAbilityComponents();
+    }
+    public Stat findStatbyName(Stats statName){
+        for(int i = 0; i < stats.Count; i ++)
+        {
+            if( statName == stats[i].name)
+            {
+                return stats[i];
+            }
+        }
+        return null;
     }
 }

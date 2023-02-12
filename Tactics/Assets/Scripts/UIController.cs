@@ -7,6 +7,7 @@ public class UIController : MonoBehaviour
 {
     public BattleStateMachine stateMachine;
     public Character unit;
+    #region Battle Menu Variables
     public Button Actions;
     public Button Move;
     public Button Wait;
@@ -14,11 +15,37 @@ public class UIController : MonoBehaviour
     public Button Skills;
     public Button BackToBM;
     public VisualElement BattleMenu;
-    public VisualElement CharacterMenu;
     public ScrollView ActionsMenu;
     public ProgressBar HealthBar;
     public ProgressBar ManaBar;
     public ProgressBar StaminaBar;
+    
+    #endregion
+    #region Character Menu Variables
+    public VisualElement CharacterMenu;
+    public Label Name;
+    public Label Level;
+    public Label Experience;
+    public Label HealthStat;
+    public Label MaxHealthStat;
+    public Label KiStat;
+    public Label MaxKiStat;
+    public Label StaminaStat;
+    public Label MaxStaminaStat;
+    public Label AttackStat;
+    public Label DefenseStat;
+    public Label MagicAttackStat;
+    public Label MagicDefenseStat;
+    public Label EvadeStat;
+    public Label ResistanceStat;
+    public Label MoveStat;
+    public Label JumpStat;
+    public Label InteligenceStat;
+    public Label CharismaStat;
+    public VisualElement SkillMenu;
+    public VisualElement Inventory;
+    public VisualElement BattleUi;
+    #endregion
     void Start()
     {
         // unit = stateMachine.characters[stateMachine.currentPlayerIndex];
@@ -30,11 +57,33 @@ public class UIController : MonoBehaviour
         Skills = root.Q<Button>("Skills");
         BackToBM = root.Q<Button>("BackToBM");
         BattleMenu = root.Q<VisualElement>("BattleMenu");
+        BattleUi = root.Q<VisualElement>("BattleUi");
         CharacterMenu = root.Q<VisualElement>("CharacterMenu");
         ActionsMenu = root.Q<ScrollView>("ActionsMenu");
         HealthBar = root.Q<ProgressBar>("HealthBar");
         ManaBar = root.Q<ProgressBar>("ManaBar");
         StaminaBar = root.Q<ProgressBar>("StaminaBar");
+
+        Name = root.Q<Label>("Name");
+        Experience = root.Q<Label>("Experience");
+        HealthStat = root.Q<Label>("HealthStat");
+        MaxHealthStat = root.Q<Label>("MaxHealthStat");
+        KiStat = root.Q<Label>("KiStat");
+        MaxKiStat = root.Q<Label>("MaxKiStat");
+        StaminaStat = root.Q<Label>("StaminaStat");
+        MaxStaminaStat = root.Q<Label>("MaxStaminaStat");
+        Level = root.Q<Label>("Level");
+        AttackStat = root.Q<Label>("AttackStat");
+        DefenseStat = root.Q<Label>("DefenseStat");
+        MagicAttackStat = root.Q<Label>("MagicAttackStat");
+        MagicDefenseStat = root.Q<Label>("MagicDefenseStat");
+        EvadeStat = root.Q<Label>("EvadeStat");
+        ResistanceStat = root.Q<Label>("ResistanceStat");
+        MoveStat = root.Q<Label>("MoveStat");
+        JumpStat = root.Q<Label>("JumpStat");
+        InteligenceStat = root.Q<Label>("InteligenceStat");
+        CharismaStat = root.Q<Label>("CharismaStat");
+
 
         Actions.clicked += actionsButtonPressed;
         Move.clicked += moveButtonPressed;
@@ -43,6 +92,15 @@ public class UIController : MonoBehaviour
         Skills.clicked += skillsButtonPressed;
         BackToBM.clicked += backToBMPressed;
         
+    }
+    #region  Battle Menu
+    public void alternateBattleUi(){
+         if(BattleUi.style.display == DisplayStyle.Flex){
+                BattleUi.style.display = DisplayStyle.None;
+            } else {
+                BattleUi.style.display = DisplayStyle.Flex;
+                displayBattleMenu();
+            }
     }
     public void displayBattleMenu(){
         BattleMenu.style.display = DisplayStyle.Flex;
@@ -127,6 +185,49 @@ public class UIController : MonoBehaviour
         skillButton.clicked -= delegate{SelectSkill(skill, skillButton);};
         stateMachine.characters[stateMachine.currentPlayerIndex].GetComponent<AbilityHolder>().ChangeAbility(skill);
         stateMachine.setState(new ActionSelectState(stateMachine));
+    }
+        
+    #endregion
+    #region  Test Character Menu
+        public void alternateCharacterMenu(){
+            if(CharacterMenu.style.display == DisplayStyle.Flex){
+                CharacterMenu.style.display = DisplayStyle.None;
+            } else {
+                CharacterMenu.style.display = DisplayStyle.Flex;
+                populateCharacterMenu(stateMachine.characters[stateMachine.currentPlayerIndex]);
+            }
+        }
+        public void displayCharacterMenu(){
+            CharacterMenu.style.display = DisplayStyle.Flex;
+            populateCharacterMenu(stateMachine.characters[stateMachine.currentPlayerIndex]);
+        }
+        private void populateCharacterMenu(Character current)
+        {
+            Name.text = current.name;
+            Experience.text  = current.findStatbyName(Stats.EXP).Stringify();
+            HealthStat.text  = current.findStatbyName(Stats.EXP).Stringify();
+            MaxHealthStat.text  = current.findStatbyName(Stats.EXP).Stringify();
+            KiStat.text  = current.findStatbyName(Stats.EXP).Stringify();
+            MaxKiStat.text  = current.findStatbyName(Stats.EXP).Stringify();
+            StaminaStat.text  = current.findStatbyName(Stats.EXP).Stringify();
+            MaxStaminaStat.text  = current.findStatbyName(Stats.EXP).Stringify();
+            Level.text  = current.findStatbyName(Stats.EXP).Stringify();
+            AttackStat.text  = current.findStatbyName(Stats.EXP).Stringify();
+            DefenseStat.text  = current.findStatbyName(Stats.EXP).Stringify();
+            MagicAttackStat.text  = current.findStatbyName(Stats.EXP).Stringify();
+            MagicDefenseStat.text  = current.findStatbyName(Stats.EXP).Stringify();
+            EvadeStat.text  = current.findStatbyName(Stats.EXP).Stringify();
+            ResistanceStat.text  = current.findStatbyName(Stats.EXP).Stringify();
+            MoveStat.text  = current.findStatbyName(Stats.EXP).Stringify();
+            JumpStat.text  = current.findStatbyName(Stats.EXP).Stringify();
+            InteligenceStat.text  = current.findStatbyName(Stats.EXP).Stringify();
+            CharismaStat.text  = current.findStatbyName(Stats.EXP).Stringify();
+        }
+    #endregion
+
+    public void updateUi(){
+        populateCharacterMenu(stateMachine.characters[stateMachine.currentPlayerIndex]);
+        updateBars();
     }
     private void OnDisable() {
         //unlisten    

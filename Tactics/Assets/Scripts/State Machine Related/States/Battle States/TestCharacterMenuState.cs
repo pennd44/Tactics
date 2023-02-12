@@ -13,27 +13,31 @@ public class TestCharacterMenuState : BattleState
         Debug.Log("entered test character menu state");
         for (int i = 0; i < characters.Count; i++) 
         {
-            characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().enabled = false;;
+            characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().enabled = false;
         Debug.Log(characters[i] + "ExploreMovementSM =" + characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().enabled);
             characters[i].gameObject.GetComponent<NavMeshAgent>().enabled = false;            
         }
         stateMachine.cameraController.GetComponent<BattleCameraMovement>().enabled = false;
         Debug.Log("Battle Camera Movement =" + stateMachine.cameraController.GetComponent<BattleCameraMovement>().enabled + "should be false");
 
-         ui.displayBattleMenu();
+         ui.displayCharacterMenu();
      }
     public override void handleInput() {
+         if (Input.GetKeyDown(KeyCode.M))
+        {
+            stateMachine.setState(new ExploringState(stateMachine));
+        }
     }
     public override void Tick(){
         handleInput();
     }
     public override void exit() {
         Debug.Log("Exiting test character menu state");
-        for (int i = 0; i < characters.Count; i++) 
-            {
-                characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().enabled = true;
-                characters[i].gameObject.GetComponent<NavMeshAgent>().enabled = true;
-            }
-        stateMachine.cameraController.GetComponent<ExploreCameraMovement>().enabled = true;
+        // for (int i = 0; i < characters.Count; i++) 
+        //     {
+        //         characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().enabled = true;
+        //         characters[i].gameObject.GetComponent<NavMeshAgent>().enabled = true;
+        //     }
+        // stateMachine.cameraController.GetComponent<ExploreCameraMovement>().enabled = true;
     }
 }

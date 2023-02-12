@@ -1,19 +1,19 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/StyleSheet.uss?fileID=7433441132597879392&amp;guid=d54d6cc790f11e348be3707650c62b96&amp;type=3#StyleSheet" />
-    <ui:VisualElement name="Backgrond" style="flex-grow: 1; justify-content: flex-end; align-items: flex-end; flex-direction: row; display: none;">
+    <ui:VisualElement name="Backgrond" style="flex-grow: 1; justify-content: flex-end; align-items: flex-end; flex-direction: row; display: flex;">
         <ui:VisualElement name="CharacterInfo" style="flex-grow: 1; align-items: flex-end; justify-content: space-around; width: 100%; height: 20%; flex-direction: row; display: flex;">
             <ui:VisualElement name="CharacterPortrait" style="flex-direction: column; flex-grow: 0.5; display: flex;">
                 <ui:IMGUIContainer name="UnitPicture" style="height: 90px;" />
                 <ui:Label text="Name" display-tooltip-when-elided="true" name="UnitName" style="color: rgb(0, 1, 19);" />
             </ui:VisualElement>
             <ui:VisualElement name="ResourceBars" style="flex-grow: 1;">
-                <ui:ProgressBar title="HP" name="HealthBar" low-value="0" style="flex-grow: 1; opacity: 1; display: none; color: rgb(255, 0, 0); -unity-background-image-tint-color: rgb(51, 49, 49); background-color: rgba(0, 0, 0, 0);" />
-                <ui:ProgressBar title="MP" name="ManaBar" low-value="0" style="flex-grow: 1; opacity: 1; height: auto; display: none;" />
-                <ui:ProgressBar title="ST" name="StaminaBar" low-value="0" style="flex-grow: 1; opacity: 1; height: auto; background-color: rgba(0, 0, 0, 0); display: none;" />
+                <ui:ProgressBar title="HP" name="HealthBar" low-value="0" style="flex-grow: 1; opacity: 1; display: flex; color: rgb(255, 0, 0); -unity-background-image-tint-color: rgb(51, 49, 49); background-color: rgba(0, 0, 0, 0);" />
+                <ui:ProgressBar title="MP" name="ManaBar" low-value="0" style="flex-grow: 1; opacity: 1; height: auto; display: flex;" />
+                <ui:ProgressBar title="ST" name="StaminaBar" low-value="0" style="flex-grow: 1; opacity: 1; height: auto; background-color: rgba(0, 0, 0, 0); display: flex;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="BMHolder" style="flex-grow: 1; display: flex; justify-content: flex-end; align-items: flex-end; width: 33%; height: 40%;">
-            <ui:VisualElement name="BattleMenu" style="height: 50%; width: 90%; display: none;">
+            <ui:VisualElement name="BattleMenu" style="height: 50%; width: 90%; display: flex; justify-content: center;">
                 <ui:Button text="Actions" display-tooltip-when-elided="true" name="Actions" style="display: flex;" />
                 <ui:Button text="Move" display-tooltip-when-elided="true" name="Move" />
                 <ui:Button text="Wait" display-tooltip-when-elided="true" name="Wait" />
@@ -25,28 +25,46 @@
             <ui:VisualElement name="SkillsMenu" />
             <ui:Button text="&lt;" display-tooltip-when-elided="true" name="BackToBM" style="height: 29px; width: 30px; display: none;" />
         </ui:VisualElement>
-    </ui:VisualElement>
-    <ui:VisualElement name="CharacterMenu" style="flex-grow: 1; flex-direction: row; display: flex; flex-shrink: 1;">
-        <ui:VisualElement name="CMLeft" style="flex-grow: 1;">
-            <ui:VisualElement name="CharacterInfo" style="flex-grow: 1;">
-                <ui:Label display-tooltip-when-elided="true" name="Name" />
+        <ui:VisualElement name="BattleUi" style="display: none; flex-direction: row; align-items: flex-end;" />
+        <ui:VisualElement name="CharacterMenu" style="flex-grow: 1; flex-direction: row; display: none; flex-shrink: 1;">
+            <ui:VisualElement name="CMLeft" style="flex-grow: 1;">
+                <ui:VisualElement name="CharacterInfo" style="flex-grow: 1;">
+                    <ui:Label display-tooltip-when-elided="true" name="Name" />
+                    <ui:Label display-tooltip-when-elided="true" name="Level" />
+                    <ui:Label display-tooltip-when-elided="true" name="Experience" />
+                    <ui:Label display-tooltip-when-elided="true" name="MaxHealthStat" />
+                    <ui:Label display-tooltip-when-elided="true" name="HealthStat" />
+                    <ui:Label display-tooltip-when-elided="true" name="MaxKiStat" />
+                    <ui:Label display-tooltip-when-elided="true" name="KiStat" />
+                    <ui:Label display-tooltip-when-elided="true" name="MaxStaminaStat" />
+                    <ui:Label display-tooltip-when-elided="true" name="AttackStat" />
+                    <ui:Label display-tooltip-when-elided="true" name="DefenseStat" />
+                    <ui:Label display-tooltip-when-elided="true" name="MagicAttackStat" />
+                    <ui:Label display-tooltip-when-elided="true" name="MagicDefenseStat" />
+                    <ui:Label display-tooltip-when-elided="true" name="EvadeStat" />
+                    <ui:Label display-tooltip-when-elided="true" name="ResistanceStat" />
+                    <ui:Label display-tooltip-when-elided="true" name="MoveStat" />
+                    <ui:Label display-tooltip-when-elided="true" name="JumpStat" />
+                    <ui:Label display-tooltip-when-elided="true" name="InteligenceStat" />
+                    <ui:Label display-tooltip-when-elided="true" name="CharismaStat" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Equipment" style="flex-grow: 1;" />
+                <ui:VisualElement name="StatsPannel" style="height: auto; margin-left: 5%; margin-right: 5%; margin-top: 5%; margin-bottom: 5%; display: none; flex-grow: 1;" />
             </ui:VisualElement>
-            <ui:VisualElement name="Equipment" style="flex-grow: 1;" />
-            <ui:VisualElement name="StatsPannel" style="height: auto; margin-left: 5%; margin-right: 5%; margin-top: 5%; margin-bottom: 5%; display: none; flex-grow: 1;" />
+            <ui:VisualElement name="CMRight" style="flex-grow: 1;">
+                <ui:VisualElement name="CharacterPreview" style="flex-grow: 1;" />
+                <ui:VisualElement name="Buttons" style="flex-grow: 1;" />
+            </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="CMRight" style="flex-grow: 1;">
-            <ui:VisualElement name="CharacterPreview" style="flex-grow: 1;" />
-            <ui:VisualElement name="Buttons" style="flex-grow: 1;" />
-        </ui:VisualElement>
-    </ui:VisualElement>
-    <ui:VisualElement name="SkillMenu" style="flex-grow: 1; flex-direction: row; display: none; flex-shrink: 1;">
-        <ui:VisualElement name="CMLeft" style="flex-grow: 1;">
-            <ui:VisualElement name="Components" style="flex-grow: 1;" />
-        </ui:VisualElement>
-        <ui:VisualElement name="SkillInfo" style="height: auto; margin-left: 5%; margin-right: 5%; margin-top: 5%; margin-bottom: 5%; display: none; flex-grow: 1;" />
-        <ui:VisualElement name="CMRight" style="flex-grow: 1;">
-            <ui:VisualElement name="SkillPreview" style="flex-grow: 1;" />
-            <ui:VisualElement name="Buttons" style="flex-grow: 1;" />
+        <ui:VisualElement name="SkillMenu" style="flex-grow: 1; flex-direction: row; display: none; flex-shrink: 1;">
+            <ui:VisualElement name="CMLeft" style="flex-grow: 1;">
+                <ui:VisualElement name="Components" style="flex-grow: 1;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="SkillInfo" style="height: auto; margin-left: 5%; margin-right: 5%; margin-top: 5%; margin-bottom: 5%; display: none; flex-grow: 1;" />
+            <ui:VisualElement name="CMRight" style="flex-grow: 1;">
+                <ui:VisualElement name="SkillPreview" style="flex-grow: 1;" />
+                <ui:VisualElement name="Buttons" style="flex-grow: 1;" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

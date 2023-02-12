@@ -17,5 +17,7 @@ public enum Stats
     SPD,
     MOV,
     JMP,
-    INI
+    INI,
+    INT,
+    CHA,
 }
