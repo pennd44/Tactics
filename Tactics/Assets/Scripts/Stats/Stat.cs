@@ -15,6 +15,9 @@ public class Stat
     public void incrementStat(int amount){
         baseValue += amount;
     }
+    public void decrementStat(int amount){
+        baseValue -= amount;
+    }
    
     // [SerializeField] protected int baseValue;
     // public int GetValue ()

@@ -205,23 +205,23 @@ public class UIController : MonoBehaviour
         {
             Name.text = current.name;
             Experience.text  = current.findStatbyName(Stats.EXP).Stringify();
-            HealthStat.text  = current.findStatbyName(Stats.EXP).Stringify();
-            MaxHealthStat.text  = current.findStatbyName(Stats.EXP).Stringify();
-            KiStat.text  = current.findStatbyName(Stats.EXP).Stringify();
-            MaxKiStat.text  = current.findStatbyName(Stats.EXP).Stringify();
-            StaminaStat.text  = current.findStatbyName(Stats.EXP).Stringify();
-            MaxStaminaStat.text  = current.findStatbyName(Stats.EXP).Stringify();
-            Level.text  = current.findStatbyName(Stats.EXP).Stringify();
-            AttackStat.text  = current.findStatbyName(Stats.EXP).Stringify();
-            DefenseStat.text  = current.findStatbyName(Stats.EXP).Stringify();
-            MagicAttackStat.text  = current.findStatbyName(Stats.EXP).Stringify();
-            MagicDefenseStat.text  = current.findStatbyName(Stats.EXP).Stringify();
-            EvadeStat.text  = current.findStatbyName(Stats.EXP).Stringify();
-            ResistanceStat.text  = current.findStatbyName(Stats.EXP).Stringify();
-            MoveStat.text  = current.findStatbyName(Stats.EXP).Stringify();
-            JumpStat.text  = current.findStatbyName(Stats.EXP).Stringify();
-            InteligenceStat.text  = current.findStatbyName(Stats.EXP).Stringify();
-            CharismaStat.text  = current.findStatbyName(Stats.EXP).Stringify();
+            HealthStat.text  = current.findStatbyName(Stats.HP).Stringify();
+            MaxHealthStat.text  = current.findStatbyName(Stats.MHP).Stringify();
+            KiStat.text  = current.findStatbyName(Stats.KI).Stringify();
+            MaxKiStat.text  = current.findStatbyName(Stats.MKI).Stringify();
+            StaminaStat.text  = current.findStatbyName(Stats.STA).Stringify();
+            MaxStaminaStat.text  = current.findStatbyName(Stats.MST).Stringify();
+            Level.text  = current.findStatbyName(Stats.LVL).Stringify();
+            AttackStat.text  = current.findStatbyName(Stats.ATK).Stringify();
+            DefenseStat.text  = current.findStatbyName(Stats.DEF).Stringify();
+            MagicAttackStat.text  = current.findStatbyName(Stats.MAT).Stringify();
+            MagicDefenseStat.text  = current.findStatbyName(Stats.MDF).Stringify();
+            EvadeStat.text  = current.findStatbyName(Stats.EVD).Stringify();
+            ResistanceStat.text  = current.findStatbyName(Stats.RES).Stringify();
+            MoveStat.text  = current.findStatbyName(Stats.MOV).Stringify();
+            JumpStat.text  = current.findStatbyName(Stats.JMP).Stringify();
+            InteligenceStat.text  = current.findStatbyName(Stats.INT).Stringify();
+            CharismaStat.text  = current.findStatbyName(Stats.CHA).Stringify();
         }
     #endregion
 

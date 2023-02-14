@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 125394521113253695}
   - component: {fileID: -5916115704072000449}
   - component: {fileID: 4649025580862673054}
+  - component: {fileID: -7621030494461491288}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -105,6 +106,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71134fc9fb2f77f4f93d9d60686817f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mover: {fileID: 0}
+  stats: []
   unitAnimator: {fileID: 515602522847805346}
   interactDistance: 3
   canMove: 1
@@ -260,6 +263,20 @@ MonoBehaviour:
   unit: {fileID: 0}
   board: {fileID: 0}
   cameraController: {fileID: 0}
+--- !u!114 &-7621030494461491288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753490201988524455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab23b056873df7b41a98061b53b85ffb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handTransform: {fileID: 467623703661804016}
+  weapon: {fileID: 11400000, guid: cd3314bab8a1d7449a552b11dd4ebcd9, type: 2}
 --- !u!1001 &464860451696153082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -324,6 +341,11 @@ PrefabInstance:
 --- !u!4 &460425101625564858 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4580766925885248, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
+  m_PrefabInstance: {fileID: 464860451696153082}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &467623703661804016 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4170833147357194, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
   m_PrefabInstance: {fileID: 464860451696153082}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &515602522847805346 stripped

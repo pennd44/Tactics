@@ -48,8 +48,11 @@ public class ExploringState : BattleState
             {
                 if(hitCollider.GetComponent<Interactable>() != null)
                 {
-                    unit.findStatbyName(Stats.EXP).incrementStat(1);
-                    ui.updateUi();   
+                    Interactable interactable =  hitCollider.GetComponent<Interactable>();
+                    if(interactable.CanInteract(unit)){
+                        interactable.ApplyEffects(unit);
+                        ui.updateUi();   
+                    }
                     Debug.Log(hitCollider.name);
                 }
                 

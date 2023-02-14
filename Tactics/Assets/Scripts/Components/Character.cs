@@ -10,6 +10,8 @@ public class Character : MonoBehaviour
 
     public List<Stat> stats;  /// testing
 
+
+
     private void Awake() {
         Stat newStat; 
         foreach (var val in Enum.GetValues(typeof(Stats)))
