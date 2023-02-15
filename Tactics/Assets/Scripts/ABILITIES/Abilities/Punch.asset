@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c9833ca08120f94c9d91f733e52dea2, type: 3}
-  m_Name: Fireball
+  m_Name: Punch
   m_EditorClassIdentifier: 
   animatorOverride: {fileID: 0}
-  name: Fireball
+  name: Punch
   healthCost: 0
   staminaCost: 0
   kiCost: 0
   actionRange: {fileID: 11400000, guid: df6723e3e9f7b1144a9e89e9ba18b986, type: 2}
-  rangeHorizontal: 4
-  rangeVertical: 6
-  areaOfEffect: {fileID: 11400000, guid: 79fb721cadbb1d24ca9cb5fdc5588e23, type: 2}
-  AOEHorizontal: 2
-  AOEVertical: 2
+  rangeHorizontal: 1
+  rangeVertical: 1
+  areaOfEffect: {fileID: 11400000, guid: 034da45490052c140960979ee7a4c4f2, type: 2}
+  AOEHorizontal: 0
+  AOEVertical: 0
   targetFilter: {fileID: 11400000, guid: e0d1030d5dd514846af1d2ae5efc3053, type: 2}
   effects:
   - {fileID: 11400000, guid: a162f8ec04d72d14c865f09316fd91ca, type: 2}
-  effectAmmounts: 05000000
+  effectAmmounts: 02000000
   unit: {fileID: 0}

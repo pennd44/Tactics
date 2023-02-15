@@ -91,7 +91,8 @@ public class ActionSelectState : BattleState
             {
                 stateMachine.StartCoroutine(mover.currentMovement.ITurn(hitTile.transform.position));
                 unit.unitAnimator.SetTrigger("attacking");
-                Debug.Log("AOE tiles " + ability.GetTilesInAOE(board, hitTile).Count);
+                ability.OverrideAnimation(unit.unitAnimator);
+                //merge override animation into use?
                 ability.Use(ability.GetTilesInAOE(board, hitTile));
                 // Character target = hitTile.content.GetComponent<Character>();
                 // target.currentHealth -= unit.attack;

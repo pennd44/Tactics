@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class DamageEffect : ActionEffect
 {
-    [SerializeField]private int damage;
-    public override void AffectTarget(GameObject target)
+    // [SerializeField]private int damage;
+    public override void AffectTarget(GameObject target, int damage)
     {
             Debug.Log("Inside Affect Target");
             Character unit = target.GetComponent<Character>();
             Health health = unit.GetComponent<Health>();
             unit.unitAnimator.SetTrigger("hit");
             
-            health.ReduceCurrent(5);
+            health.ReduceCurrent(damage);
             if(health.current == 0)
             {
                 unit.Die();

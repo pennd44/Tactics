@@ -6,13 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CircleArea", menuName = "Abilities/Ability Components/ActionArea/CircleArea", order = 0)]
 public class CircleArea : ActionArea
 {
-  [SerializeField] public int horizontal;
-  [SerializeField] public int vertical;
-  Tile tile;
-  public CircleArea(int hor, int vert){
-    this.horizontal = hor;
-    this.vertical = vert;
-  }
+
+    Tile tile;
   public override List<Tile> GetTilesInArea (Board board, Tile ti)
   {
     tile = ti;

@@ -20,8 +20,9 @@ namespace Game.Items
     private void SpawnWeapon()
     {
         if(weapon == null) return;
-        Animator animator = GetComponentInChildren<Animator>();
-        weapon.Spawn(handTransform, animator);
+        // Animator animator = GetComponentInChildren<Animator>();
+        Character unit = GetComponent<Character>();
+        weapon.Spawn(handTransform, unit);
     }
 }
 }

@@ -6,5 +6,11 @@ public abstract class ActionArea : ScriptableObject {
     //     this.horizontal = hor;
     //     this.vertical = vert;
     // }
+    public int horizontal;
+    public int vertical;
+    public void SetWidthAndHeight(int hor, int vert){
+        horizontal = hor;
+        vertical = vert;
+    }
     public abstract List<Tile> GetTilesInArea(Board board, Tile tile);
 }

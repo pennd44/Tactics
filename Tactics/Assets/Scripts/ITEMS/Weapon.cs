@@ -6,7 +6,7 @@ namespace Game.Items
     [CreateAssetMenu(fileName = "Weapon", menuName = "Weapons/Make New Weapon", order = 0)]
     public class Weapon : ScriptableObject {
     #region equipment
-    [SerializeField] GameObject weaponPrefab = null;
+    [SerializeField] GameObject equippedPrefab = null;
     [SerializeField] AnimatorOverrideController equipmentOverride;
     
     [SerializeField] int weaponRange;
@@ -14,12 +14,16 @@ namespace Game.Items
     [SerializeField] List<Ability> skillsGranted;
     #endregion
    
-    public void Spawn(Transform handTransform, Animator animator)
+    public void Spawn(Transform handTransform, Character unit)
     {
-        Instantiate(weaponPrefab, handTransform);
-        animator.runtimeAnimatorController = equipmentOverride;
+        if(equippedPrefab != null){
+            Instantiate(equippedPrefab, handTransform);
+        }
+        // animator.runtimeAnimatorController = equipmentOverride;
+        GiveSkills(unit);
+
     }
-    public void GiveSkills(Character unit){
+    private void GiveSkills(Character unit){
         for(int i = 0; i < skillsGranted.Count; i++){
             unit.AquireSkill(skillsGranted[i]);
         }

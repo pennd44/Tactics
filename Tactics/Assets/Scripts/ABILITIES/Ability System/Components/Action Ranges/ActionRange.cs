@@ -8,14 +8,19 @@ using UnityEngine;
 
 // }
 public abstract class ActionRange : ScriptableObject {
-     [SerializeField] public int horizontal = 1;
-    public int vertical = int.MaxValue;
+    protected int horizontal;
+    protected int vertical = int.MaxValue;
     public virtual bool directionOriented { get { return false; }}
     public Character unit;
-    protected ActionRange (int hor, int vert){
-        this.horizontal = hor;
-        this.vertical = vert;
+    // protected ActionRange (int hor, int vert){
+    //     this.horizontal = hor;
+    //     this.vertical = vert;
+    // }
+    public void SetWidthAndHeight(int hor, int vert){
+        horizontal = hor;
+        vertical = vert;
     }
+
     public virtual List<Tile> GetTilesInRange(Board board)
     {
         List<Tile> retValue = board.Search(unit.currentTile, ExpandSearch);

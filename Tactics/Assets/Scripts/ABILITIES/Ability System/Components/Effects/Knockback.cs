@@ -13,7 +13,7 @@ public class Knockback : ActionEffect
     Point endPos;
     BattleStateMachine bsm;
     Board board;
-    public override void AffectTarget(GameObject target)
+    public override void AffectTarget(GameObject target, int ammount)
     {
         bsm = GameObject.FindObjectOfType<BattleStateMachine>();
         board = bsm.board;
