@@ -11,8 +11,8 @@ public class UIController : MonoBehaviour
     public Button Actions;
     public Button Move;
     public Button Wait;
-    public Button Attack;
-    public Button Skills;
+    // public Button Attack;
+    // public Button Skills;
     public Button BackToBM;
     public VisualElement BattleMenu;
     public ScrollView ActionsMenu;
@@ -53,8 +53,8 @@ public class UIController : MonoBehaviour
         Actions = root.Q<Button>("Actions");
         Move = root.Q<Button>("Move");
         Wait = root.Q<Button>("Wait");
-        Attack = root.Q<Button>("Attack");
-        Skills = root.Q<Button>("Skills");
+        // Attack = root.Q<Button>("Attack");
+        // Skills = root.Q<Button>("Skills");
         BackToBM = root.Q<Button>("BackToBM");
         BattleMenu = root.Q<VisualElement>("BattleMenu");
         BattleUi = root.Q<VisualElement>("BattleUi");
@@ -88,8 +88,8 @@ public class UIController : MonoBehaviour
         Actions.clicked += actionsButtonPressed;
         Move.clicked += moveButtonPressed;
         Wait.clicked += waitButtonPressed;
-        Attack.clicked += attackButtonPressed;
-        Skills.clicked += skillsButtonPressed;
+        // Attack.clicked += attackButtonPressed;
+        // Skills.clicked += skillsButtonPressed;
         BackToBM.clicked += backToBMPressed;
         
     }
@@ -126,6 +126,7 @@ public class UIController : MonoBehaviour
     public void actionsButtonPressed(){
         hideBattleMenu();
         ActionsMenu.style.display = DisplayStyle.Flex;
+        displaySkills();
         BackToBM.style.display = DisplayStyle.Flex;
     }
     public void moveButtonPressed(){
@@ -137,17 +138,17 @@ public class UIController : MonoBehaviour
         stateMachine.setState(new BattleMenuState(stateMachine));
         resetBattleMenu();
     }
-    public void attackButtonPressed(){
-        stateMachine.setState(new ActionSelectState(stateMachine));
-    }
-    public void skillsButtonPressed(){
-        Attack.style.display = DisplayStyle.None;
-        Skills.style.display = DisplayStyle.None;
-                BackToBM.style.display = DisplayStyle.Flex;
-        displaySkills();
+    // public void attackButtonPressed(){
+    //     stateMachine.setState(new ActionSelectState(stateMachine));
+    // }
+    // public void skillsButtonPressed(){
+    //     Attack.style.display = DisplayStyle.None;
+    //     Skills.style.display = DisplayStyle.None;
+    //             BackToBM.style.display = DisplayStyle.Flex;
+    //     displaySkills();
 
-        //iterate through skills and show buttons for each
-    }
+    //     //iterate through skills and show buttons for each
+    // }
     public void backToBMPressed(){
         stateMachine.setState(new BattleMenuState(stateMachine));
     }
@@ -181,10 +182,14 @@ public class UIController : MonoBehaviour
          skillButton.clicked += delegate{SelectSkill(skill, skillButton);};   
         }
     }
+    public void clearSkills(){
+        ActionsMenu.Clear();
+    }
     public void SelectSkill(Ability skill, Button skillButton){
         skillButton.clicked -= delegate{SelectSkill(skill, skillButton);};
         stateMachine.characters[stateMachine.currentPlayerIndex].GetComponent<AbilityHolder>().ChangeAbility(skill);
         stateMachine.setState(new ActionSelectState(stateMachine));
+        clearSkills();
     }
         
     #endregion

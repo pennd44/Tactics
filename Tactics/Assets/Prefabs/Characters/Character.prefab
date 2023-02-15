@@ -127,9 +127,7 @@ MonoBehaviour:
   maxStamina: 10
   attack: 2
   isDead: 0
-  skills:
-  - {fileID: 11400000, guid: b706456bbeddb6d408af0df3644ccf65, type: 2}
-  - {fileID: 11400000, guid: ca2258fdd808ba740a35df95aca068d4, type: 2}
+  skills: []
 --- !u!195 &8204659419600673057
 NavMeshAgent:
   m_ObjectHideFlags: 0

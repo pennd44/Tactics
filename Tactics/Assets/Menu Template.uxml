@@ -18,10 +18,7 @@
                 <ui:Button text="Move" display-tooltip-when-elided="true" name="Move" />
                 <ui:Button text="Wait" display-tooltip-when-elided="true" name="Wait" />
             </ui:VisualElement>
-            <ui:ScrollView name="ActionsMenu" style="display: none; height: 58px; width: 117px;">
-                <ui:Button text="Attack" display-tooltip-when-elided="true" name="Attack" style="display: flex;" />
-                <ui:Button text="Skills" display-tooltip-when-elided="true" name="Skills" style="display: flex;" />
-            </ui:ScrollView>
+            <ui:ScrollView name="ActionsMenu" style="display: none; height: 58px; width: 117px;" />
             <ui:VisualElement name="SkillsMenu" />
             <ui:Button text="&lt;" display-tooltip-when-elided="true" name="BackToBM" style="height: 29px; width: 30px; display: none;" />
         </ui:VisualElement>
