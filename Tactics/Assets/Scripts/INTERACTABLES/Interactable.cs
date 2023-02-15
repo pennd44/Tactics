@@ -23,7 +23,6 @@ public class Interactable : MonoBehaviour
     }
     public void ApplySkillChanges(Character character){
          for(int i = 0; i < skillsAdded.Count; i++){
-            character.skills.Add(skillsAdded[i]);
             character.AquireSkill(skillsAdded[i]);
         }
          for(int i = 0; i < skillsRemoved.Count; i++){

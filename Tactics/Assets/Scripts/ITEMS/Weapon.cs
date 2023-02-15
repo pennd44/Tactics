@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections.Generic;
+
 namespace Game.Items
 {    
     [CreateAssetMenu(fileName = "Weapon", menuName = "Weapons/Make New Weapon", order = 0)]
@@ -9,6 +11,7 @@ namespace Game.Items
     
     [SerializeField] int weaponRange;
     [SerializeField] float weaponDamage;
+    [SerializeField] List<Ability> skillsGranted;
     #endregion
    
     public void Spawn(Transform handTransform, Animator animator)
@@ -16,9 +19,14 @@ namespace Game.Items
         Instantiate(weaponPrefab, handTransform);
         animator.runtimeAnimatorController = equipmentOverride;
     }
+    public void GiveSkills(Character unit){
+        for(int i = 0; i < skillsGranted.Count; i++){
+            unit.AquireSkill(skillsGranted[i]);
+        }
+    }
     public float GetDamage(){
         return weaponDamage;
     }
-    
+
     }
 }

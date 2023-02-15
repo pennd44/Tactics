@@ -20,10 +20,10 @@ public class Character : MonoBehaviour
             stats.Add(newStat);
         }
         battleStateMachine = GameObject.FindObjectOfType<BattleStateMachine>();
-        for (int i = 0; i < skills.Count; i++)
-        {
-            skills[i].FindAbilityComponents();
-        }
+        // for (int i = 0; i < skills.Count; i++)
+        // {
+        //     skills[i].FindAbilityComponents();
+        // }
         mover = GetComponent<BattleMovementStateMachine>();
     }
     [SerializeField] public Animator unitAnimator;
@@ -88,7 +88,8 @@ public class Character : MonoBehaviour
     }
     public void AquireSkill(Ability skill)
     {
-        skill.FindAbilityComponents();
+        skills.Add(skill);
+        // skill.FindAbilityComponents();
     }
     public Stat findStatbyName(Stats statName){
         for(int i = 0; i < stats.Count; i ++)
