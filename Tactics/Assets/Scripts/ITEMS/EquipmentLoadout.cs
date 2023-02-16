@@ -10,19 +10,20 @@ namespace Game.Items
         ///weapon testing
     #region equipment
         [SerializeField] Transform handTransform = null;
-        [SerializeField] Weapon weapon = null;
+         [SerializeField] Weapon defaultWeapon = null;
+        Weapon currentWeapon = null;
     #endregion
     void Start()
     {
-        SpawnWeapon();
+        EquipWeapon(defaultWeapon);
     }
 
-    private void SpawnWeapon()
+   public void EquipWeapon(Weapon weapon)
     {
-        if(weapon == null) return;
-        // Animator animator = GetComponentInChildren<Animator>();
+        currentWeapon = weapon;
+        Animator animator = GetComponentInChildren<Animator>();
         Character unit = GetComponent<Character>();
-        weapon.Spawn(handTransform, unit);
+        weapon.Spawn(handTransform, unit, animator);
     }
 }
 }

@@ -108,6 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mover: {fileID: 0}
   stats: []
+  equipmentLoadout: {fileID: 0}
   unitAnimator: {fileID: 515602522847805346}
   interactDistance: 3
   canMove: 1
@@ -274,7 +275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handTransform: {fileID: 467623703661804016}
-  weapon: {fileID: 11400000, guid: cd3314bab8a1d7449a552b11dd4ebcd9, type: 2}
+  defaultWeapon: {fileID: 11400000, guid: 3cd2b2186f290f948be7762e163b91a4, type: 2}
 --- !u!1001 &464860451696153082
 PrefabInstance:
   m_ObjectHideFlags: 0

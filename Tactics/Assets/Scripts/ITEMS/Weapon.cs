@@ -14,7 +14,7 @@ namespace Game.Items
     [SerializeField] List<Ability> skillsGranted;
     #endregion
    
-    public void Spawn(Transform handTransform, Character unit)
+    public void Spawn(Transform handTransform, Character unit, Animator animator)
     {
         if(equippedPrefab != null){
             Instantiate(equippedPrefab, handTransform);

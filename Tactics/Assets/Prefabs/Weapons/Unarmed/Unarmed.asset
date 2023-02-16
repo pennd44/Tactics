@@ -17,4 +17,4 @@ MonoBehaviour:
   weaponRange: 0
   weaponDamage: 0
   skillsGranted:
-  - {fileID: 11400000, guid: ca2258fdd808ba740a35df95aca068d4, type: 2}
+  - {fileID: 11400000, guid: 1d2f1370e9a10bf4996ceedda71e138a, type: 2}

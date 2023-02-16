@@ -2,14 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Game.Items;
 public class Character : MonoBehaviour
 {
     private BattleStateMachine battleStateMachine;
     public BattleMovementStateMachine mover;
 
     public List<Stat> stats;  /// testing
-
+    public EquipmentLoadout equipmentLoadout;
 
 
     private void Awake() {
@@ -20,11 +20,8 @@ public class Character : MonoBehaviour
             stats.Add(newStat);
         }
         battleStateMachine = GameObject.FindObjectOfType<BattleStateMachine>();
-        // for (int i = 0; i < skills.Count; i++)
-        // {
-        //     skills[i].FindAbilityComponents();
-        // }
         mover = GetComponent<BattleMovementStateMachine>();
+        equipmentLoadout = GetComponent<EquipmentLoadout>();
     }
     [SerializeField] public Animator unitAnimator;
     [Header("Exploring Phase Variables")]
