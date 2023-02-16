@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Items;
 
 public class Character : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Character : MonoBehaviour
     public BattleMovementStateMachine mover;
 
     public List<Stat> stats;  /// testing
+    public EquipmentLoadout equipmentLoadout;
 
 
 
@@ -20,10 +22,7 @@ public class Character : MonoBehaviour
             stats.Add(newStat);
         }
         battleStateMachine = GameObject.FindObjectOfType<BattleStateMachine>();
-        // for (int i = 0; i < skills.Count; i++)
-        // {
-        //     skills[i].FindAbilityComponents();
-        // }
+        equipmentLoadout = GetComponent<EquipmentLoadout>();
         mover = GetComponent<BattleMovementStateMachine>();
     }
     [SerializeField] public Animator unitAnimator;

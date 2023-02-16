@@ -1,0 +1,4 @@
+turn interactable to parent class of pick up and future things like npc
+fix stat display not showing half the things for some reason
+make battle stats reflect actual stats
+create calculating formulas (can start off with 1 to 1 and weapons flat multiply or add)

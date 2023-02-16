@@ -20,4 +20,5 @@ public enum Stats
     INI,
     INT,
     CHA,
+    CTR
 }

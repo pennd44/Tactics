@@ -42,6 +42,7 @@ public class UIController : MonoBehaviour
     public Label JumpStat;
     public Label InteligenceStat;
     public Label CharismaStat;
+    public Label CounterStat;
     public VisualElement SkillMenu;
     public VisualElement Inventory;
     public VisualElement BattleUi;
@@ -83,6 +84,7 @@ public class UIController : MonoBehaviour
         JumpStat = root.Q<Label>("JumpStat");
         InteligenceStat = root.Q<Label>("InteligenceStat");
         CharismaStat = root.Q<Label>("CharismaStat");
+        CounterStat = root.Q<Label>("CounterStat");
 
 
         Actions.clicked += actionsButtonPressed;
@@ -184,6 +186,7 @@ public class UIController : MonoBehaviour
     }
     public void clearSkills(){
         ActionsMenu.Clear();
+        BackToBM.style.display = DisplayStyle.None;
     }
     public void SelectSkill(Ability skill, Button skillButton){
         skillButton.clicked -= delegate{SelectSkill(skill, skillButton);};

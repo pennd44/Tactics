@@ -13,7 +13,7 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="BMHolder" style="flex-grow: 1; display: flex; justify-content: flex-end; align-items: flex-end; width: 33%; height: 40%;">
-            <ui:VisualElement name="BattleMenu" style="height: 50%; width: 90%; display: flex; justify-content: center;">
+            <ui:VisualElement name="BattleMenu" style="height: 50%; width: 90%; display: none; justify-content: center;">
                 <ui:Button text="Actions" display-tooltip-when-elided="true" name="Actions" style="display: flex;" />
                 <ui:Button text="Move" display-tooltip-when-elided="true" name="Move" />
                 <ui:Button text="Wait" display-tooltip-when-elided="true" name="Wait" />

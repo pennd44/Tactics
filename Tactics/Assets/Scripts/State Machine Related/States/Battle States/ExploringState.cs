@@ -26,6 +26,7 @@ public class ExploringState : BattleState
         Debug.Log("Battle Camera Movement =" + stateMachine.cameraController.GetComponent<BattleCameraMovement>().enabled + "should be false");
                 stateMachine.cameraController.GetComponent<ExploreCameraMovement>().enabled = true;
         Debug.Log("Explore Camera Movement =" + stateMachine.cameraController.GetComponent<ExploreCameraMovement>().enabled + "should be true");
+    ui.hideBattleMenu();
     ui.hideResourceBars();
      }
     public override void handleInput() {
@@ -58,6 +59,7 @@ public class ExploringState : BattleState
                 
             }
         }
+        //Create event that listens for OnCollisionStay that only gives it functionality in explore mode
     }
     public override void Tick(){
         handleInput();
