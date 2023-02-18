@@ -9,7 +9,8 @@ namespace Game.Items
 {
         ///weapon testing
     #region equipment
-        [SerializeField] Transform handTransform = null;
+        [SerializeField] Transform rightHandTransform = null;
+        [SerializeField] Transform leftHandTransform = null;
          [SerializeField] Weapon defaultWeapon = null;
         Weapon currentWeapon = null;
     #endregion
@@ -23,7 +24,7 @@ namespace Game.Items
         currentWeapon = weapon;
         Animator animator = GetComponentInChildren<Animator>();
         Character unit = GetComponent<Character>();
-        weapon.Spawn(handTransform, unit, animator);
+        weapon.Spawn(rightHandTransform, leftHandTransform, unit, animator);
     }
 }
 }

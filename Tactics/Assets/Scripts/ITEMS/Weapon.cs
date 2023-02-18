@@ -12,11 +12,15 @@ namespace Game.Items
     [SerializeField] int weaponRange;
     [SerializeField] float weaponDamage;
     [SerializeField] List<Ability> skillsGranted;
+    [SerializeField] bool isRightHanded = true;
     #endregion
    
-    public void Spawn(Transform handTransform, Character unit, Animator animator)
-    {
+    public void Spawn(Transform rightHand, Transform leftHand, Character unit, Animator animator)
+    {   
         if(equippedPrefab != null){
+        Transform handTransform;
+            if (isRightHanded) handTransform = rightHand;
+            else handTransform = leftHand;
             Instantiate(equippedPrefab, handTransform);
         }
         // animator.runtimeAnimatorController = equipmentOverride;

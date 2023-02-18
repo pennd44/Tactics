@@ -6,8 +6,8 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Sword Override Controller
+  m_Name: Bow Animator Override
   m_Controller: {fileID: 9100000, guid: 374e338bb5389a84697ce10def92c89f, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: -203655887218126122, guid: 9ad3e3b01065b544c86214568b98b839, type: 3}
-    m_OverrideClip: {fileID: 7400000, guid: 58f2909dff975b54c8395d479180996e, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 24d693751e9fd0b42ba8f9595d8b5f5e, type: 3}
