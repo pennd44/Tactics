@@ -17,17 +17,25 @@ namespace Game.Items
    
     public void Spawn(Transform rightHand, Transform leftHand, Character unit, Animator animator)
     {   
-        if(equippedPrefab != null){
-        Transform handTransform;
-            if (isRightHanded) handTransform = rightHand;
-            else handTransform = leftHand;
-            Instantiate(equippedPrefab, handTransform);
-        }
-        // animator.runtimeAnimatorController = equipmentOverride;
-        GiveSkills(unit);
+        if(equippedPrefab != null)
+            {
+                Transform handTransform = GetTransform(rightHand, leftHand);
+                Instantiate(equippedPrefab, handTransform);
+            }
+            // animator.runtimeAnimatorController = equipmentOverride;
+            GiveSkills(unit);
 
     }
-    private void GiveSkills(Character unit){
+
+        private Transform GetTransform(Transform rightHand, Transform leftHand)
+        {
+            Transform handTransform;
+            if (isRightHanded) handTransform = rightHand;
+            else handTransform = leftHand;
+            return handTransform;
+        }
+
+        private void GiveSkills(Character unit){
         for(int i = 0; i < skillsGranted.Count; i++){
             unit.AquireSkill(skillsGranted[i]);
         }

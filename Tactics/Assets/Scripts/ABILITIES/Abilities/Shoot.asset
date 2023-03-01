@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Shoot
   m_EditorClassIdentifier: 
   animatorOverride: {fileID: 22100000, guid: 9106a5d9dfedfc143a7dfbda84f5bb81, type: 2}
+  projectile: {fileID: 7540119390072158840, guid: 0b000493b95ec9b4dbc67ba1c95270cc, type: 3}
   name: Shoot
   healthCost: 0
   staminaCost: 0
@@ -27,4 +28,5 @@ MonoBehaviour:
   effects:
   - {fileID: 11400000, guid: a162f8ec04d72d14c865f09316fd91ca, type: 2}
   effectAmmounts: 04000000
+  isRightHanded: 0
   unit: {fileID: 0}

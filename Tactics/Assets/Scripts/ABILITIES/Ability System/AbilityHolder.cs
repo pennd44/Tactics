@@ -9,11 +9,15 @@ public class AbilityHolder : MonoBehaviour
     private void Awake() {
         unit = GetComponent<Character>();
     }
+    public Projectile projectile = null;
     public void ChangeAbility(Ability abi){
         Debug.Log("Changing ability");
         ability = abi;
         ability.unit = unit;
         Debug.Log(ability.unit);
+        if(abi.HasProjectile()){
+            projectile = abi.projectile;
+        }
         ability.OnSelectAbility();
     }
     // enum AbilityState{available, active, unavailable}

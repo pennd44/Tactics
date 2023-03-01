@@ -17,7 +17,7 @@ public class ActionSelectState : BattleState
 
     public override void enter() {
         mover = unit.mover;
-        abilityHolder = unit.GetComponent<AbilityHolder>();
+        abilityHolder = unit.abilityHolder;
         ability = abilityHolder.ability;
         actionables = ability.GetSelectableTiles(board);
         board.SelectTiles(actionables, stateMachine.actionSelect);
@@ -90,6 +90,7 @@ public class ActionSelectState : BattleState
             if (hitTile.selectable)
             {
                 stateMachine.StartCoroutine(mover.currentMovement.ITurn(hitTile.transform.position));
+                unit.projectileTarget = hitTile;
                 unit.unitAnimator.SetTrigger("attacking");
                 ability.OverrideAnimation(unit.unitAnimator);
                 //merge override animation into use?

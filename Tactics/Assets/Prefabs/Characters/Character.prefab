@@ -52,6 +52,7 @@ GameObject:
   - component: {fileID: -5916115704072000449}
   - component: {fileID: 4649025580862673054}
   - component: {fileID: -7621030494461491288}
+  - component: {fileID: 1282736567088268856}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -107,9 +108,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mover: {fileID: 0}
+  abilityHolder: {fileID: 3453338784877843897}
   stats: []
   equipmentLoadout: {fileID: 0}
-  unitAnimator: {fileID: 515602522847805346}
+  rightHandTransform: {fileID: 467623703661804016}
+  leftHandTransform: {fileID: 467553045703256156}
+  unitAnimator: {fileID: 1282736567088268856}
   interactDistance: 3
   canMove: 1
   canAct: 1
@@ -129,6 +133,8 @@ MonoBehaviour:
   attack: 2
   isDead: 0
   skills: []
+  targets: []
+  projectileTarget: {fileID: 0}
 --- !u!195 &8204659419600673057
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -221,6 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ability: {fileID: 0}
+  projectile: {fileID: 0}
 --- !u!114 &125394521113253695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,9 +281,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab23b056873df7b41a98061b53b85ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rightHandTransform: {fileID: 467623703661804016}
-  leftHandTransform: {fileID: 467553045703256156}
   defaultWeapon: {fileID: 11400000, guid: 3cd2b2186f290f948be7762e163b91a4, type: 2}
+--- !u!95 &1282736567088268856
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753490201988524455}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: b5f71c859f9f9bf41badda8a4650082c, type: 3}
+  m_Controller: {fileID: 9100000, guid: 374e338bb5389a84697ce10def92c89f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &464860451696153082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -336,7 +361,8 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 374e338bb5389a84697ce10def92c89f, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95787105524477528, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
 --- !u!4 &460425101625564858 stripped
 Transform:
@@ -351,10 +377,5 @@ Transform:
 --- !u!4 &467623703661804016 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4170833147357194, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
-  m_PrefabInstance: {fileID: 464860451696153082}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &515602522847805346 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 95787105524477528, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
   m_PrefabInstance: {fileID: 464860451696153082}
   m_PrefabAsset: {fileID: 0}

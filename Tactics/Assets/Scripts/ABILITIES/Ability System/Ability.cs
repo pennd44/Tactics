@@ -6,6 +6,7 @@ using UnityEngine;
 public class Ability : ScriptableObject
 {
     [SerializeField] AnimatorOverrideController animatorOverride;
+    [SerializeField] public Projectile projectile = null;
     public new string name;
     [SerializeField] public int healthCost = 0;
     [SerializeField] public int staminaCost;
@@ -20,6 +21,8 @@ public class Ability : ScriptableObject
     [SerializeField] ActionTargets targetFilter;
     [SerializeField] List<ActionEffect> effects = new List<ActionEffect>();
     [SerializeField] public int [] effectAmmounts;
+    [SerializeField] bool isRightHanded = true;
+
 
     // [SerializeField] public Material greenBeen;
     public Character unit;
@@ -48,6 +51,7 @@ public class Ability : ScriptableObject
             {
                 continue;
             }
+            unit.targets.Add(tiles[i].content);
             for (int j = 0; j < effects.Count; j++)
             {
                 effects[j].AffectTarget(tiles[i].content, effectAmmounts[j]);
@@ -61,11 +65,25 @@ public class Ability : ScriptableObject
             animator.runtimeAnimatorController = animatorOverride;
         }
     }
+    public bool HasProjectile(){
+        return projectile != null;
+    }
+    public void LaunchProjectile(Transform rightHand, Transform leftHand, Tile target){
+        Projectile projectileInstance = Instantiate(projectile, GetTransform(rightHand, leftHand).position, Quaternion.identity);
+        projectileInstance.SetTarget(target);
+    }
     //Debug Method
     public void LogComponents(){
         Debug.Log(actionRange);
         Debug.Log(areaOfEffect);
         Debug.Log(targetFilter);
         Debug.Log(effects);
+    }
+    public Transform GetTransform(Transform rightHand, Transform leftHand)
+    {
+        Transform handTransform;
+        if (isRightHanded) handTransform = rightHand;
+        else handTransform = leftHand;
+        return handTransform;
     }
 }

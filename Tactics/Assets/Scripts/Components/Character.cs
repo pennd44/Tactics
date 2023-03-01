@@ -7,11 +7,13 @@ public class Character : MonoBehaviour
 {
     private BattleStateMachine battleStateMachine;
     public BattleMovementStateMachine mover;
+    public AbilityHolder abilityHolder;
 
     public List<Stat> stats;  /// testing
     public EquipmentLoadout equipmentLoadout;
 
-
+    [SerializeField] public Transform rightHandTransform = null;
+    [SerializeField] public Transform leftHandTransform = null;
     private void Awake() {
         Stat newStat; 
         foreach (var val in Enum.GetValues(typeof(Stats)))
@@ -83,6 +85,30 @@ public class Character : MonoBehaviour
             battleStateMachine.setState(new ExploringState(battleStateMachine));
         }
     }
+    public void GetHit(){
+        unitAnimator.SetTrigger("hit");
+    }
+
+    /// testing animation target system
+    public List<GameObject> targets;
+
+    public void Hit()
+    {
+        foreach (var target in targets)
+        {
+            target.GetComponent<Animator>().SetTrigger("hit");
+        }
+        targets.Clear();
+    }
+
+    public Tile projectileTarget;
+    public void LaunchProjectile(){
+        Projectile projectileInstance = Instantiate(abilityHolder.projectile, abilityHolder.ability.GetTransform(rightHandTransform, leftHandTransform).position, Quaternion.identity);
+        projectileInstance.SetTarget(projectileTarget);
+    }
+    // public void Hit(Character target){
+    //     target.unitAnimator.SetTrigger("hit");
+    // }
     public void AquireSkill(Ability skill)
     {
         skills.Add(skill);

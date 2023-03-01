@@ -10,7 +10,7 @@ public class DamageEffect : ActionEffect
             Debug.Log("Inside Affect Target");
             Character unit = target.GetComponent<Character>();
             Health health = unit.GetComponent<Health>();
-            unit.unitAnimator.SetTrigger("hit");
+            // unit.unitAnimator.SetTrigger("hit");
             
             health.ReduceCurrent(damage);
             if(health.current == 0)
