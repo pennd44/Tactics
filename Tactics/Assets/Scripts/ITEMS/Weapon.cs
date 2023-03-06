@@ -14,17 +14,34 @@ namespace Game.Items
     [SerializeField] List<Ability> skillsGranted;
     [SerializeField] bool isRightHanded = true;
     #endregion
+
+    const string weaponName = "Weapon";
    
     public void Spawn(Transform rightHand, Transform leftHand, Character unit, Animator animator)
     {   
+        DestroyOldWeapon(rightHand, leftHand);
         if(equippedPrefab != null)
             {
                 Transform handTransform = GetTransform(rightHand, leftHand);
-                Instantiate(equippedPrefab, handTransform);
+                GameObject weapon = Instantiate(equippedPrefab, handTransform);
+                weapon.name = weapon.name;
             }
             // animator.runtimeAnimatorController = equipmentOverride;
             GiveSkills(unit);
 
+    }
+    private void DestroyOldWeapon(Transform rightHand, Transform leftHand)
+    {
+        Transform oldWeapon = rightHand.Find(weaponName);
+        if(oldWeapon == null)
+        {
+            oldWeapon = leftHand.Find(weaponName);
+        }
+        if(oldWeapon == null){
+            return;
+        }
+        oldWeapon.name = "DESTROYING";
+        Destroy(oldWeapon.gameObject);
     }
 
         private Transform GetTransform(Transform rightHand, Transform leftHand)

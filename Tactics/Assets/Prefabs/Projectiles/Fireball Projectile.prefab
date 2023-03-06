@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7540119390072158840}
   - component: {fileID: 6136617825522376835}
   m_Layer: 0
-  m_Name: ArrowProjectile
+  m_Name: Fireball Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

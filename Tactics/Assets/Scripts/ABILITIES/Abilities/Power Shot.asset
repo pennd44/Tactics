@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c9833ca08120f94c9d91f733e52dea2, type: 3}
-  m_Name: Fireball
+  m_Name: Power Shot
   m_EditorClassIdentifier: 
-  animatorOverride: {fileID: 22100000, guid: a64e48188e58e8c4b8f273dc6f3b65db, type: 2}
-  projectile: {fileID: 7540119390072158840, guid: 5980b6cd2e8324c43a54bd4d99464a00, type: 3}
-  name: Fireball
+  animatorOverride: {fileID: 22100000, guid: 9106a5d9dfedfc143a7dfbda84f5bb81, type: 2}
+  projectile: {fileID: 1681755332658985447, guid: 57af0cdd702670b4eaae13e1c8c95fcb, type: 3}
+  name: Power Shot
   healthCost: 0
-  staminaCost: 0
+  staminaCost: 2
   kiCost: 0
   actionRange: {fileID: 11400000, guid: df6723e3e9f7b1144a9e89e9ba18b986, type: 2}
-  rangeHorizontal: 4
-  rangeVertical: 6
-  areaOfEffect: {fileID: 11400000, guid: 79fb721cadbb1d24ca9cb5fdc5588e23, type: 2}
-  AOEHorizontal: 2
-  AOEVertical: 2
+  rangeHorizontal: 7
+  rangeVertical: 7
+  areaOfEffect: {fileID: 11400000, guid: 034da45490052c140960979ee7a4c4f2, type: 2}
+  AOEHorizontal: 0
+  AOEVertical: 0
   targetFilter: {fileID: 11400000, guid: e0d1030d5dd514846af1d2ae5efc3053, type: 2}
   effects:
   - {fileID: 11400000, guid: a162f8ec04d72d14c865f09316fd91ca, type: 2}
-  effectAmmounts: 05000000
-  isRightHanded: 1
+  effectAmmounts: 06000000
+  isRightHanded: 0
   unit: {fileID: 0}

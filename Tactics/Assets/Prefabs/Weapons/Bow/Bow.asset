@@ -18,4 +18,5 @@ MonoBehaviour:
   weaponDamage: 0
   skillsGranted:
   - {fileID: 11400000, guid: e6c3fdbcccf179c40a4937976251cff0, type: 2}
+  - {fileID: 11400000, guid: 703a9eec3b888ca4faa859ad46fa5b86, type: 2}
   isRightHanded: 0
