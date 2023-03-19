@@ -9,12 +9,14 @@ public class Character : MonoBehaviour
     public BattleMovementStateMachine mover;
     public AbilityHolder abilityHolder;
 
+    public Alliance alliance;
     public List<Stat> stats;  /// testing
     public EquipmentLoadout equipmentLoadout;
 
     [SerializeField] public Transform rightHandTransform = null;
     [SerializeField] public Transform leftHandTransform = null;
     private void Awake() {
+        alliance = GetComponent<Alliance>();
         Stat newStat; 
         foreach (var val in Enum.GetValues(typeof(Stats)))
         {

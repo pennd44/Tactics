@@ -9,7 +9,7 @@ public class AllyMovement : EntityMovement {
     public override void enter()
     {
        agent = gameObject.GetComponent<NavMeshAgent>();
-       Debug.Log(player);
+    //    Debug.Log(player);
     }
     public override void Tick(){
         agent.SetDestination(player.position);

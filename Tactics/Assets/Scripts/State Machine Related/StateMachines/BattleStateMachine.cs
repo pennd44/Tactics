@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 public class BattleStateMachine : StateMachine
 {
     public List<Character> characters = new List<Character>();
+    public List<Character> enemies = new List<Character>();
     public int currentPlayerIndex = 0;
     public UIController ui;
     public Board board;
@@ -81,6 +82,12 @@ public class BattleStateMachine : StateMachine
 
     private void Awake() {
         characters = Object.FindObjectsOfType<Character>().ToList();
+        //come back and delete this if not necessary
+        foreach (Character character in characters)
+        {
+            if(character.alliance.type == Alliances.Enemy)
+            {enemies.Add(character);}
+        }
     }
     private void Start() {
         setState(new ExploringState(this));

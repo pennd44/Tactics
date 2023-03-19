@@ -15,6 +15,9 @@ public class ExploringState : BattleState
         stateMachine.victoryCondition = null; 
         for (int i = 0; i < characters.Count; i++) 
         {
+             if(characters[i].alliance.type == Alliances.Enemy && !characters[i].isDead){
+                    characters[i].gameObject.GetComponent<Detect>().enabled = true;
+                }
             characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().enabled = true;
         Debug.Log(characters[i] + "ExploreMovementSM =" + characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().enabled);
             characters[i].gameObject.GetComponent<NavMeshAgent>().enabled = true;            
@@ -61,6 +64,7 @@ public class ExploringState : BattleState
         }
     }
     public override void Tick(){
+        // if(stateMachine.characters[stateMachine.currentPlayerIndex])
         handleInput();
     }
     public override void exit() {
@@ -68,6 +72,9 @@ public class ExploringState : BattleState
         for (int i = 0; i < characters.Count; i++) 
             {
                 // characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().Exit();
+                if(characters[i].alliance.type == Alliances.Enemy){
+                    characters[i].gameObject.GetComponent<Detect>().enabled = false;
+                }
                 characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().enabled = false;
                 characters[i].gameObject.GetComponent<NavMeshAgent>().enabled = false;
                 // characters[i].gameObject.GetComponent<NavMeshAgent>().isStopped = true;

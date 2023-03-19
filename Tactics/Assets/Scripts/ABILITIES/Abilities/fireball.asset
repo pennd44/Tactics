@@ -28,5 +28,5 @@ MonoBehaviour:
   effects:
   - {fileID: 11400000, guid: a162f8ec04d72d14c865f09316fd91ca, type: 2}
   effectAmmounts: 05000000
-  isRightHanded: 1
+  isRightHanded: 0
   unit: {fileID: 0}

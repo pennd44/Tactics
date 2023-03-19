@@ -5,15 +5,22 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] float speed = 10;
+    [SerializeField] GameObject hitEffect = null;
+    [SerializeField] float maxLifeTime = 10;
+    [SerializeField] GameObject[] destroyOnHit = null;
+    [SerializeField] float lifeAfterImpact = 2;
     Tile target = null;
     void Update()
     {
         if (target == null) return;
         transform.LookAt(GetAimLocation());
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
+
     }
     public void SetTarget(Tile target){
         this.target = target;
+
+        Destroy(gameObject, maxLifeTime);
     }
     private Vector3 GetAimLocation(){
         if(target.content != null){
@@ -32,7 +39,15 @@ public class Projectile : MonoBehaviour
             target.content.GetComponent<Character>().GetHit();
             // OnArrowHit(target.content);
         }
-        Destroy(gameObject);
+        speed = 0;
+        if(hitEffect != null){
+            Instantiate(hitEffect, GetAimLocation(), transform.rotation);
+        }
+        foreach (GameObject toDestroy in destroyOnHit)
+        {
+            Destroy(toDestroy);
+        }
+        Destroy(gameObject, lifeAfterImpact);
     }
 
 
