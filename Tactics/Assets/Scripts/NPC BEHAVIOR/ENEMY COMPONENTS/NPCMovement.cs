@@ -2,13 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class NPCMovement : MonoBehaviour
 {
+    private NavMeshAgent navMeshAgent;
     [SerializeField] PatrolPath patrolPath;
     [SerializeField] float waypointTolerance = 1;
     private Vector3 guardPosition;
     int currentWaypointIndex = 0;
+    private void Start() {
+        navMeshAgent = GetComponent<NavMeshAgent>();
+    }
+    private void Update() {
+        PatrolBehavior();
+        
+    }
     private void PatrolBehavior()
     {
         Vector3 nextPosition = guardPosition;
@@ -17,13 +26,14 @@ public class NPCMovement : MonoBehaviour
             {
                 CycleWaypoint();
             }
-            nextPosition = GetCuttentWaypoint();
+            nextPosition = GetCurrentWaypoint();
         }
+        navMeshAgent.destination = nextPosition;
     }
 
     private bool AtWaypoint()
     {
-        float distanceToWaypoint = Vector3.Distance(transform.position, GetCuttentWaypoint());
+        float distanceToWaypoint = Vector3.Distance(transform.position, GetCurrentWaypoint());
         return distanceToWaypoint < waypointTolerance;
     }
 
@@ -32,8 +42,9 @@ public class NPCMovement : MonoBehaviour
         currentWaypointIndex = patrolPath.GetNextIndex(currentWaypointIndex);
     }
 
-    private Vector3 GetCuttentWaypoint()
+    private Vector3 GetCurrentWaypoint()
     {
        return patrolPath.GetWaypoint(currentWaypointIndex);
     }
+
 }

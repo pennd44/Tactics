@@ -20,7 +20,12 @@ public class ExploringState : BattleState
                 }
             characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().enabled = true;
         Debug.Log(characters[i] + "ExploreMovementSM =" + characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().enabled);
-            characters[i].gameObject.GetComponent<NavMeshAgent>().enabled = true;            
+            characters[i].gameObject.GetComponent<NavMeshAgent>().enabled = true;     
+if(characters[i].GetComponent<NPCMovement>()){
+
+                    characters[i].gameObject.GetComponent<NPCMovement>().enabled = true;
+                }
+       
         }
         for(int i = 0; i < board.tiles.Count; i++){
             board.tiles[i].occupied = false;
@@ -76,6 +81,10 @@ public class ExploringState : BattleState
                     characters[i].gameObject.GetComponent<Detect>().enabled = false;
                 }
                 characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().enabled = false;
+                if(characters[i].GetComponent<NPCMovement>()){
+
+                    characters[i].gameObject.GetComponent<NPCMovement>().enabled = false;
+                }
                 characters[i].gameObject.GetComponent<NavMeshAgent>().enabled = false;
                 // characters[i].gameObject.GetComponent<NavMeshAgent>().isStopped = true;
                 characters[i].currentTile = board.getClosestTile(characters[i].gameObject.transform.position);
