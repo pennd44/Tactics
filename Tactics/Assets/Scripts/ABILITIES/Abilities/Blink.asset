@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animatorOverride: {fileID: 0}
   projectile: {fileID: 0}
-  name: 
+  name: Blink
   healthCost: 0
   staminaCost: 0
-  kiCost: 0
-  actionRange: {fileID: 0}
+  kiCost: 2
+  actionRange: {fileID: 11400000, guid: df6723e3e9f7b1144a9e89e9ba18b986, type: 2}
   rangeHorizontal: 0
   rangeVertical: 0
-  areaOfEffect: {fileID: 0}
+  areaOfEffect: {fileID: 11400000, guid: 034da45490052c140960979ee7a4c4f2, type: 2}
   AOEHorizontal: 0
   AOEVertical: 0
   targetFilter: {fileID: 0}
