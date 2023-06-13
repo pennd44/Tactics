@@ -95,6 +95,12 @@ public class ActionSelectState : BattleState
                 ability.OverrideAnimation(unit.unitAnimator);
                 //merge override animation into use?
                 ability.Use(ability.GetTilesInAOE(board, hitTile));
+
+
+            //LIFECYCLE EVENT
+                unit.OnAttack();
+
+
                 // Character target = hitTile.content.GetComponent<Character>();
                 // target.currentHealth -= unit.attack;
                 unit.canAct = false;

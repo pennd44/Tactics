@@ -90,6 +90,7 @@ public class Character : MonoBehaviour
     public void GetHit(){
         unitAnimator.SetTrigger("hit");
     }
+        // turn this to lifecycle event
 
     /// testing animation target system
     public List<GameObject> targets;
@@ -102,6 +103,7 @@ public class Character : MonoBehaviour
         }
         targets.Clear();
     }
+    // turn this to lifecycle event
 
     public Tile projectileTarget;
     public void LaunchProjectile(){
@@ -126,4 +128,35 @@ public class Character : MonoBehaviour
         }
         return null;
     }
+
+    //To be moved later
+    //Lifecycle events
+
+    // [SerializeField] Ability testLifeCycleAbility;
+    [SerializeField] ActionEffect testEffect;
+    
+    [SerializeField] GameObject gb;
+    private void setTarget(GameObject chara){
+        gb = chara;
+    }
+
+    public void OnGetHit(){
+        Debug.Log(this.name + "on get hit");
+    }
+    //found in specific ability effects
+    public void OnAttack(){
+        Debug.Log(this.name + "on attack");
+    }
+    //found in action select state
+    public void OnTurnStart(){
+        Debug.Log(this.name + "on turn start");
+    }
+    //found in Battle State Machine, in increment current player index *NOTE needs to happen when battle starts too.  Will natuarally happen when turn order is determined by speed
+    public void OnTurnEnd(){
+        Debug.Log(this.name + "on turn end");
+    }
+    //found in Battle State Machine, in increment current player index
+    public void OnTimer(){}
+
+    // private void ActivateEffect(Ability ability, Action<> situation){}
 }

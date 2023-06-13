@@ -21,11 +21,9 @@ public class ExploringState : BattleState
             characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().enabled = true;
         Debug.Log(characters[i] + "ExploreMovementSM =" + characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().enabled);
             characters[i].gameObject.GetComponent<NavMeshAgent>().enabled = true;     
-if(characters[i].GetComponent<NPCMovement>()){
-
+                if(characters[i].GetComponent<NPCMovement>()){
                     characters[i].gameObject.GetComponent<NPCMovement>().enabled = true;
                 }
-       
         }
         for(int i = 0; i < board.tiles.Count; i++){
             board.tiles[i].occupied = false;
@@ -52,11 +50,15 @@ if(characters[i].GetComponent<NPCMovement>()){
         }
         if(Input.GetKeyDown(KeyCode.F))
         {
+            Debug.Log("F pressed");
             Collider[] hitColliders = Physics.OverlapSphere(unit.transform.position, unit.interactDistance);
             foreach (var hitCollider in hitColliders)
             {
+                Debug.Log(hitCollider.name);
+                // if(hitCollider.GetComponent<Interactable>() != null)
                 if(hitCollider.GetComponent<Interactable>() != null)
                 {
+                    Debug.Log("Interactable hit");
                     Interactable interactable =  hitCollider.GetComponent<Interactable>();
                     if(interactable.CanInteract(unit)){
                         interactable.ApplyEffects(unit);
@@ -64,7 +66,6 @@ if(characters[i].GetComponent<NPCMovement>()){
                     }
                     Debug.Log(hitCollider.name);
                 }
-                
             }
         }
     }

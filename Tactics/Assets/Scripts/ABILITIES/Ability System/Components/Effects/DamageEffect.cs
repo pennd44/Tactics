@@ -17,6 +17,7 @@ public class DamageEffect : ActionEffect
             {
                 unit.Die();
             }
+            unit.OnGetHit();
     }
     // public int CalculateDamage(Character unit, Character target, ){
         

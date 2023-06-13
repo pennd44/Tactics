@@ -28,6 +28,7 @@ public class BattleStateMachine : StateMachine
     }
     public void nextUnit()
     {
+        characters[currentPlayerIndex].OnTurnEnd();
         // Debug.Log("on Next Unit index: " + currentPlayerIndex);
         // Debug.Log("on Next Unit count: " + characters.Count);
         IncrementCurrentPlayerIndex();
@@ -38,6 +39,7 @@ public class BattleStateMachine : StateMachine
         characters[currentPlayerIndex].canMove = true;
         characters[currentPlayerIndex].canAct = true;
         ui.updateBars();
+        characters[currentPlayerIndex].OnTurnStart();
     }
     public IEnumerator MoveCamera(Vector3 targetPosition)
     {
