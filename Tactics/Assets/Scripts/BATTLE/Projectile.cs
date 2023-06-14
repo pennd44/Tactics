@@ -10,12 +10,28 @@ public class Projectile : MonoBehaviour
     [SerializeField] GameObject[] destroyOnHit = null;
     [SerializeField] float lifeAfterImpact = 2;
     Tile target = null;
+    public Character unit;
+    bool triggered = false;
     void Update()
     {
         if (target == null) return;
         transform.LookAt(GetAimLocation());
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
-
+        
+        //Testing
+        if(Vector3.Distance(transform.position, target.transform.position) < 0.1 && !triggered){
+            unit.UseAbility();
+            triggered = true;
+            speed = 0;
+            if(hitEffect != null){
+                Instantiate(hitEffect, GetAimLocation(), transform.rotation);
+            }
+            foreach (GameObject toDestroy in destroyOnHit)
+            {
+                Destroy(toDestroy);
+            }
+            Destroy(gameObject, lifeAfterImpact);
+        }
     }
     public void SetTarget(Tile target){
         this.target = target;
@@ -35,10 +51,11 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         //make it so if arrow hits tile it dissapears.  Will use terrain collider and check if other = board
         if(other.gameObject != target.transform.parent.gameObject && other.gameObject != target.content) return;
-        if(other.gameObject == target.content){
+        // if(other.gameObject == target.content){
+            unit.UseAbility();
             target.content.GetComponent<Character>().GetHit();
             // OnArrowHit(target.content);
-        }
+        // }
         speed = 0;
         if(hitEffect != null){
             Instantiate(hitEffect, GetAimLocation(), transform.rotation);

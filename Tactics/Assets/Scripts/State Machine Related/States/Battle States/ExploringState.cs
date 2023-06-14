@@ -50,15 +50,12 @@ public class ExploringState : BattleState
         }
         if(Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("F pressed");
             Collider[] hitColliders = Physics.OverlapSphere(unit.transform.position, unit.interactDistance);
             foreach (var hitCollider in hitColliders)
             {
-                Debug.Log(hitCollider.name);
                 // if(hitCollider.GetComponent<Interactable>() != null)
                 if(hitCollider.GetComponent<Interactable>() != null)
                 {
-                    Debug.Log("Interactable hit");
                     Interactable interactable =  hitCollider.GetComponent<Interactable>();
                     if(interactable.CanInteract(unit)){
                         interactable.ApplyEffects(unit);

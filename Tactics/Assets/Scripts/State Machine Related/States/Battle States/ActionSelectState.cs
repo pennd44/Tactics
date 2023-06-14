@@ -90,11 +90,14 @@ public class ActionSelectState : BattleState
             if (hitTile.selectable)
             {
                 stateMachine.StartCoroutine(mover.currentMovement.ITurn(hitTile.transform.position));
+                
+                unit.tiles = ability.GetTilesInAOE(board, hitTile);
+
                 unit.projectileTarget = hitTile;
                 unit.unitAnimator.SetTrigger("attacking");
                 ability.OverrideAnimation(unit.unitAnimator);
                 //merge override animation into use?
-                ability.Use(ability.GetTilesInAOE(board, hitTile));
+                // ability.Use(ability.GetTilesInAOE(board, hitTile));
 
 
             //LIFECYCLE EVENT

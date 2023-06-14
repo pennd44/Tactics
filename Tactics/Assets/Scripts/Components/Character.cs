@@ -87,21 +87,21 @@ public class Character : MonoBehaviour
             battleStateMachine.setState(new ExploringState(battleStateMachine));
         }
     }
+    // public int damageAmount;
     public void GetHit(){
         unitAnimator.SetTrigger("hit");
+        // DamagePopup.Create(transform.position, damageAmount, false);
     }
         // turn this to lifecycle event
 
     /// testing animation target system
-    public List<GameObject> targets;
-
+    public void UseAbility(){
+        abilityHolder.ability.Use(tiles);
+    }
+    public List<Tile> tiles;
     public void Hit()
     {
-        foreach (var target in targets)
-        {
-            target.GetComponent<Animator>().SetTrigger("hit");
-        }
-        targets.Clear();
+        UseAbility();
     }
     // turn this to lifecycle event
 
@@ -109,6 +109,7 @@ public class Character : MonoBehaviour
     public void LaunchProjectile(){
         Projectile projectileInstance = Instantiate(abilityHolder.projectile, abilityHolder.ability.GetTransform(rightHandTransform, leftHandTransform).position, Quaternion.identity);
         projectileInstance.SetTarget(projectileTarget);
+        projectileInstance.unit = this;
     }
     // public void Hit(Character target){
     //     target.unitAnimator.SetTrigger("hit");
@@ -141,19 +142,19 @@ public class Character : MonoBehaviour
     }
 
     public void OnGetHit(){
-        Debug.Log(this.name + "on get hit");
+        // Debug.Log(this.name + "on get hit");
     }
     //found in specific ability effects
     public void OnAttack(){
-        Debug.Log(this.name + "on attack");
+        // Debug.Log(this.name + "on attack");
     }
     //found in action select state
     public void OnTurnStart(){
-        Debug.Log(this.name + "on turn start");
+        // Debug.Log(this.name + "on turn start");
     }
     //found in Battle State Machine, in increment current player index *NOTE needs to happen when battle starts too.  Will natuarally happen when turn order is determined by speed
     public void OnTurnEnd(){
-        Debug.Log(this.name + "on turn end");
+        // Debug.Log(this.name + "on turn end");
     }
     //found in Battle State Machine, in increment current player index
     public void OnTimer(){}

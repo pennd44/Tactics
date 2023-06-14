@@ -13,6 +13,9 @@ public class DamageEffect : ActionEffect
             // unit.unitAnimator.SetTrigger("hit");
             
             health.ReduceCurrent(damage);
+            // unit.damageAmount = damage;
+            unit.GetHit();
+            DamagePopup.Create(unit.transform.position, damage, false);
             if(health.current == 0)
             {
                 unit.Die();

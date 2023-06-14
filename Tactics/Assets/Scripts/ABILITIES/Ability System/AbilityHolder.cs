@@ -11,10 +11,10 @@ public class AbilityHolder : MonoBehaviour
     }
     public Projectile projectile = null;
     public void ChangeAbility(Ability abi){
-        Debug.Log("Changing ability");
+        // Debug.Log("Changing ability");
         ability = abi;
         ability.unit = unit;
-        Debug.Log(ability.unit);
+        // Debug.Log(ability.unit);
         if(abi.HasProjectile()){
             projectile = abi.projectile;
         }

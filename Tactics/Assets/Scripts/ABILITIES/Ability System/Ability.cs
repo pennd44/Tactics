@@ -51,13 +51,15 @@ public class Ability : ScriptableObject
             {
                 continue;
             }
-            unit.targets.Add(tiles[i].content);
             for (int j = 0; j < effects.Count; j++)
             {
                 effects[j].AffectTarget(tiles[i].content, effectAmmounts[j]);
             }
         }
     }
+
+    //Add animation event here????
+    
 
     public void OverrideAnimation(Animator animator)
     {
