@@ -11,7 +11,7 @@ public class BattleMenuState : BattleState
 
     public BattleMenuState(BattleStateMachine stateMachine) : base(stateMachine){}
     public override void enter() {
-        Debug.Log("Enter Battle Menu State");
+        // Debug.Log("Enter Battle Menu State");
         ui.displayBattleMenu(); /// in future, have character as argument and show ui options based on character
     }
     public override void handleInput() {

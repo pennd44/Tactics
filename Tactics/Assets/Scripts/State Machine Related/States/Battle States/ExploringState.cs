@@ -10,7 +10,7 @@ public class ExploringState : BattleState
 {
     public ExploringState(BattleStateMachine stateMachine) : base(stateMachine){}
     public override void enter() {
-        Debug.Log("hit enter exploring state");
+        // Debug.Log("hit enter exploring state");
         stateMachine.cameraController.transform.rotation = Quaternion.Euler(0,0,0);
         stateMachine.victoryCondition = null; 
         for (int i = 0; i < characters.Count; i++) 
@@ -19,7 +19,7 @@ public class ExploringState : BattleState
                     characters[i].gameObject.GetComponent<Detect>().enabled = true;
                 }
             characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().enabled = true;
-        Debug.Log(characters[i] + "ExploreMovementSM =" + characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().enabled);
+        // Debug.Log(characters[i] + "ExploreMovementSM =" + characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().enabled);
             characters[i].gameObject.GetComponent<NavMeshAgent>().enabled = true;     
                 if(characters[i].GetComponent<NPCMovement>()){
                     characters[i].gameObject.GetComponent<NPCMovement>().enabled = true;
@@ -29,9 +29,9 @@ public class ExploringState : BattleState
             board.tiles[i].occupied = false;
         }
         stateMachine.cameraController.GetComponent<BattleCameraMovement>().enabled = false;
-        Debug.Log("Battle Camera Movement =" + stateMachine.cameraController.GetComponent<BattleCameraMovement>().enabled + "should be false");
+        // Debug.Log("Battle Camera Movement =" + stateMachine.cameraController.GetComponent<BattleCameraMovement>().enabled + "should be false");
                 stateMachine.cameraController.GetComponent<ExploreCameraMovement>().enabled = true;
-        Debug.Log("Explore Camera Movement =" + stateMachine.cameraController.GetComponent<ExploreCameraMovement>().enabled + "should be true");
+        // Debug.Log("Explore Camera Movement =" + stateMachine.cameraController.GetComponent<ExploreCameraMovement>().enabled + "should be true");
     ui.hideBattleMenu();
     ui.hideResourceBars();
      }
@@ -61,7 +61,7 @@ public class ExploringState : BattleState
                         interactable.ApplyEffects(unit);
                         ui.updateUi();   
                     }
-                    Debug.Log(hitCollider.name);
+                    // Debug.Log(hitCollider.name);
                 }
             }
         }
@@ -71,7 +71,7 @@ public class ExploringState : BattleState
         handleInput();
     }
     public override void exit() {
-        Debug.Log("Exiting exploring state");
+        // Debug.Log("Exiting exploring state");
         for (int i = 0; i < characters.Count; i++) 
             {
                 // characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().Exit();

@@ -32,20 +32,20 @@ namespace Game.Items
     }
     private void DestroyOldWeapon(Transform rightHand, Transform leftHand)
     {
-        Debug.Log("Hit destroy old weapon");
+        // Debug.Log("Hit destroy old weapon");
         Transform oldWeapon = rightHand.Find(weaponName);
         if(oldWeapon == null)
         {
-        Debug.Log("old weapon in left");
+        // Debug.Log("old weapon in left");
             oldWeapon = leftHand.Find(weaponName);
         }
         if(oldWeapon == null){
-        Debug.Log("old weapon null");
+        // Debug.Log("old weapon null");
             return;
         }
         oldWeapon.name = "DESTROYING";
         Destroy(oldWeapon.gameObject);
-        Debug.Log("old weapon destroyed");
+        // Debug.Log("old weapon destroyed");
     }
 
         private Transform GetTransform(Transform rightHand, Transform leftHand)

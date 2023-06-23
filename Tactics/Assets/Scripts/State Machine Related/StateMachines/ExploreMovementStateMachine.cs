@@ -6,7 +6,7 @@ public class ExploreMovementStateMachine : StateMachine
     Transform target;
 
     private void OnEnable() {
-        Debug.Log("ExploreCameraMovementSM OnEnable");
+        // Debug.Log("ExploreCameraMovementSM OnEnable");
 
         switch (role)
         {
@@ -38,7 +38,7 @@ public class ExploreMovementStateMachine : StateMachine
     private Transform FindPlayer()
     {
         ExploreMovementStateMachine [] units = GameObject.FindObjectsOfType<ExploreMovementStateMachine>();
-        Debug.Log(units.Length);
+        // Debug.Log(units.Length);
         for (int i = 0; i < units.Length; i++)
         {
             if(units[i].role == Roles.Player)

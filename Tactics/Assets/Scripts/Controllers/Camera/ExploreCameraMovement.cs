@@ -7,7 +7,7 @@ public class ExploreCameraMovement : MonoBehaviour
     Transform partyLeader;
     private void OnEnable()
     {
-        Debug.Log("ExploreCameraMovement OnEnable");
+        // Debug.Log("ExploreCameraMovement OnEnable");
         partyLeader = GameObject.FindObjectOfType<Player>().transform;
     }
     void Update()

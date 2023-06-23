@@ -15,7 +15,6 @@ public class Detect : MonoBehaviour
        private void Update() {
               if(DistanceFromPlayer()<=alertDistance)
               {
-                     Debug.Log("Player within alert range");
                      //Start battle
                      stateMachine.victoryCondition = new DefeatAllEnemiesCondition();
                      stateMachine.victoryCondition.battleStateMachine = stateMachine;
