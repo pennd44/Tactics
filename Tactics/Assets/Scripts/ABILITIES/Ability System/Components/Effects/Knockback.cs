@@ -60,13 +60,13 @@ public class Knockback : ActionEffect
         battleMovementStateMachine.SetMovement(new KnockbackMovement(battleMovementStateMachine));
         board.Search(targ.currentTile, battleMovementStateMachine.currentMovement.ExpandSearch);
         bsm.StartCoroutine(Sequence());
+        battleMovementStateMachine.SetMovement(new WalkMovement(battleMovementStateMachine));
     }
 
     IEnumerator Sequence ()
     {
         // yield return battleMovementStateMachine.StartCoroutine(bsm.MoveCamera(targ.transform.position));
         yield return bsm.StartCoroutine(battleMovementStateMachine.currentMovement.Traverse(CalculateTargetTile(targ, user)));
-        // stateMachine.setState(new BattleMenuState(stateMachine));
 
     }
     Tile CalculateTargetTile(Character target, Character unit){
@@ -75,7 +75,9 @@ public class Knockback : ActionEffect
         Point point = dir.ToPoint();
         Debug.Log("start" + target.currentTile);
         Debug.Log("destination" + board.getTile(target.currentTile.pos + point));
+        targ.Place(board.getTile(target.currentTile.pos + point));
         ///when switching to getTiles(TILESSSS) find the first tile that is less than target.height + 1
-        return board.getTile(target.currentTile.pos + point);
+        // return board.getTile(target.currentTile.pos + point);
+        return targ.currentTile;
     }
 }

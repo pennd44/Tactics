@@ -53,9 +53,11 @@ public class Character : MonoBehaviour
     public void Place(Tile target){
         if( currentTile != null && currentTile.content == gameObject)
             currentTile.content = null;
-        currentTile = target;
+            currentTile.occupied = false;
+            currentTile = target;
         if(target != null)
             target.content = gameObject;
+            target.occupied = true;
     }
     public void snapToTile(){
         transform.position = new Vector3(currentTile.pos.x, currentTile.height, currentTile.pos.y);
