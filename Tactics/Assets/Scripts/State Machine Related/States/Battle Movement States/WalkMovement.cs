@@ -49,17 +49,27 @@ public class WalkMovement : BattleMovement
             // Directions dir = from.GetDirections(to);
             // if (unit.dir != dir)
             // yield return StartCoroutine(ITurn(to.transform.position));
-            if (Mathf.Abs(from.height - to.height) < 1)
+            if (Mathf.Abs(from.height - to.height) < 1){
+                Debug.Log("Walking to " + to.name);
                 yield return stateMachine.StartCoroutine(Walk(to));
+                }
             else if (from.height > to.height)
                 yield return stateMachine.StartCoroutine(JumpDown(to));
             else if (from.height < to.height)
-                yield return stateMachine.StartCoroutine(JumpUp(to));
+                targetJumpTile = to;
+                unit.unitAnimator.SetTrigger("Jump");
+                while(unit.transform.position.y < to.height){
+                    yield return null;
+                }
+                // yield return stateMachine.StartCoroutine(JumpUp());
         }
+    }
+    public IEnumerator JumpUp(){
+        yield return null;
     }
     public IEnumerator Walk(Tile target)
     {
-
+            Debug.Log("Inside Walking to " + target.name);
         Vector3 playerPosition = unit.gameObject.transform.position;
         Vector3 tilePosition = target.gameObject.transform.position;
         unit.unitAnimator.SetFloat("Speed", 1);
@@ -72,6 +82,7 @@ public class WalkMovement : BattleMovement
         }
         unit.SetDir();
         unit.unitAnimator.SetFloat("Speed", 0);
+            Debug.Log("Done walking to " + target.name);
     }
 
     public override void Turn(Vector3 target)
@@ -81,25 +92,28 @@ public class WalkMovement : BattleMovement
         unit.transform.rotation = Quaternion.Slerp(unit.transform.rotation, lookRotation, Time.deltaTime * 5f);
 
     }
-    public IEnumerator JumpUp(Tile target){
-       Vector3 playerPosition = unit.gameObject.transform.position;
-        Vector3 tilePosition = target.gameObject.transform.position;
+    public override IEnumerator Ascend(){
+        Debug.Log("Hit ascend");
+        Vector3 playerPosition = unit.gameObject.transform.position;
+        Vector3 tilePosition = targetJumpTile.gameObject.transform.position;
         Vector3 tileY = new Vector3(playerPosition.x, tilePosition.y, playerPosition.z);
-        unit.unitAnimator.SetTrigger("Jump");
         while(unit.gameObject.transform.position.y != tilePosition.y)
         {
+            Debug.Log("In ascend while loop");
             Turn(tilePosition);
             unit.transform.position = Vector3.MoveTowards(unit.gameObject.transform.position, tileY, 5.0f * Time.deltaTime);
             yield return null;
         }
         while (unit.gameObject.transform.position != tilePosition)
         {
+            Debug.Log("In ascend move forward while loop");
             // Turn(tilePosition); 
             unit.transform.position = Vector3.MoveTowards(unit.gameObject.transform.position, tilePosition, 2.0f * Time.deltaTime);
             yield return null;
         }
         unit.unitAnimator.SetBool("Falling", false);
-        // unit.unitAnimator.SetFloat("Speed", 0);
+        unit.unitAnimator.SetFloat("Speed", 0);
+        Debug.Log("Done jumping");
     }
     public IEnumerator JumpDown(Tile target){
        Vector3 playerPosition = unit.gameObject.transform.position;
