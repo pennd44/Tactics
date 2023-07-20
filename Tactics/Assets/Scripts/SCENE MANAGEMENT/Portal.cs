@@ -13,6 +13,10 @@ public class Portal : MonoBehaviour
     [SerializeField] int sceneToLoad = -1;
     [SerializeField] Transform spawnPoint;
     [SerializeField] DestinationIdentifier destination;
+    [SerializeField] float fadeInTime = .5f;
+    [SerializeField] float fadeOutTime = .5f;
+    [SerializeField] float fadeWaitTime = .5f;
+
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Player")
         {
@@ -20,11 +24,19 @@ public class Portal : MonoBehaviour
     }
     private IEnumerator Transition()
     {
+        if (sceneToLoad < 0)
+        {
+            yield break;
+        }
+        Fader fader = FindObjectOfType<Fader>();
+        yield return StartCoroutine(fader.FadeOut(fadeOutTime));
         DontDestroyOnLoad(gameObject);
         yield return SceneManager.LoadSceneAsync(sceneToLoad);
         print("scene loaded");
         Portal otherPortal = GetOtherPortal();
         UpdatePlayer(otherPortal);
+        yield return new WaitForSeconds(fadeWaitTime);
+        yield return StartCoroutine(fader.FadeIn(fadeInTime));
 
         Destroy(gameObject);
     }
@@ -33,11 +45,11 @@ public class Portal : MonoBehaviour
     {
         GameObject player = GameObject.FindWithTag("Player");
         Debug.Log("Player found! noice");
-        // player.GetComponent<NavMeshAgent>().enabled = false;
-        player.GetComponent<NavMeshAgent>().Warp(otherPortal.spawnPoint.position);
+        player.GetComponent<NavMeshAgent>().enabled = false;
+        // player.GetComponent<NavMeshAgent>().Warp(otherPortal.spawnPoint.position);
         player.transform.position = otherPortal.spawnPoint.position;
         player.transform.rotation = otherPortal.spawnPoint.rotation;
-        // player.GetComponent<NavMeshAgent>().enabled = true;
+        player.GetComponent<NavMeshAgent>().enabled = true;
     }
 
     private Portal GetOtherPortal()

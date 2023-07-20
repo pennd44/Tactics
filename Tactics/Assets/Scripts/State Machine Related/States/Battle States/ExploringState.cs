@@ -20,6 +20,7 @@ public class ExploringState : BattleState
                 }
             characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().enabled = true;
         // Debug.Log(characters[i] + "ExploreMovementSM =" + characters[i].gameObject.GetComponent<ExploreMovementStateMachine>().enabled);
+        // ******this part is probably causing the portal bug, maybe have this state be the exiting battle or have a macro state called battle with sub states, and a general overworld exploring state?
             characters[i].gameObject.GetComponent<NavMeshAgent>().enabled = true;     
                 if(characters[i].GetComponent<NPCMovement>()){
                     characters[i].gameObject.GetComponent<NPCMovement>().enabled = true;
