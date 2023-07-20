@@ -52,11 +52,6 @@ public abstract class BattleMovement
     {
         cameraController.transform.position = unit.transform.position;
     }
-    public Tile targetJumpTile;
-    public virtual IEnumerator Ascend(){
-        yield return null;
-
-    }
     // protected virtual IEnumerator Turn(Directions dir){
     //     TransformLocalEulerTweener t = (TransformLocalEulerTweener) transform.RotateToLocal(dir.ToEuler(), 0.25f, EasingEquations.EaseInOutQuad);
     //     if (Mathf.Approximately(t.startValue.y, 0f) && Mathf.Approximately(t.endValue.y, 270f))

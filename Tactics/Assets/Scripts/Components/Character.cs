@@ -133,11 +133,6 @@ public class Character : MonoBehaviour
     }
 
     //To be moved later
-
-//Animation Events *move get hit() and hit to same class
-    private void LiftOff(){
-        StartCoroutine(mover.currentMovement.Ascend());
-    }
     //Lifecycle events
 
     // [SerializeField] Ability testLifeCycleAbility;
