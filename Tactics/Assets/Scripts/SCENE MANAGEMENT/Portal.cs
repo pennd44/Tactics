@@ -13,10 +13,6 @@ public class Portal : MonoBehaviour
     [SerializeField] int sceneToLoad = -1;
     [SerializeField] Transform spawnPoint;
     [SerializeField] DestinationIdentifier destination;
-    [SerializeField] float fadeInTime = 1f;
-    [SerializeField] float fadeOutTime = 1f;
-    [SerializeField] float fadeWaitTime = 1f;
-
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Player")
         {
@@ -24,19 +20,11 @@ public class Portal : MonoBehaviour
     }
     private IEnumerator Transition()
     {
-        if (sceneToLoad < 0)
-        {
-            yield break;
-        }
-        Fader fader = FindObjectOfType<Fader>();
-        yield return StartCoroutine(fader.FadeOut(fadeOutTime));
         DontDestroyOnLoad(gameObject);
         yield return SceneManager.LoadSceneAsync(sceneToLoad);
         print("scene loaded");
         Portal otherPortal = GetOtherPortal();
         UpdatePlayer(otherPortal);
-        yield return new WaitForSeconds(fadeWaitTime);
-        yield return StartCoroutine(fader.FadeIn(fadeInTime));
 
         Destroy(gameObject);
     }

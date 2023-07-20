@@ -91,29 +91,4 @@ public class Ability : ScriptableObject
         else handTransform = leftHand;
         return handTransform;
     }
-
-
-    //Init for use with SKill builder
-    public void Init(AnimatorOverrideController animatorOverride, string name, int healthCost, int staminaCost, int kiCost, ActionRange actionRange, int rangeHorizontal, int rangeVertical, ActionArea areaOfEffect, int AOEHorizontal, int AOEVertical, ActionTargets targetFilter, List<ActionEffect> effects, int [] effectAmmounts, bool isRightHanded = true, Projectile projectile = null){
-        this.animatorOverride = animatorOverride;
-        this.projectile = projectile;
-        this.name = name;
-        this.healthCost = healthCost;
-        this.staminaCost = staminaCost;
-        this.kiCost = kiCost;
-        this.actionRange = actionRange;
-        this.rangeHorizontal = rangeHorizontal;
-        this.rangeVertical = rangeVertical;
-        this.areaOfEffect = areaOfEffect;
-        this.AOEHorizontal = AOEHorizontal;
-        this.AOEVertical = AOEVertical;
-        this.targetFilter = targetFilter;
-        this.effects = effects;
-        this.effectAmmounts = effectAmmounts;
-        this.isRightHanded = isRightHanded;
-    }
-    // public void CreateAbility(){
-    //     Ability newAbility = ScriptableObject.CreateInstance<Ability>();
-    //     newAbility.Init();
-    // }
 }
