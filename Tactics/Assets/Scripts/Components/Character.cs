@@ -80,8 +80,9 @@ public class Character : MonoBehaviour
             dir = Directions.West;
     }
     public void Die(){
+        Debug.Log(name + "is Dead");
         isDead = true;
-        battleStateMachine.OnUnitDeath(this);
+        // battleStateMachine.OnUnitDeath(this);
         unitAnimator.SetBool("Dead", true);
         battleStateMachine.victoryCondition.CheckForGameOver();
         if(battleStateMachine.victoryCondition.victor == Alliances.Hero)

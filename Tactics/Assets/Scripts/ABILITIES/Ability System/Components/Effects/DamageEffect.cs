@@ -16,10 +16,6 @@ public class DamageEffect : ActionEffect
             // unit.damageAmount = damage;
             unit.GetHit();
             DamagePopup.Create(unit.transform.position, damage, false);
-            if(health.current == 0)
-            {
-                unit.Die();
-            }
             unit.OnGetHit();
     }
     // public int CalculateDamage(Character unit, Character target, ){

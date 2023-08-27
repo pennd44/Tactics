@@ -45897,7 +45897,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5730172018849612648, guid: e57a28f40b6c31f4aa54cfdf6357b31a, type: 3}
   m_PrefabInstance: {fileID: 5730172017282250026}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2089037981}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36efc112531e517489e6b7f9322d0608, type: 3}
@@ -51971,6 +51971,42 @@ MonoBehaviour:
   selectable: 0
   visited: 0
   cost: 1
+--- !u!1 &2089037981 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5730172018849612650, guid: e57a28f40b6c31f4aa54cfdf6357b31a, type: 3}
+  m_PrefabInstance: {fileID: 5730172017282250026}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2089037984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089037981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd69cdfeac7335d4b9e326d5c37d4128, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: a00050a3a139e5c468b754383d479853, type: 2}
+  onEventTriggered:
+    m_PersistentCalls:
+      m_Calls: []
+  onCharacterEventTriggered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1654126146}
+        m_TargetAssemblyTypeName: BattleStateMachine, Assembly-CSharp
+        m_MethodName: OnUnitDeath
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2091590743 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3795023597789085848, guid: 6fce6595669f9bf4e9ff0ae59686ba90, type: 3}

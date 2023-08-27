@@ -53,6 +53,7 @@ GameObject:
   - component: {fileID: 4649025580862673054}
   - component: {fileID: -7621030494461491288}
   - component: {fileID: 1282736567088268856}
+  - component: {fileID: 2344974829700462233}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -109,6 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mover: {fileID: 0}
   abilityHolder: {fileID: 3453338784877843897}
+  alliance: {fileID: 0}
   stats: []
   equipmentLoadout: {fileID: 0}
   rightHandTransform: {fileID: 467623703661804016}
@@ -133,8 +135,10 @@ MonoBehaviour:
   attack: 2
   isDead: 0
   skills: []
-  targets: []
+  tiles: []
   projectileTarget: {fileID: 0}
+  testEffect: {fileID: 0}
+  gb: {fileID: 0}
 --- !u!195 &8204659419600673057
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -184,8 +188,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369ec99f38653fa43872abf5919718a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onCharReduceCurrent: {fileID: 11400000, guid: e49fa0725c5a1244fa1384b4413ce138, type: 2}
+  onCharRaiseCurrent: {fileID: 0}
+  onCharReduceMax: {fileID: 0}
+  onCharRaiseMax: {fileID: 0}
+  onCharReachZero: {fileID: 11400000, guid: a00050a3a139e5c468b754383d479853, type: 2}
+  onCharReachMax: {fileID: 0}
+  onReduceCurrent: {fileID: 11400000, guid: d8d0f9b01ef373e4294041e78ef11429, type: 2}
+  onRaiseCurrent: {fileID: 0}
+  onReduceMax: {fileID: 0}
+  onRaiseMax: {fileID: 0}
+  onReachZero: {fileID: 11400000, guid: 56070a02f64ccf946ad10f75f0708b4a, type: 2}
+  onReachMax: {fileID: 0}
   current: 10
   max: 10
+  isDead: 0
 --- !u!114 &-8636868424011287353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,6 +215,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a85841963da7ef4d9ebdb8ca94e4c40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onCharReduceCurrent: {fileID: 0}
+  onCharRaiseCurrent: {fileID: 0}
+  onCharReduceMax: {fileID: 0}
+  onCharRaiseMax: {fileID: 0}
+  onCharReachZero: {fileID: 0}
+  onCharReachMax: {fileID: 0}
+  onReduceCurrent: {fileID: 0}
+  onRaiseCurrent: {fileID: 0}
+  onReduceMax: {fileID: 0}
+  onRaiseMax: {fileID: 0}
+  onReachZero: {fileID: 0}
+  onReachMax: {fileID: 0}
   current: 10
   max: 10
 --- !u!114 &7069907016120724985
@@ -212,6 +241,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1578d3285aa8c0c4f924bf72ac574cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onCharReduceCurrent: {fileID: 0}
+  onCharRaiseCurrent: {fileID: 0}
+  onCharReduceMax: {fileID: 0}
+  onCharRaiseMax: {fileID: 0}
+  onCharReachZero: {fileID: 0}
+  onCharReachMax: {fileID: 0}
+  onReduceCurrent: {fileID: 0}
+  onRaiseCurrent: {fileID: 0}
+  onReduceMax: {fileID: 0}
+  onRaiseMax: {fileID: 0}
+  onReachZero: {fileID: 0}
+  onReachMax: {fileID: 0}
   current: 10
   max: 10
 --- !u!114 &3453338784877843897
@@ -302,6 +343,37 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2344974829700462233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753490201988524455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd69cdfeac7335d4b9e326d5c37d4128, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 56070a02f64ccf946ad10f75f0708b4a, type: 2}
+  onEventTriggered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1753490201988524507}
+        m_TargetAssemblyTypeName: Character, Assembly-CSharp
+        m_MethodName: Die
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onCharacterEventTriggered:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &464860451696153082
 PrefabInstance:
   m_ObjectHideFlags: 0
