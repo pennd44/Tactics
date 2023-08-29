@@ -3,8 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Items;
-public class Character : MonoBehaviour
+public class Character : Entity
 {
+    /// <summary>
+    /// how to split up: Battle Movement, Battle Acter?, Abitlity, Equiper, Stats, EntityAnimator,
+    /// </summary>
     private BattleStateMachine battleStateMachine;
     public BattleMovementStateMachine mover;
     public AbilityHolder abilityHolder;
@@ -43,7 +46,7 @@ public class Character : MonoBehaviour
     [SerializeField] public int speed = 4;
     [SerializeField] public int currentHealth = 10;
     [SerializeField] public int maxHealth = 10;
-    [SerializeField] public int currentMana = 10;
+    // [SerializeField] public int currentMana = 10;
     [SerializeField] public int maxMana = 10;
     [SerializeField] public int currentStamina = 10;
     [SerializeField] public int maxStamina = 10;

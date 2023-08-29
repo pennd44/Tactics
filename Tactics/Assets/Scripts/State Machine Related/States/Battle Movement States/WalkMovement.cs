@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class WalkMovement : BattleMovement
 {
+    //Maybe replace with Scriptable Objects
     public WalkMovement(BattleMovementStateMachine stateMachine) : base(stateMachine){}
     public override bool ExpandSearch (Tile from, Tile to)
     {
