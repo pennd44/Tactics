@@ -13,7 +13,7 @@ public class StatChangingInteractable : Interactable
             character.findStatbyName(decrementedStats[i].stat).decrementStat(decrementedStats[i].ammount);
         }
         for(int i = 0; i< incrementedStats.Count;i++){
-            character.findStatbyName(incrementedStats[i].stat).decrementStat(incrementedStats[i].ammount);
+            character.findStatbyName(incrementedStats[i].stat).incrementStat(incrementedStats[i].ammount);
         }
     }
     public override bool CanInteract(Character character){

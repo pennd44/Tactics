@@ -53,7 +53,11 @@ GameObject:
   - component: {fileID: 4649025580862673054}
   - component: {fileID: -7621030494461491288}
   - component: {fileID: 1282736567088268856}
+<<<<<<< Updated upstream
   - component: {fileID: 2344974829700462233}
+=======
+  - component: {fileID: 7317618185023441510}
+>>>>>>> Stashed changes
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -343,7 +347,11 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+<<<<<<< Updated upstream
 --- !u!114 &2344974829700462233
+=======
+--- !u!114 &7317618185023441510
+>>>>>>> Stashed changes
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -352,6 +360,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1753490201988524455}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< Updated upstream
   m_Script: {fileID: 11500000, guid: cd69cdfeac7335d4b9e326d5c37d4128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -374,6 +383,12 @@ MonoBehaviour:
   onCharacterEventTriggered:
     m_PersistentCalls:
       m_Calls: []
+=======
+  m_Script: {fileID: 11500000, guid: 3ea9374b509b70f4bba37e4a2ca8cf00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueIdentifier: 
+>>>>>>> Stashed changes
 --- !u!1001 &464860451696153082
 PrefabInstance:
   m_ObjectHideFlags: 0
