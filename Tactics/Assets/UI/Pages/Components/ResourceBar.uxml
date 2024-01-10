@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Styles/VerticalViewStyle.uss?fileID=7433441132597879392&amp;guid=04ec99660a1099d4e99bcae6e05566cb&amp;type=3#VerticalViewStyle" />
+    <ui:VisualElement name="Container" style="flex-grow: 1;">
+        <ui:VisualElement name="barContainer" style="padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; flex-grow: 1; flex-direction: row; background-color: rgba(60, 60, 60, 0.74); margin-left: 34px; margin-right: 34px; margin-top: 34px; margin-bottom: 34px;">
+            <ui:VisualElement name="barFilled" style="flex-grow: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; background-color: rgba(209, 60, 60, 255); margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; width: 50%; flex-direction: column; background-image: url(&apos;project://database/Assets/EXTERNAL/ProPixelizer/ExampleAssets/Alpha/alpha_ramp.png?fileID=2800000&amp;guid=f9a659975afa9e84ca40c7160dc37212&amp;type=3#alpha_ramp&apos;);" />
+            <ui:VisualElement name="Values" style="position: absolute; align-items: center; justify-content: center; width: 50%; height: 50%; left: 25%; top: 25%; flex-direction: row;">
+                <ui:Label text="current" display-tooltip-when-elided="true" name="current" style="font-size: 33%;" />
+                <ui:Label text="/" display-tooltip-when-elided="true" style="font-size: 33%;" />
+                <ui:Label text="max" display-tooltip-when-elided="true" name="max" style="font-size: 33%;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
