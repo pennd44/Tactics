@@ -174,6 +174,20 @@ public class Board : MonoBehaviour
     private void Awake() {
         tiles = UnityEngine.Object.FindObjectsOfType<Tile>().ToList();
     }
+    public LevelData levelData;
+    public List<Quad> quads;
+    void Start()
+    {
+        foreach (Transform child in transform)
+        {
+            MeshFilter meshFilter = child.GetComponent<MeshFilter>();
+            Mesh mesh = meshFilter.mesh;
+            Vector3[] vertices = mesh.vertices;
+            Quad quad = new Quad(child.TransformPoint(vertices[0]), child.TransformPoint(vertices[1]), child.TransformPoint(vertices[2]), child.TransformPoint(vertices[3]));
+            quads.Add(quad);
+            // levelData.quads.Add(quad);
+        }
+    }
 
     public Tile getTile(Point p){
         foreach (Tile t in tiles)

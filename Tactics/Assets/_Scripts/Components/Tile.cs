@@ -23,6 +23,7 @@ public class Tile : MonoBehaviour
     //for diggable check thickness
     //if wall is over half unit height, knockback smacks them into the wall, otherwise they trip over the wall
 
+// if jump reaches wall you can climb
     public bool occupied = false;
     public bool selected = false;
     public bool selectable = false;
