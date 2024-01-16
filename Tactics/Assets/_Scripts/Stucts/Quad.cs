@@ -13,4 +13,8 @@ public struct Quad
         this.Third = third;
         this.Fourth = fourth;
     }
+    public override string ToString()
+    {
+        return "1 : " + First + " 2: " + Second + " 3: " + Third + " 4: " + Fourth;
+    }
 }
