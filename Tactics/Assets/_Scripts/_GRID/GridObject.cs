@@ -1,13 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.GameCenter;
-
+[Serializable]
 public class GridObject
 {
     // private GridSystem _gridSystem;
     private Point _point;
-    private Quad _quad;
+    public Quad _quad;
     public GridObject ( Point point, Quad quad)
     {
         // this._gridSystem = gridSystem;

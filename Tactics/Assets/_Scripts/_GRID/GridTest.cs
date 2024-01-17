@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 
 public class GridTest : MonoBehaviour
 {
@@ -104,15 +106,141 @@ public class GridTest : MonoBehaviour
                 levelData._gridObjects[x + 12,z + 28] = new List<GridObject>();
             }
             
-            GridObject go = new GridObject(new Point(x,z), new Quad(
-                mesh.vertices[mesh.triangles[t+0]],
-                mesh.vertices[mesh.triangles[t+1]],
-                mesh.vertices[mesh.triangles[t+2]],
-                mesh.vertices[mesh.triangles[t+5]]
-            ));
-            GameObject.Instantiate(debugPrefab, go.Center(), Quaternion.identity);
-            levelData._gridObjects[x + 12, z + 28].Add(go);
+            // GridObject go = new GridObject(new Point(x,z), new Quad(
+            //     mesh.vertices[mesh.triangles[t+0]],
+            //     mesh.vertices[mesh.triangles[t+1]],
+            //     mesh.vertices[mesh.triangles[t+2]],
+            //     mesh.vertices[mesh.triangles[t+5]]
+            // ));
+            // GameObject.Instantiate(debugPrefab, go.Center(), Quaternion.identity);
+            // levelData._gridObjects[x + 12, z + 28].Add(go);
         }
+    }
+
+
+    [ContextMenu("load grid objects 2")]
+    void LoadGridObjects2(){
+        mesh = GetComponent<MeshFilter>().sharedMesh;
+        // levelData.gridObjects2 = new List<GridObject>();
+        for (int t = 0; t < mesh.triangles.Length; t+=3)
+        {
+            Vector3 p0 = mesh.vertices[mesh.triangles[t+0]];
+            Vector3 p1 = mesh.vertices[mesh.triangles[t+1]];
+            Vector3 p2 = mesh.vertices[mesh.triangles[t+2]];
+
+
+            float distance0 = Vector3.Distance(p0, p1);
+            float distance1 = Vector3.Distance(p0, p2);
+            float distance2 = Vector3.Distance(p1, p2);
+            List<Vector3> edgePoints = new List<Vector3>();
+            Vector3 cornerPoint;
+            if (distance0 > distance1 && distance0 > distance2)
+            {
+                edgePoints.Add(p0);
+                edgePoints.Add(p1);
+                cornerPoint = p2;
+            }
+            else if (distance1 > distance2){
+                edgePoints.Add(p0);
+                edgePoints.Add(p2);
+                cornerPoint = p1;
+            }
+            else{
+                edgePoints.Add(p1);
+                edgePoints.Add(p2);
+                cornerPoint = p0;
+            }
+
+            Tri neighborTri;
+            for (int j = 0; j < mesh.triangles.Length; j+=3)
+            { 
+                List<Vector3> neighborEdgePoints = new List<Vector3>();
+                Vector3 cornerPointNeighbor = Vector3.up;
+                Vector3 v0 = mesh.vertices[mesh.triangles[j+0]];
+                Vector3 v1 = mesh.vertices[mesh.triangles[j+1]];
+                Vector3 v2 = mesh.vertices[mesh.triangles[j+2]];
+
+                if (edgePoints.Contains(v0)) 
+                {
+                    neighborEdgePoints.Add(v0);
+                }
+                else{
+                    cornerPointNeighbor = v0;
+                }
+                if (edgePoints.Contains(v1)) 
+                {
+                    neighborEdgePoints.Add(v1);
+                }
+                else{
+                    cornerPointNeighbor = v1;
+                }
+                if (edgePoints.Contains(v2)) 
+                {
+                    neighborEdgePoints.Add(v2);
+                }  else{
+                    cornerPointNeighbor = v2;
+                }
+                
+                if (neighborEdgePoints.Count== 2)
+                {
+                    if (cornerPointNeighbor == cornerPoint) continue;
+
+                    //triangle j is a neighbor
+                    neighborTri = (new Tri(v0, v1, v2));
+                    levelData.TrianglesDict.Add( (t+3)/3, (j+3)/3);
+                    break;
+                }
+
+                // if (v == v1 || v == v2 || v == v3){ // if any common vertex found…
+//     var nTri: int = i / 3; // find the triangle number…
+//     if (nTri != myTriangle){ // and if it’s diff from #myTriangle…
+//     // triangle #nTri is neighbour of triangle #myTriangle
+//     }
+            }
+
+
+
+
+
+
+            // int x = (int)(( p0.x + p1.x + p2.x ) / 3);
+            // int z = (int)(( p0.z + p1.z + p2.z) / 3);
+            
+             
+            
+            
+            
+            // GridObject go = new GridObject(new Point(x,z), new Quad(
+            //     mesh.vertices[mesh.triangles[t+0]],
+            //     mesh.vertices[mesh.triangles[t+1]],
+            //     mesh.vertices[mesh.triangles[t+2]],
+            //     mesh.vertices[mesh.triangles[t+5]]
+            // ));
+            // levelData.gridObjects2.Add(go);
+        }
+
+
+
+
+               
+//     int i = myTriangle * 3; // each triangle occupies 3 entries in the triangles array
+//     int v1= triangles[i++]; // get v1, v2 and v3,
+//     int v2 = triangles[i++]; // the 3 vertex indexes of
+//     int v3 = triangles*; // triangle #myTriangle*
+// for (i = 0; i < triangles.length; i++){
+// // compare each vertex index to v1, v2 and v3:
+//     var v: int = triangles*;*
+//     if (v == v1 || v == v2 || v == v3){ // if any common vertex found…
+//     var nTri: int = i / 3; // find the triangle number…
+//     if (nTri != myTriangle){ // and if it’s diff from #myTriangle…
+//     // triangle #nTri is neighbour of triangle #myTriangle
+//     }
+//     }
+// }
+
+
+
+
     }
     
     private Vector3[] modifiedVerts;
@@ -247,4 +375,8 @@ public class GridTest : MonoBehaviour
     //             mesh.vertices = finalVertices;
     //             mesh.triangles = newTris;
     // }
+
+
+
+    
 }
