@@ -6,8 +6,9 @@ using UnityEngine;
 public class LevelData : ScriptableObject {
     public List<GridObject> [,] _gridObjects;
     public List<GridObject> gridObjects2;
-
-    public Dictionary<int, int> TrianglesDict = new Dictionary<int, int>();
+    public List<Tri> AllTris = new List<Tri>();
+    public List<Vertex> AllVerts = new List<Vertex>();
+    public Dictionary<int, int> TrianglesDict;// = new Dictionary<int, int>();
     public Quad FindQuadFromTriangle(int triangleIndex)
     {
 

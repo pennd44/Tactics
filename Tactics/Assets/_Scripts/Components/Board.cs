@@ -183,8 +183,8 @@ public class Board : MonoBehaviour
             MeshFilter meshFilter = child.GetComponent<MeshFilter>();
             Mesh mesh = meshFilter.mesh;
             Vector3[] vertices = mesh.vertices;
-            Quad quad = new Quad(child.TransformPoint(vertices[0]), child.TransformPoint(vertices[1]), child.TransformPoint(vertices[2]), child.TransformPoint(vertices[3]));
-            quads.Add(quad);
+            // Quad quad = new Quad(child.TransformPoint(vertices[0]), child.TransformPoint(vertices[1]), child.TransformPoint(vertices[2]), child.TransformPoint(vertices[3]));
+            // quads.Add(quad);
             // levelData.quads.Add(quad);
         }
     }

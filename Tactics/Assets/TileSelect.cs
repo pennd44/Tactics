@@ -13,7 +13,7 @@ public class TileSelect : MonoBehaviour
         new Vector3(1,0,1),
     };
     private Vector3 [] modifiedVerts;
-    int [] tris = new int[6]{0, 2, 1, 1, 2, 3};
+    int [] tris = new int[6]{2, 1, 0, 3, 1, 2};
     void Start()
     {
         mesh = GetComponent<MeshFilter>().mesh;
@@ -21,15 +21,16 @@ public class TileSelect : MonoBehaviour
         mesh.triangles = tris;
         mesh.RecalculateNormals();
         modifiedVerts = new Vector3[4];
-        // for (int i = 0; i < verts.Length; i++)
-        // {
-        //     modifiedVerts[i] = verts[i];
-        // }
+        for (int i = 0; i < verts.Length; i++)
+        {
+            modifiedVerts[i] = verts[i];
+        }
+        Debug.Log(levelData.TrianglesDict);
         // Debug.Log(levelData.gridObjects2);
-        modifiedVerts[0] = levelData.gridObjects2[0]._quad.First;
-        modifiedVerts[1] = levelData.gridObjects2[0]._quad.Second;
-        modifiedVerts[2] = levelData.gridObjects2[0]._quad.Third;
-        modifiedVerts[3] = levelData.gridObjects2[0]._quad.Fourth;
+        // modifiedVerts[0] = levelData.gridObjects2[0]._quad.First;
+        // modifiedVerts[1] = levelData.gridObjects2[0]._quad.Second;
+        // modifiedVerts[2] = levelData.gridObjects2[0]._quad.Third;
+        // modifiedVerts[3] = levelData.gridObjects2[0]._quad.Fourth;
         RecalculateMesh();
     }
     //Get quad that has hit triangle index in leveldata.gridObjects2
@@ -41,15 +42,15 @@ public class TileSelect : MonoBehaviour
         mesh.RecalculateBounds();
     }
 
-    void IncrementQuad(int i)
-    {
-        modifiedVerts[0] = levelData.gridObjects2[i]._quad.First;
-        modifiedVerts[1] = levelData.gridObjects2[i]._quad.Second;
-        modifiedVerts[2] = levelData.gridObjects2[i]._quad.Third;
-        modifiedVerts[3] = levelData.gridObjects2[i]._quad.Fourth;
-        RecalculateMesh();
+    // void IncrementQuad(int i)
+    // {
+    //     modifiedVerts[0] = levelData.gridObjects2[i]._quad.First;
+    //     modifiedVerts[1] = levelData.gridObjects2[i]._quad.Second;
+    //     modifiedVerts[2] = levelData.gridObjects2[i]._quad.Third;
+    //     modifiedVerts[3] = levelData.gridObjects2[i]._quad.Fourth;
+    //     RecalculateMesh();
 
-    }
+    // }
     int quadIndex = 0;
     // Update is called once per frame
     void Update()
@@ -62,17 +63,18 @@ public class TileSelect : MonoBehaviour
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if(Physics.Raycast(ray, out hit, Mathf.Infinity)){
-            MeshCollider meshCollider = hit.collider as MeshCollider;
 
-            Mesh meshh = meshCollider.sharedMesh;
-            Vector3[] vertices = meshh.vertices;
-            int[] triangles= meshh.triangles;
+            Vector3 p0 = levelData.AllTris[hit.triangleIndex].cornerPoint.pos;
+            Vector3 p1 = levelData.AllTris[hit.triangleIndex].longestEdgePoints[0].pos;
+            Vector3 p2 = levelData.AllTris[hit.triangleIndex].longestEdgePoints[1].pos;
+            Vector3 p3 = levelData.AllTris[levelData.TrianglesDict[hit.triangleIndex]].cornerPoint.pos;
+
             // Quad hitQuad = levelData.FindQuadFromTriangle(hit.triangleIndex);
-            Vector3 p0 = vertices[triangles[hit.triangleIndex * 3 + 0]] + Vector3.up * 0.1f;
-            Vector3 p1 = vertices[triangles[hit.triangleIndex * 3 + 1]] + Vector3.up * 0.1f;
-            Vector3 p2 = vertices[triangles[hit.triangleIndex * 3 + 2]] + Vector3.up * 0.1f;
-            Vector3 p3 = vertices[triangles[levelData.TrianglesDict[hit.triangleIndex * 3 + 1]]] + Vector3.up * 0.1f;
-            Transform hitTransform = hit.collider.transform;
+            // Vector3 p0 = vertices[triangles[hit.triangleIndex * 3 + 0]] + Vector3.up * 0.1f;
+            // Vector3 p1 = vertices[triangles[hit.triangleIndex * 3 + 1]] + Vector3.up * 0.1f;
+            // Vector3 p2 = vertices[triangles[hit.triangleIndex * 3 + 2]] + Vector3.up * 0.1f;
+            // Vector3 p3 = vertices[triangles[levelData.TrianglesDict[hit.triangleIndex * 3 + 1]]] + Vector3.up * 0.1f;
+            // Transform hitTransform = hit.collider.transform;
             // p0 = hitTransform.TransformPoint(p0);
             // p1 = hitTransform.TransformPoint(p1);
             // p2 = hitTransform.TransformPoint(p2);
@@ -83,6 +85,28 @@ public class TileSelect : MonoBehaviour
             mesh.vertices = modifiedVerts;
             mesh.RecalculateNormals();
             mesh.RecalculateBounds();
+            
+            MeshCollider meshCollider = hit.collider as MeshCollider;
+            Mesh meshh = meshCollider.sharedMesh;
+            Vector3[] vertices = meshh.vertices;
+            int[] triangles= meshh.triangles;
+            if (Input.GetMouseButton(0))
+            {
+                vertices[triangles[levelData.AllTris[hit.triangleIndex].cornerPoint.id]] -= Vector3.up * 0.2f;
+                vertices[triangles[levelData.AllTris[hit.triangleIndex].longestEdgePoints[0].id]] -= Vector3.up * 0.2f;
+                vertices[triangles[levelData.AllTris[hit.triangleIndex].longestEdgePoints[1].id]] -= Vector3.up * 0.2f;
+                vertices[triangles[levelData.AllTris[levelData.TrianglesDict[hit.triangleIndex]].cornerPoint.id]] -= Vector3.up * 0.2f;
+
+                meshh.vertices = vertices;
+                meshh.RecalculateNormals();
+                meshh.RecalculateBounds();
+
+                //update leveldata
+                levelData.AllTris[hit.triangleIndex].cornerPoint.pos  = vertices[triangles[levelData.AllTris[hit.triangleIndex].cornerPoint.id]];
+                levelData.AllTris[hit.triangleIndex].longestEdgePoints[0].pos = vertices[triangles[levelData.AllTris[hit.triangleIndex].longestEdgePoints[0].id]];
+                levelData.AllTris[hit.triangleIndex].longestEdgePoints[1].pos = vertices[triangles[levelData.AllTris[hit.triangleIndex].longestEdgePoints[1].id]];
+                levelData.AllTris[levelData.TrianglesDict[hit.triangleIndex]].cornerPoint.pos = vertices[triangles[levelData.AllTris[levelData.TrianglesDict[hit.triangleIndex]].cornerPoint.id]];
+            }
         //     // Debug.DrawLine(p0, p1);
         //     // Debug.DrawLine(p1, p2);
         //     // Debug.DrawLine(p2, p0);

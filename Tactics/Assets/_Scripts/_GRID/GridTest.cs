@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TreeEditor;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -10,6 +11,7 @@ using UnityEngine.UIElements;
 public class GridTest : MonoBehaviour
 {
     [SerializeField] public LevelData levelData;
+    public Dictionary<int, int> trianglePairs;
     Mesh mesh;
     public Vector3[] vertices;
     [ContextMenu("Preload")]
@@ -58,11 +60,6 @@ public class GridTest : MonoBehaviour
             triPoint => VerticesAtPoint(point).Contains(mesh.vertices[triPoint]));
         return trianglesAtPoint.ToList();
     }
-
-    void ContinuousTriangle(){
-
-    }
-
     // We want each tile to have its 4 vetices
     //To do that we need both its triangles
     //To do that we need 2 sets of 3 verts that belong to those triangles
@@ -72,16 +69,28 @@ public class GridTest : MonoBehaviour
         mesh = GetComponent<MeshFilter>().mesh;
         vertices = mesh.vertices;
         modifiedVerts = new Vector3[vertices.Length];
+        FindOppositeTrisruntime();
         for (int i = 0; i < vertices.Length; i++)
         {
             modifiedVerts[i] = vertices[i];
         }
         MoveQuads();
+        trianglePairs = levelData.TrianglesDict;
     }
     //initialize gridObjects list at every x z point on map
     //go through triangles and add each quad to list[x,z]
     [SerializeField] Transform debugPrefab;
     public GridObject test;
+    [ContextMenu("Trd")]
+    void Test(){
+        Debug.Log(levelData.TrianglesDict);
+
+        foreach(KeyValuePair<int, int> items in levelData.TrianglesDict)
+    {
+        Debug.Log("You have " + items.Value + " " + items.Key);
+
+    }
+    }
     [ContextMenu("load grid objects")]
     void LoadGridObjects(){
         mesh = GetComponent<MeshFilter>().sharedMesh;
@@ -117,86 +126,149 @@ public class GridTest : MonoBehaviour
         }
     }
 
-
-    [ContextMenu("load grid objects 2")]
-    void LoadGridObjects2(){
+    //Get all Tris
+    [ContextMenu("Find All Vertices")]
+    void GetAllVerts(){
         mesh = GetComponent<MeshFilter>().sharedMesh;
-        // levelData.gridObjects2 = new List<GridObject>();
+        levelData.AllVerts = new List<Vertex>();
+        for (int t = 0; t < mesh.vertices.Length; t+=3)
+        {
+            levelData.AllVerts.Add(new Vertex(t, mesh.vertices[t]));
+        }
+    }
+    //Get all Tris
+    [ContextMenu("Find All Triangles")]
+    void GetAllTris(){
+        mesh = GetComponent<MeshFilter>().sharedMesh;
+        levelData.AllTris = new List<Tri>();
+        List<Vertex> verts = levelData.AllVerts;
         for (int t = 0; t < mesh.triangles.Length; t+=3)
         {
-            Vector3 p0 = mesh.vertices[mesh.triangles[t+0]];
-            Vector3 p1 = mesh.vertices[mesh.triangles[t+1]];
-            Vector3 p2 = mesh.vertices[mesh.triangles[t+2]];
+            Vertex v1 = verts[mesh.triangles[t+0]];
+            Vertex v2 = new Vertex(t + 1, mesh.vertices[mesh.triangles[t+1]]);
+            Vertex v3 = new Vertex(t + 2, mesh.vertices[mesh.triangles[t+2]]);
+            levelData.AllTris.Add(new Tri( (t+3)/3 - 1, v1, v2, v3 ));
+        }
+    }
 
-
-            float distance0 = Vector3.Distance(p0, p1);
-            float distance1 = Vector3.Distance(p0, p2);
-            float distance2 = Vector3.Distance(p1, p2);
-            List<Vector3> edgePoints = new List<Vector3>();
-            Vector3 cornerPoint;
-            if (distance0 > distance1 && distance0 > distance2)
+    //Find Opposite Triangles
+    [ContextMenu("Find Complementary Triangles")]
+    void FindOppositeTris(){
+        List<Tri> AllTris = levelData.AllTris;
+        // Debug.Log(AllTris.Count);
+        levelData.TrianglesDict = new Dictionary<int, int>();
+        for (int t = 0; t < AllTris.Count; t++)
+        {
+            // Debug.Log(t);
+            for (int i = 0; i < AllTris.Count; i++)
             {
-                edgePoints.Add(p0);
-                edgePoints.Add(p1);
-                cornerPoint = p2;
-            }
-            else if (distance1 > distance2){
-                edgePoints.Add(p0);
-                edgePoints.Add(p2);
-                cornerPoint = p1;
-            }
-            else{
-                edgePoints.Add(p1);
-                edgePoints.Add(p2);
-                cornerPoint = p0;
-            }
+            //     //opposite order!
+                if(
+                    AllTris[i].longestEdgePoints[0] == AllTris[t].longestEdgePoints[1] && 
+                    AllTris[i].longestEdgePoints[1] == AllTris[t].longestEdgePoints[0]
+                ){
+                    Debug.Log(AllTris[i].Id + " " + AllTris[t].Id);
+                    levelData.TrianglesDict.Add(AllTris[i].Id, AllTris[t].Id);
+                }
 
-            Tri neighborTri;
-            for (int j = 0; j < mesh.triangles.Length; j+=3)
-            { 
-                List<Vector3> neighborEdgePoints = new List<Vector3>();
-                Vector3 cornerPointNeighbor = Vector3.up;
-                Vector3 v0 = mesh.vertices[mesh.triangles[j+0]];
-                Vector3 v1 = mesh.vertices[mesh.triangles[j+1]];
-                Vector3 v2 = mesh.vertices[mesh.triangles[j+2]];
+            }
+        }
+    }
 
-                if (edgePoints.Contains(v0)) 
-                {
-                    neighborEdgePoints.Add(v0);
+       void FindOppositeTrisruntime(){
+        List<Tri> AllTris = levelData.AllTris;
+        // Debug.Log(AllTris.Count);
+        levelData.TrianglesDict = new Dictionary<int, int>();
+        for (int t = 0; t < AllTris.Count; t++)
+        {
+            // Debug.Log(t);
+            for (int i = 0; i < AllTris.Count; i++)
+            {
+            //     //opposite order!
+                if(
+                    AllTris[i].longestEdgePoints[0] == AllTris[t].longestEdgePoints[1] && 
+                    AllTris[i].longestEdgePoints[1] == AllTris[t].longestEdgePoints[0]
+                ){
+                    Debug.Log(AllTris[i].Id + " " + AllTris[t].Id);
+                    levelData.TrianglesDict.Add(AllTris[i].Id, AllTris[t].Id);
                 }
-                else{
-                    cornerPointNeighbor = v0;
-                }
-                if (edgePoints.Contains(v1)) 
-                {
-                    neighborEdgePoints.Add(v1);
-                }
-                else{
-                    cornerPointNeighbor = v1;
-                }
-                if (edgePoints.Contains(v2)) 
-                {
-                    neighborEdgePoints.Add(v2);
-                }  else{
-                    cornerPointNeighbor = v2;
-                }
+
+            }
+        }
+    }
+
+
+    // [ContextMenu("load grid objects 2")]
+    // void LoadGridObjects2(){
+    //     mesh = GetComponent<MeshFilter>().sharedMesh;
+    //     for (int t = 0; t < mesh.triangles.Length; t+=3)
+    //     {
+    //         Vector3 p0 = mesh.vertices[mesh.triangles[t+0]];
+    //         Vector3 p1 = mesh.vertices[mesh.triangles[t+1]];
+    //         Vector3 p2 = mesh.vertices[mesh.triangles[t+2]];
+
+    //         float distance0 = Vector3.Distance(p0, p1);
+    //         float distance1 = Vector3.Distance(p1, p2);
+    //         float distance2 = Vector3.Distance(p2, p0);
+    //         Vector3[] edgePoints = new Vector3[2];
+    //         Vector3 cornerPoint;
+    //         if (distance0 > distance1 && distance0 > distance2)
+    //         {
+    //             edgePoints[0] = p0;
+    //             edgePoints[1] = p1;
+    //             cornerPoint = p2;
+    //         }
+    //         else if (distance1 > distance2){
+    //             edgePoints[0] = p1;
+    //             edgePoints[1] = p2;
+    //             cornerPoint = p0;
+    //         }
+    //         else{
+    //             edgePoints[0] = p2;
+    //             edgePoints[1] = p0;
+    //             cornerPoint = p1;
+    //         }
+
+    //         Tri neighborTri;
+    //         for (int j = 0; j < mesh.triangles.Length; j+=3)
+    //         { 
+    //             List<Vector3> neighborEdgePoints = new List<Vector3>();
+    //             Vector3 cornerPointNeighbor = Vector3.up;
+    //             Vector3 v0 = mesh.vertices[mesh.triangles[j+0]];
+    //             Vector3 v1 = mesh.vertices[mesh.triangles[j+1]];
+    //             Vector3 v2 = mesh.vertices[mesh.triangles[j+2]];
+
+    //             if (edgePoints.Contains(v0)) 
+    //             {
+    //                 neighborEdgePoints.Add(v0);
+    //             }
+    //             else{
+    //                 cornerPointNeighbor = v0;
+    //             }
+    //             if (edgePoints.Contains(v1)) 
+    //             {
+    //                 neighborEdgePoints.Add(v1);
+    //             }
+    //             else{
+    //                 cornerPointNeighbor = v1;
+    //             }
+    //             if (edgePoints.Contains(v2)) 
+    //             {
+    //                 neighborEdgePoints.Add(v2);
+    //             }  else{
+    //                 cornerPointNeighbor = v2;
+    //             }
                 
-                if (neighborEdgePoints.Count== 2)
-                {
-                    if (cornerPointNeighbor == cornerPoint) continue;
+    //             if (neighborEdgePoints.Count== 2)
+    //             {
+    //                 if (cornerPointNeighbor == cornerPoint) continue;
 
-                    //triangle j is a neighbor
-                    neighborTri = (new Tri(v0, v1, v2));
-                    levelData.TrianglesDict.Add( (t+3)/3, (j+3)/3);
-                    break;
-                }
-
-                // if (v == v1 || v == v2 || v == v3){ // if any common vertex found…
-//     var nTri: int = i / 3; // find the triangle number…
-//     if (nTri != myTriangle){ // and if it’s diff from #myTriangle…
-//     // triangle #nTri is neighbour of triangle #myTriangle
-//     }
-            }
+    //                 //triangle j is a neighbor
+    //                 neighborTri = (new Tri(v0, v1, v2));
+    //                 levelData.TrianglesDict.Add( (t+3)/3, (j+3)/3);
+    //                 break;
+    //             }
+    //         }
 
 
 
@@ -217,31 +289,8 @@ public class GridTest : MonoBehaviour
             //     mesh.vertices[mesh.triangles[t+5]]
             // ));
             // levelData.gridObjects2.Add(go);
-        }
-
-
-
-
-               
-//     int i = myTriangle * 3; // each triangle occupies 3 entries in the triangles array
-//     int v1= triangles[i++]; // get v1, v2 and v3,
-//     int v2 = triangles[i++]; // the 3 vertex indexes of
-//     int v3 = triangles*; // triangle #myTriangle*
-// for (i = 0; i < triangles.length; i++){
-// // compare each vertex index to v1, v2 and v3:
-//     var v: int = triangles*;*
-//     if (v == v1 || v == v2 || v == v3){ // if any common vertex found…
-//     var nTri: int = i / 3; // find the triangle number…
-//     if (nTri != myTriangle){ // and if it’s diff from #myTriangle…
-//     // triangle #nTri is neighbour of triangle #myTriangle
-//     }
-//     }
-// }
-
-
-
-
-    }
+        // }
+    // }
     
     private Vector3[] modifiedVerts;
     void MoveQuads(){
