@@ -1,3 +1,4 @@
+using System.Runtime.ExceptionServices;
 using UnityEngine;
 [System.Serializable]
 
@@ -5,8 +6,11 @@ public class Tri
 {
     public int Id;
     public Vertex First;
+    public int FirstIndex;
     public Vertex Second;
+    public int SecondIndex;
     public Vertex Third;
+    public int ThirdIndex;
 
     public Vertex [] longestEdgePoints = new Vertex[2];
     public Vertex cornerPoint;

@@ -14,6 +14,42 @@ public class GridTest : MonoBehaviour
     public Dictionary<int, int> trianglePairs;
     Mesh mesh;
     public Vector3[] vertices;
+    // public List<Vector3> verticesInLevelData;
+
+    private void Start() {
+
+
+        mesh = GetComponent<MeshFilter>().mesh;
+        levelData.AllVerts = new List<Vertex>();
+        for (int t = 0; t < mesh.vertices.Length; t++)
+        {
+            //do we need an id?
+            levelData.AllVerts.Add(new Vertex(t, mesh.vertices[t]));
+        }
+        levelData.AllTris = new List<Tri>();
+        for (int t = 0; t < mesh.triangles.Length; t+=3)
+        {
+            levelData.AllTriangles.Add(mesh.triangles[t+0]);
+            levelData.AllTriangles.Add(mesh.triangles[t+1]);
+            levelData.AllTriangles.Add(mesh.triangles[t+2]);
+            Vertex v1 = levelData.AllVerts[mesh.triangles[t+0]];
+            Vertex v2 = levelData.AllVerts[mesh.triangles[t+1]];
+            Vertex v3 = levelData.AllVerts[mesh.triangles[t+2]];
+            levelData.AllTris.Add(new Tri( (t+3)/3 - 1, v1, v2, v3 ));
+        }
+        vertices = mesh.vertices;
+        // verticesInLevelData = levelData.AllVerts.Select(v => v.pos).ToList();
+        modifiedVerts = new Vector3[vertices.Length];
+        FindOppositeTrisruntime();
+        for (int i = 0; i < vertices.Length; i++)
+        {
+            modifiedVerts[i] = vertices[i];
+        }
+        MoveQuads();
+        trianglePairs = levelData.TrianglesDict;
+        MoveVertexAndLogTriangle();
+
+    }
     [ContextMenu("Preload")]
     private void Preload() {
         mesh = GetComponent<MeshFilter>().mesh;
@@ -65,18 +101,7 @@ public class GridTest : MonoBehaviour
     //To do that we need 2 sets of 3 verts that belong to those triangles
     // go from 8 verts to the 4 we need
     //To do that we need the verts within 0.5 tile lengths of our point
-    private void Start() {
-        mesh = GetComponent<MeshFilter>().mesh;
-        vertices = mesh.vertices;
-        modifiedVerts = new Vector3[vertices.Length];
-        FindOppositeTrisruntime();
-        for (int i = 0; i < vertices.Length; i++)
-        {
-            modifiedVerts[i] = vertices[i];
-        }
-        MoveQuads();
-        trianglePairs = levelData.TrianglesDict;
-    }
+
     //initialize gridObjects list at every x z point on map
     //go through triangles and add each quad to list[x,z]
     [SerializeField] Transform debugPrefab;
@@ -127,12 +152,22 @@ public class GridTest : MonoBehaviour
     }
 
     //Get all Tris
+    [ContextMenu("Test relationship between AllVerts and AllTris")]
+    void MoveVertexAndLogTriangle(){
+        Debug.Log(levelData.AllTris.First().First.pos);
+        Vertex v1 = levelData.GetVertexFromVector3(levelData.AllTris.First().First.pos);
+        v1.pos += Vector3.up;
+        Debug.Log(v1.pos);
+        // levelData.GetVertexFromVector3(levelData.AllTris.First().First.pos).pos += Vector3.up;
+        Debug.Log(levelData.AllTris.First().First.pos);
+    }
     [ContextMenu("Find All Vertices")]
     void GetAllVerts(){
         mesh = GetComponent<MeshFilter>().sharedMesh;
         levelData.AllVerts = new List<Vertex>();
-        for (int t = 0; t < mesh.vertices.Length; t+=3)
+        for (int t = 0; t < mesh.vertices.Length; t++)
         {
+            //do we need an id?
             levelData.AllVerts.Add(new Vertex(t, mesh.vertices[t]));
         }
     }
@@ -145,8 +180,8 @@ public class GridTest : MonoBehaviour
         for (int t = 0; t < mesh.triangles.Length; t+=3)
         {
             Vertex v1 = verts[mesh.triangles[t+0]];
-            Vertex v2 = new Vertex(t + 1, mesh.vertices[mesh.triangles[t+1]]);
-            Vertex v3 = new Vertex(t + 2, mesh.vertices[mesh.triangles[t+2]]);
+            Vertex v2 = verts[mesh.triangles[t+1]];
+            Vertex v3 = verts[mesh.triangles[t+2]];
             levelData.AllTris.Add(new Tri( (t+3)/3 - 1, v1, v2, v3 ));
         }
     }
@@ -155,19 +190,15 @@ public class GridTest : MonoBehaviour
     [ContextMenu("Find Complementary Triangles")]
     void FindOppositeTris(){
         List<Tri> AllTris = levelData.AllTris;
-        // Debug.Log(AllTris.Count);
         levelData.TrianglesDict = new Dictionary<int, int>();
         for (int t = 0; t < AllTris.Count; t++)
         {
-            // Debug.Log(t);
             for (int i = 0; i < AllTris.Count; i++)
             {
-            //     //opposite order!
                 if(
                     AllTris[i].longestEdgePoints[0] == AllTris[t].longestEdgePoints[1] && 
                     AllTris[i].longestEdgePoints[1] == AllTris[t].longestEdgePoints[0]
                 ){
-                    Debug.Log(AllTris[i].Id + " " + AllTris[t].Id);
                     levelData.TrianglesDict.Add(AllTris[i].Id, AllTris[t].Id);
                 }
 
@@ -177,19 +208,15 @@ public class GridTest : MonoBehaviour
 
        void FindOppositeTrisruntime(){
         List<Tri> AllTris = levelData.AllTris;
-        // Debug.Log(AllTris.Count);
         levelData.TrianglesDict = new Dictionary<int, int>();
         for (int t = 0; t < AllTris.Count; t++)
         {
-            // Debug.Log(t);
             for (int i = 0; i < AllTris.Count; i++)
             {
-            //     //opposite order!
                 if(
                     AllTris[i].longestEdgePoints[0] == AllTris[t].longestEdgePoints[1] && 
                     AllTris[i].longestEdgePoints[1] == AllTris[t].longestEdgePoints[0]
                 ){
-                    Debug.Log(AllTris[i].Id + " " + AllTris[t].Id);
                     levelData.TrianglesDict.Add(AllTris[i].Id, AllTris[t].Id);
                 }
 

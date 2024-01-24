@@ -1,10 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
-public struct Vertex
+public class Vertex
 {
     public int id;
     public Vector3 pos;
-    public Vertex(int id, Vector3 pos)
+    public Vertex( int id, Vector3 pos)
     {
         this.id = id;
         this.pos = pos;
@@ -17,5 +18,10 @@ public struct Vertex
     {
         return !(a == b);
     }
-    //get vertex
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+            return false;
+        return pos == ((Vertex)obj).pos;
+    }
 }

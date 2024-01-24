@@ -496,10 +496,19 @@ MonoBehaviour:
   debugPrefab: {fileID: 0}
   test:
     _quad:
-      First: {x: 0, y: 0, z: 0}
-      Second: {x: 0, y: 0, z: 0}
-      Third: {x: 0, y: 0, z: 0}
-      Fourth: {x: 0, y: 0, z: 0}
+      First:
+        id: 0
+        pos: {x: 0, y: 0, z: 0}
+      Second:
+        id: 0
+        pos: {x: 0, y: 0, z: 0}
+      Third:
+        id: 0
+        pos: {x: 0, y: 0, z: 0}
+      Fourth:
+        id: 0
+        pos: {x: 0, y: 0, z: 0}
+      triangles: []
 --- !u!1001 &1636889437
 PrefabInstance:
   m_ObjectHideFlags: 0
