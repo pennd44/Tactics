@@ -19,27 +19,27 @@ public class GridTest : MonoBehaviour
     private void Start() {
 
 
-        mesh = GetComponent<MeshFilter>().mesh;
-        levelData.AllVerts = new List<Vertex>();
-        for (int t = 0; t < mesh.vertices.Length; t++)
-        {
-            //do we need an id?
-            levelData.AllVerts.Add(new Vertex(t, mesh.vertices[t]));
-        }
-        levelData.AllTris = new List<Tri>();
-        for (int t = 0; t < mesh.triangles.Length; t+=3)
-        {
-            levelData.AllTriangles.Add(mesh.triangles[t+0]);
-            levelData.AllTriangles.Add(mesh.triangles[t+1]);
-            levelData.AllTriangles.Add(mesh.triangles[t+2]);
-            Vertex v1 = levelData.AllVerts[mesh.triangles[t+0]];
-            Vertex v2 = levelData.AllVerts[mesh.triangles[t+1]];
-            Vertex v3 = levelData.AllVerts[mesh.triangles[t+2]];
-            levelData.AllTris.Add(new Tri( (t+3)/3 - 1, v1, v2, v3 ));
-        }
-        vertices = mesh.vertices;
+        // mesh = GetComponent<MeshFilter>().mesh;
+        // levelData.AllVerts = new List<Vertex>();
+        // for (int t = 0; t < mesh.vertices.Length; t++)
+        // {
+        //     //do we need an id?
+        //     levelData.AllVerts.Add(new Vertex(t, mesh.vertices[t]));
+        // }
+        // levelData.AllTris = new List<Tri>();
+        // for (int t = 0; t < mesh.triangles.Length; t+=3)
+        // {
+        //     levelData.AllTriangles.Add(mesh.triangles[t+0]);
+        //     levelData.AllTriangles.Add(mesh.triangles[t+1]);
+        //     levelData.AllTriangles.Add(mesh.triangles[t+2]);
+        //     Vertex v1 = levelData.AllVerts[mesh.triangles[t+0]];
+        //     Vertex v2 = levelData.AllVerts[mesh.triangles[t+1]];
+        //     Vertex v3 = levelData.AllVerts[mesh.triangles[t+2]];
+        //     levelData.AllTris.Add(new Tri( (t+3)/3 - 1, v1, v2, v3 ));
+        // }
+        // vertices = mesh.vertices;
         // verticesInLevelData = levelData.AllVerts.Select(v => v.pos).ToList();
-        modifiedVerts = new Vector3[vertices.Length];
+        // modifiedVerts = new Vector3[vertices.Length];
         FindOppositeTrisruntime();
         for (int i = 0; i < vertices.Length; i++)
         {

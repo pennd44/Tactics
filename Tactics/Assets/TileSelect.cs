@@ -106,11 +106,11 @@ public class TileSelect : MonoBehaviour
                 Tri tri2 = levelData.AllTris[levelData.TrianglesDict[hit.triangleIndex]];
                 
                 //get the mesh.vertices index of the corner point of the triangle
-                int cornerPointIndex = GetVertexIndex(tri1.cornerPoint.pos, hitMesh.vertices);
-                int cornerPointIndex2 = GetVertexIndex(tri2.cornerPoint.pos, hitMesh.vertices);
+                int cornerPointIndex = tri1.cornerPointIndex;
+                int cornerPointIndex2 = tri2.cornerPointIndex;
                 //get the mesh.vertices index of the longest edge point of the triangle
-                int longestEdgePointIndex = GetVertexIndex(tri1.longestEdgePoints[0].pos, hitMesh.vertices);
-                int longestEdgePointIndex2 = GetVertexIndex(tri1.longestEdgePoints[1].pos, hitMesh.vertices);
+                int longestEdgePointIndex = tri1.longestEdgePoints1Index;
+                int longestEdgePointIndex2 = tri1.longestEdgePoints2Index;
 
 
                 vertices[cornerPointIndex] -= Vector3.up;
@@ -218,6 +218,7 @@ public class TileSelect : MonoBehaviour
                 hitMesh.triangles = triangles.ToArray();
                 hitMesh.RecalculateNormals();
                 hitMesh.RecalculateBounds();
+                meshCollider.sharedMesh = hitMesh;
                 //nicccce next is making the tile select mesh update to match the hitmesh
                 levelData.AllVerts.Add(v0);
                 levelData.AllVerts.Add(v1);
@@ -226,9 +227,9 @@ public class TileSelect : MonoBehaviour
                 levelData.AllTris[hit.triangleIndex].cornerPoint = v0;
                 levelData.AllTris[hit.triangleIndex].longestEdgePoints[0] = v1;
                 levelData.AllTris[hit.triangleIndex].longestEdgePoints[1] = v2;
-                levelData.AllTris[levelData.TrianglesDict[hit.triangleIndex]].First = v3;
-                levelData.AllTris[levelData.TrianglesDict[hit.triangleIndex]].Second = v1;
-                levelData.AllTris[levelData.TrianglesDict[hit.triangleIndex]].Third = v2;
+                levelData.AllTris[levelData.TrianglesDict[hit.triangleIndex]].cornerPoint = v3;
+                levelData.AllTris[levelData.TrianglesDict[hit.triangleIndex]].longestEdgePoints[0] = v1;
+                levelData.AllTris[levelData.TrianglesDict[hit.triangleIndex]].longestEdgePoints[1] = v2;
 
                 // levelData.AllTris.RemoveAt(hit.triangleIndex);
                 // levelData.AllTris.RemoveAt(levelData.TrianglesDict[hit.triangleIndex]);

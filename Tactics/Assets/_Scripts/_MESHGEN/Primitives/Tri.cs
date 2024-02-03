@@ -6,22 +6,27 @@ public class Tri
 {
     public int Id;
     public Vertex First;
-    public int FirstIndex;
+    // public int FirstIndex;
     public Vertex Second;
-    public int SecondIndex;
+    // public int SecondIndex;
     public Vertex Third;
-    public int ThirdIndex;
+    // public int ThirdIndex;
+
+    public int longestEdgePoints1Index;
+    public int longestEdgePoints2Index;
+    public int cornerPointIndex;
 
     public Vertex [] longestEdgePoints = new Vertex[2];
     public Vertex cornerPoint;
     
-    public Tri(int Id, Vertex first, Vertex second, Vertex third){
+    public Tri(int Id, Vertex first, Vertex second, Vertex third ){
         this.Id = Id;
         this.First = first;
         this.Second = second;
         this.Third = third;
         SetUp();
     }
+
 
     private void SetUp(){
         float distance0 = Vector3.Distance(First.pos, Second.pos);
@@ -30,18 +35,27 @@ public class Tri
         if (distance0 > distance1 && distance0 > distance2)
         {
             longestEdgePoints[0] = First;
+            longestEdgePoints1Index = First.id;
             longestEdgePoints[1] = Second;
+            longestEdgePoints2Index = Second.id;
             cornerPoint = Third;
+            cornerPointIndex = Third.id;
         }
         else if (distance1 > distance2){
             longestEdgePoints[0] = Second;
+            longestEdgePoints1Index = Second.id;
             longestEdgePoints[1] = Third;
+            longestEdgePoints2Index = Third.id;
             cornerPoint = First;
+            cornerPointIndex = First.id;
         }
         else{
             longestEdgePoints[0] = Third;
+            longestEdgePoints1Index = Third.id;
             longestEdgePoints[1] = First;
+            longestEdgePoints2Index = First.id;
             cornerPoint = Second;
+            cornerPointIndex = Second.id;
         }
     }
     public override string ToString()
