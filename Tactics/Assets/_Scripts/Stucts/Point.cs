@@ -1,4 +1,4 @@
-// [System.Serializable]
+[System.Serializable]
 public struct Point
 {
     public int x;

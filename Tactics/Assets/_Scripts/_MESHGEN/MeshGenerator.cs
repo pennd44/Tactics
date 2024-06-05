@@ -1,85 +1,96 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MeshGenerator : MonoBehaviour
 {
     [SerializeField] LevelData levelData;
-
-    void GenerateQuad(Quad quad){
-        Mesh mesh = new Mesh();
-        // int [] triangles;
-        // Vector3 [] vertices;
-
-    }
-    void GenerateMap(List<Quad> quads){
-        foreach (Quad quad in quads)
-        {
-            GenerateQuad(quad);
-        }
-    }
-    public int WorldX;
-    public int WorldZ;
     private Mesh mesh;
     private int [] triangles;
     private Vector3[] vertices;
     private void Start() {
-        Debug.Log("hittin");
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
         GenerateMesh();
         UpdateMesh();
     }
-    void GenerateMesh(){
-        triangles = new int[WorldX * WorldZ * 6];
-        vertices = new Vector3[(WorldX+1) * (WorldZ + 1)];
 
-        for (int i = 0, z = 0; z <= WorldZ; z++)
+    List<Tile2> dummyData = new List<Tile2>();
+    [ContextMenu("generate dummy data")]
+    public void GenerateDummyData(){
+        for (int i = 0; i < 10; i++)
         {
-            for (int x = 0; x <= WorldX; x++)
+            for (int j = 0; j < 10; j++)
             {
-                vertices[i] = new Vector3( x, 0, z );
-                i++;
-            }   
-        }
-
-        int tris = 0;
-        int verts = 0;
-
-
-        for (int z = 0; z < WorldZ; z++)
-        {
-            for (int x = 0; x < WorldX; x++)
-            {
-                triangles[tris + 0] = verts + 0;
-                triangles[tris + 1] = verts + WorldZ + 1;
-                triangles[tris + 2] = verts + 1;
-
-                triangles[tris + 3] = verts + 1;
-                triangles[tris + 4] = verts + WorldZ + 1;
-                triangles[tris + 5] = verts + WorldZ + 2;
-
-                verts++;
-                tris += 6;
+                dummyData.Add(new Tile2(new Point(i,j), 0, 2));
+                dummyData.Add(new Tile2(new Point(i,j), 3, 2, TileShapes.Triangle));
             }
-            verts ++;   
         }
+    }
+    void GenerateMesh(){
+        
+        GenerateDummyData();
+        int triangleCount = 0;
+        int vertexCount = 0;
+        List<Vector3> verticesList = new List<Vector3>();
+        List<int> trianglesList = new List<int>();
+        for (int i = 0; i < dummyData.Count; i++)
+        {
+            for (int j = 0; j < dummyData[i].vertices.Length; j++)
+            {
+                verticesList.Add(dummyData[i].vertices[j]);
+            }
+            for (int j = 0; j < dummyData[i].triangles.Length; j++)
+            {
+                trianglesList.Add(vertexCount + dummyData[i].triangles[j]);
+            }
+            vertexCount+= dummyData[i].vertices.Length;
+            triangleCount+= dummyData[i].triangles.Length;
+        }
+        vertices = verticesList.ToArray();
+        triangles = trianglesList.ToArray();
     }
     void UpdateMesh(){
         mesh.Clear();
         mesh.vertices = vertices;
         mesh.triangles = triangles;
-
         mesh.RecalculateNormals();
+        mesh.RecalculateBounds();
     }
-
-    // void OnDrawGizmosSelected()
-    // {
-    //     foreach (Vector3 point in levelData.GetAllPoints())
-    //     {
-    //         Gizmos.color = Color.yellow;
-    //         Gizmos.DrawSphere(point, 0.1f);
-    //     }
-    //     // Draw a yellow sphere at the transform's position
-    // }
 }
+
+ // void GenerateQuad(Quad quad){
+    //     Mesh mesh = new Mesh();
+    //     // int [] triangles;
+    //     // Vector3 [] vertices;
+
+    // }
+    // void GenerateMap(List<Quad> quads){
+    //     foreach (Quad quad in quads)
+    //     {
+    //         GenerateQuad(quad);
+    //     }
+    // }
+    // [ContextMenu("load grid objects")]
+    // public void LoadGridObjects()
+    // {
+    //     levelData._gridObjects = new List<GridObject>[levelData.x, levelData.y];
+    //     foreach (GridObject go in levelData.gridObjects2)
+    //     {
+    //         if (levelData._gridObjects[go._point.x, go._point.y] == null)
+    //             levelData._gridObjects[go._point.x, go._point.y] = new List<GridObject>();
+    //         levelData._gridObjects[go._point.x, go._point.y].Add(go);
+    //     }
+    // }
+    // [ContextMenu("load tile2s")]
+    // public void LoadTile2s()
+    // {
+    //     levelData._tiles = new List<Tile2>[levelData.x, levelData.y];
+    //     foreach (Tile2 t in levelData.tiles2)
+    //     {
+    //         if (levelData._tiles[t.point.x, t.point.y] == null)
+    //             levelData._tiles[t.point.x, t.point.y] = new List<Tile2>();
+    //         levelData._tiles[t.point.x, t.point.y].Add(t);
+    //     }
+    // }

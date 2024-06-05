@@ -7,8 +7,9 @@ using UnityEngine.SocialPlatforms.GameCenter;
 public class GridObject
 {
     // private GridSystem _gridSystem;
-    private Point _point;
+    public Point _point;
     public Quad _quad;
+    public float height;
     public GridObject ( Point point, Quad quad)
     {
         // this._gridSystem = gridSystem;
