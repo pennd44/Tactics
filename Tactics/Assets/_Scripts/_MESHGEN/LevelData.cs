@@ -19,15 +19,15 @@ public class LevelData : ScriptableObject {
 
     //For each grid object in gridObjects2, generate a quad
 
-    public Quad FindQuadFromTriangle(int triangleIndex)
-    {
+    // public Quad FindQuadFromTriangle(int triangleIndex)
+    // {
 
-        if (triangleIndex % 2 != 0)
-        {
-            triangleIndex -= 1;
-        }
-        return gridObjects2[triangleIndex/2]._quad;
-    }
+    //     if (triangleIndex % 2 != 0)
+    //     {
+    //         triangleIndex -= 1;
+    //     }
+    //     return gridObjects2[triangleIndex/2]._quad;
+    // }
 
     public Vertex GetVertexFromVector3(Vector3 position)
     {

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class TileShape
 {
     public Vector3[] corners = new Vector3[4];
