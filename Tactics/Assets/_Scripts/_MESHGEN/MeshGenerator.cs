@@ -8,16 +8,22 @@ public class MeshGenerator : MonoBehaviour
 {
     [SerializeField] LevelData levelData;
     private Mesh mesh;
-    private int [] triangles;
+    private int[] triangles;
     private Vector3[] vertices;
-    private void Start() {
+    private void Start()
+    {
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
         GenerateGrid();
         UpdateMesh();
     }
+
+    //given a list of grid objects, containing only tile2s and bottoms, determine where there should be walls
+
+
     // List<Tile2> dummyData = new List<Tile2>();
-    List<GridObject> [,] dummyData2 = new List<GridObject>[10,10];
+    List<Tile2>[,] tileGrid = new List<Tile2>[10, 10];
+    List<GridObject>[,] dummyData2 = new List<GridObject>[10, 10];
     // [ContextMenu("generate dummy data")]
     // public void GenerateDummyData(){
     //     for (int i = 0; i < 10; i++)
@@ -29,26 +35,32 @@ public class MeshGenerator : MonoBehaviour
     //         }
     //     }
     // }
-    public void GenerateDummyData2(){
+    public void GenerateDummyData2()
+    {
         for (int i = 0; i < 10; i++)
         {
             for (int j = 0; j < 10; j++)
             {
-                dummyData2[i,j] = new List<GridObject>();
-                Vector3 [] corners = new Vector3[4];
-                corners[0] = new Vector3((float)(i-.5), 1, (float)(j-.5));
-                corners[1] = new Vector3((float)(i+.5), 1, (float)(j-.5));
-                corners[2] = new Vector3((float)(i+.5), 1, (float)(j+.5));
-                corners[3] = new Vector3((float)(i-.5), 1, (float)(j+.5));
+                float height = UnityEngine.Random.Range(0, 4);
+                // float bottomHeight = height - UnityEngine.Random.Range(0, 3);
+                float bottomHeight = UnityEngine.Random.Range(-2, 0);
+                dummyData2[i, j] = new List<GridObject>();
+                tileGrid[i, j] = new List<Tile2>();
+                Vector3[] corners = new Vector3[4];
+                corners[0] = new Vector3((float)(i - .5), height, (float)(j - .5));
+                corners[1] = new Vector3((float)(i + .5), height, (float)(j - .5));
+                corners[2] = new Vector3((float)(i + .5), height, (float)(j + .5));
+                corners[3] = new Vector3((float)(i - .5), height, (float)(j + .5));
                 Tile2 tile = new Tile2(corners);
-                dummyData2[i,j].Add(tile);
-                Vector3 [] corners2 = new Vector3[4];
-                corners2[0] = new Vector3((float)(i-.5), -1, (float)(j-.5));
-                corners2[1] = new Vector3((float)(i+.5), -1, (float)(j-.5));
-                corners2[2] = new Vector3((float)(i+.5), -1, (float)(j+.5));
-                corners2[3] = new Vector3((float)(i-.5), -1, (float)(j+.5));
+                dummyData2[i, j].Add(tile);
+                tileGrid[i, j].Add(tile);
+                Vector3[] corners2 = new Vector3[4];
+                corners2[0] = new Vector3((float)(i - .5), bottomHeight, (float)(j - .5));
+                corners2[1] = new Vector3((float)(i + .5), bottomHeight, (float)(j - .5));
+                corners2[2] = new Vector3((float)(i + .5), bottomHeight, (float)(j + .5));
+                corners2[3] = new Vector3((float)(i - .5), bottomHeight, (float)(j + .5));
                 Bottom bottom = new Bottom(corners2);
-                dummyData2[i,j].Add(bottom);
+                dummyData2[i, j].Add(bottom);
                 tile.bottom = bottom;
                 //vertical walls
                 // Vector3 [] corners3 = new Vector3[4];
@@ -86,8 +98,21 @@ public class MeshGenerator : MonoBehaviour
             }
         }
     }
-    void AddWalls(){
-        f
+    void AddWalls()
+    {
+        for (int i = 0; i < tileGrid.GetLength(0); i++)
+        {
+            for (int j = 0; j < tileGrid.GetLength(1); j++)
+            {
+                for (int k = 0; k < tileGrid[i, j].Count; k++)
+                {
+                    for (int l = 0; l < 4; l++)
+                    {
+                        GenerateWall(tileGrid[i, j][k], (Directions)l);
+                    }
+                }
+            }
+        }
     }
     //differentiate between grid and graphics; grid is the data structure, graphics is the visual representation; grid first, graphics second based on grid
     // void SetUpTile2s(){
@@ -101,29 +126,31 @@ public class MeshGenerator : MonoBehaviour
     //         }
     //     }
     // }
-    void GenerateGrid(){
+    void GenerateGrid()
+    {
         GenerateDummyData2();
+        AddWalls();
         int triangleCount = 0;
         int vertexCount = 0;
         List<Vector3> verticesList = new List<Vector3>();
         List<int> trianglesList = new List<int>();
-        
+
         for (int i = 0; i < dummyData2.GetLength(0); i++)
         {
             for (int j = 0; j < dummyData2.GetLength(1); j++)
             {
-                for (int k = 0; k < dummyData2[i,j].Count; k++)
+                for (int k = 0; k < dummyData2[i, j].Count; k++)
                 {
                     for (int l = 0; l < 4; l++)
                     {
-                        verticesList.Add(dummyData2[i,j][k].corners[l]);
+                        verticesList.Add(dummyData2[i, j][k].corners[l]);
                     }
                     for (int l = 0; l < 6; l++)
                     {
-                        trianglesList.Add(vertexCount + dummyData2[i,j][k].triangles[l]);
+                        trianglesList.Add(vertexCount + dummyData2[i, j][k].triangles[l]);
                     }
-                    vertexCount+= dummyData2[i,j][k].corners.Length;
-                    triangleCount+= dummyData2[i,j][k].triangles.Length;
+                    vertexCount += dummyData2[i, j][k].corners.Length;
+                    triangleCount += dummyData2[i, j][k].triangles.Length;
                 }
             }
         }
@@ -174,7 +201,7 @@ public class MeshGenerator : MonoBehaviour
         //             {
         //                 continue;
         //             }
-                    
+
         //             if(neighbors[0][j].height < dummyData2[i].height)
         //             {
         //                 dummyData2[i].walls.Add(new Wall());
@@ -200,7 +227,7 @@ public class MeshGenerator : MonoBehaviour
         //             } 
         //         }
         //     }
-            
+
         //     //later, will remove triangles from generateGrid and put them in generateMesh
         //     for (int j = 0; j < 6; j++)
         //     {
@@ -237,7 +264,7 @@ public class MeshGenerator : MonoBehaviour
         // triangles = trianglesList.ToArray();
     }
     // void GenerateMesh(){
-        
+
     //     GenerateDummyData();
     //     int triangleCount = 0;
     //     int vertexCount = 0;
@@ -259,7 +286,8 @@ public class MeshGenerator : MonoBehaviour
     //     vertices = verticesList.ToArray();
     //     triangles = trianglesList.ToArray();
     // }
-    void UpdateMesh(){
+    void UpdateMesh()
+    {
         mesh.Clear();
         mesh.vertices = vertices;
         mesh.triangles = triangles;
@@ -274,9 +302,9 @@ public class MeshGenerator : MonoBehaviour
         {
             for (int j = 0; j < dummyData2.GetLength(1); j++)
             {
-                for (int k = 0; k < dummyData2[i,j].Count; k++)
+                for (int k = 0; k < dummyData2[i, j].Count; k++)
                 {
-                    if(dummyData2[i,j][k].pos == pos && dummyData2[i,j][k] is Tile2)
+                    if (dummyData2[i, j][k].pos == pos && dummyData2[i, j][k] is Tile2)
                     {
                         tile2s.Add((Tile2)dummyData2[i, j][k]);
                     }
@@ -285,23 +313,23 @@ public class MeshGenerator : MonoBehaviour
         }
         return tile2s;
     }
-    List<GridObject> GetNeighbors(Tile2 tile)
+    List<Tile2> GetNeighbors(Tile2 tile)
     {
-        List<GridObject> neighbors = new List<GridObject>();
-        Point [] directions = new Point[4];
+        List<Tile2> neighbors = new List<Tile2>();
+        Point[] directions = new Point[4];
         //north
-        directions[0] = new Point(0,1);
+        directions[0] = new Point(0, 1);
         //east
-        directions[1] = new Point(1,0);
+        directions[1] = new Point(1, 0);
         //south
-        directions[2] = new Point(0,-1);
+        directions[2] = new Point(0, -1);
         //west
-        directions[3] = new Point(-1,0);
+        directions[3] = new Point(-1, 0);
         for (int i = 0; i < directions.Length; i++)
         {
             Point neighborPos = tile.pos + directions[i];
             List<Tile2> neighborTiles = GetTile2s(neighborPos);
-            if(neighborTiles.Count > 0)
+            if (neighborTiles.Count > 0)
             {
                 neighbors.AddRange(neighborTiles);
             }
@@ -309,80 +337,163 @@ public class MeshGenerator : MonoBehaviour
         return neighbors;
     }
 
-    bool ShouldGenerateWall(Tile2 tile, Tile2 neighbour){
-        if(neighbour == null){
-            return true;
-        }
-        if(tile.height == neighbour.height){
+    bool ShouldGenerateWall(Tile2 tile, Tile2 neighbour)
+    {
+        // if (neighbour == null)
+        // {
+        //     return true;
+        // }
+        if (tile.height == neighbour.height)
+        {
             //later will be based on corner heights
             return false;
         }
+        if (tile.height < neighbour.height && tile.bottom.height >= neighbour.bottom.height)
+        {
+            return false;
+        }
+        // if (tile.height > neighbour.height && tile.bottom.height < neighbour.height)
+        // {
+        //     return true;
+        // }
+        // if (tile.height > neighbour.height && tile.bottom.height > neighbour.height)
+        // {
+        //     // wall from tile to tile.bottom
+        //     return true;
+        // }
+
         return true;
     }
 
-    bool WallToptoBottom(Tile2 tile, Tile2 neighbour){
-        if(tile.height - tile.thickness > neighbour.height){
-            return true;
+    // bool WallToptoBottom(Tile2 tile, Tile2 neighbour)
+    // {
+    //     if (tile.bottom.height > neighbour.height)
+    //     {
+    //         return true;
+    //     }
+    //     return false;
+    // }
+    //if there are no more neighbors  in that directionand no wall was generated, generate wall
+    void GenerateWall(Tile2 tile, Directions direction)
+    {
+        Point neighborPos = tile.pos + direction.ToPoint();
+        List<Tile2> neighbors = GetTile2s(neighborPos);
+        bool noWalls = false;
+        for (int i = 0; i < neighbors.Count; i++)
+        {
+            if (tile.height <= neighbors[i].height && tile.bottom.height >= neighbors[i].bottom.height)
+            {
+                noWalls = true;
+                return;
+            }
         }
-        return false;
-    }
-    void GenerateWall(Tile2 tile, Tile2 neighbour){
-        if(!ShouldGenerateWall(tile, neighbour)){
-            return;
-        }
-        Vector3 [] vertices = new Vector3[4];
-        if(WallToptoBottom(tile, neighbour)){
-            //generate wall
-            vertices[0] = tile.vertices[0];
-            vertices[1] = tile.vertices[1];
-            vertices[2] = tile.bottom.vertices[0];
-            vertices[3] = tile.bottom.vertices[1];
-        }
-        else{
-            //generate wall
-            vertices[0] = tile.vertices[1];
-            vertices[1] = tile.vertices[2];
-            vertices[2] = neighbour.vertices[1];
-            vertices[3] = neighbour.vertices[2];
-        }
-        //generate wall
-    
+        if (!noWalls)
+        {
+            Vector3[] wallVertices = new Vector3[4];
+            if (direction == Directions.North)
+            {
+                wallVertices[0] = tile.bottom.corners[3];
+                wallVertices[1] = tile.bottom.corners[2];
+                wallVertices[2] = tile.corners[2];
+                wallVertices[3] = tile.corners[3];
+            }
+            else if (direction == Directions.East)
+            {
+                wallVertices[0] = tile.bottom.corners[2];
+                wallVertices[1] = tile.bottom.corners[1];
+                wallVertices[2] = tile.corners[1];
+                wallVertices[3] = tile.corners[2];
+            }
+            else if (direction == Directions.South)
+            {
+                wallVertices[0] = tile.bottom.corners[1];
+                wallVertices[1] = tile.bottom.corners[0];
+                wallVertices[2] = tile.corners[0];
+                wallVertices[3] = tile.corners[1];
+            }
+            else if (direction == Directions.West)
+            {
+                wallVertices[0] = tile.bottom.corners[0];
+                wallVertices[1] = tile.bottom.corners[3];
+                wallVertices[2] = tile.corners[3];
+                wallVertices[3] = tile.corners[0];
+            }
 
+            for (int i = 0; i < neighbors.Count; i++)
+            {
+                if (tile.height > neighbors[i].height && tile.bottom.height < neighbors[i].height)
+                {
+                    //generate wall
+                    if (direction == Directions.North)
+                    {
+                        wallVertices[0] = tile.corners[0];
+                        wallVertices[1] = tile.corners[1];
+                        wallVertices[2] = neighbors[i].corners[0];
+                        wallVertices[3] = neighbors[i].corners[1];
+                    }
+                    else if (direction == Directions.East)
+                    {
+                        wallVertices[0] = tile.corners[1];
+                        wallVertices[1] = tile.corners[2];
+                        wallVertices[2] = neighbors[i].corners[1];
+                        wallVertices[3] = neighbors[i].corners[2];
+                    }
+                    else if (direction == Directions.South)
+                    {
+                        wallVertices[0] = tile.corners[2];
+                        wallVertices[1] = tile.corners[3];
+                        wallVertices[2] = neighbors[i].corners[2];
+                        wallVertices[3] = neighbors[i].corners[3];
+                    }
+                    else if (direction == Directions.West)
+                    {
+                        wallVertices[0] = tile.corners[3];
+                        wallVertices[1] = tile.corners[0];
+                        wallVertices[2] = neighbors[i].corners[3];
+                        wallVertices[3] = neighbors[i].corners[0];
+                    }
+                    return; //exit
+                }
+            }
+            //add these verts to the vertices list
+            Wall wall = new Wall(direction, wallVertices);
+            tile.walls.Add(wall);
+            dummyData2[tile.pos.x, tile.pos.y].Add(wall);
+        }
     }
-
 }
 
- // void GenerateQuad(Quad quad){
-    //     Mesh mesh = new Mesh();
-    //     // int [] triangles;
-    //     // Vector3 [] vertices;
+// void GenerateQuad(Quad quad){
+//     Mesh mesh = new Mesh();
+//     // int [] triangles;
+//     // Vector3 [] vertices;
 
-    // }
-    // void GenerateMap(List<Quad> quads){
-    //     foreach (Quad quad in quads)
-    //     {
-    //         GenerateQuad(quad);
-    //     }
-    // }
-    // [ContextMenu("load grid objects")]
-    // public void LoadGridObjects()
-    // {
-    //     levelData._gridObjects = new List<GridObject>[levelData.x, levelData.y];
-    //     foreach (GridObject go in levelData.gridObjects2)
-    //     {
-    //         if (levelData._gridObjects[go._point.x, go._point.y] == null)
-    //             levelData._gridObjects[go._point.x, go._point.y] = new List<GridObject>();
-    //         levelData._gridObjects[go._point.x, go._point.y].Add(go);
-    //     }
-    // }
-    // [ContextMenu("load tile2s")]
-    // public void LoadTile2s()
-    // {
-    //     levelData._tiles = new List<Tile2>[levelData.x, levelData.y];
-    //     foreach (Tile2 t in levelData.tiles2)
-    //     {
-    //         if (levelData._tiles[t.point.x, t.point.y] == null)
-    //             levelData._tiles[t.point.x, t.point.y] = new List<Tile2>();
-    //         levelData._tiles[t.point.x, t.point.y].Add(t);
-    //     }
-    // }
+// }
+// void GenerateMap(List<Quad> quads){
+//     foreach (Quad quad in quads)
+//     {
+//         GenerateQuad(quad);
+//     }
+// }
+// [ContextMenu("load grid objects")]
+// public void LoadGridObjects()
+// {
+//     levelData._gridObjects = new List<GridObject>[levelData.x, levelData.y];
+//     foreach (GridObject go in levelData.gridObjects2)
+//     {
+//         if (levelData._gridObjects[go._point.x, go._point.y] == null)
+//             levelData._gridObjects[go._point.x, go._point.y] = new List<GridObject>();
+//         levelData._gridObjects[go._point.x, go._point.y].Add(go);
+//     }
+// }
+// [ContextMenu("load tile2s")]
+// public void LoadTile2s()
+// {
+//     levelData._tiles = new List<Tile2>[levelData.x, levelData.y];
+//     foreach (Tile2 t in levelData.tiles2)
+//     {
+//         if (levelData._tiles[t.point.x, t.point.y] == null)
+//             levelData._tiles[t.point.x, t.point.y] = new List<Tile2>();
+//         levelData._tiles[t.point.x, t.point.y].Add(t);
+//     }
+// }
