@@ -42,8 +42,7 @@ public class MeshGenerator : MonoBehaviour
             for (int j = 0; j < 10; j++)
             {
                 float height = UnityEngine.Random.Range(0, 4);
-                // float bottomHeight = height - UnityEngine.Random.Range(0, 3);
-                float bottomHeight = UnityEngine.Random.Range(-2, 0);
+                float bottomHeight = height - UnityEngine.Random.Range(1, 3);
                 dummyData2[i, j] = new List<GridObject>();
                 tileGrid[i, j] = new List<Tile2>();
                 Vector3[] corners = new Vector3[4];
@@ -426,33 +425,36 @@ public class MeshGenerator : MonoBehaviour
                     //generate wall
                     if (direction == Directions.North)
                     {
-                        wallVertices[0] = tile.corners[0];
-                        wallVertices[1] = tile.corners[1];
-                        wallVertices[2] = neighbors[i].corners[0];
-                        wallVertices[3] = neighbors[i].corners[1];
+                        wallVertices[0] = neighbors[i].corners[0];
+                        wallVertices[1] = neighbors[i].corners[1];
+                        wallVertices[2] = tile.corners[2];
+                        wallVertices[3] = tile.corners[3];
+                        break;
                     }
                     else if (direction == Directions.East)
                     {
-                        wallVertices[0] = tile.corners[1];
-                        wallVertices[1] = tile.corners[2];
-                        wallVertices[2] = neighbors[i].corners[1];
-                        wallVertices[3] = neighbors[i].corners[2];
+                        wallVertices[0] = neighbors[i].corners[3];
+                        wallVertices[1] = neighbors[i].corners[0];
+                        wallVertices[2] = tile.corners[1];
+                        wallVertices[3] = tile.corners[2];
+                        break;
                     }
                     else if (direction == Directions.South)
                     {
-                        wallVertices[0] = tile.corners[2];
-                        wallVertices[1] = tile.corners[3];
-                        wallVertices[2] = neighbors[i].corners[2];
-                        wallVertices[3] = neighbors[i].corners[3];
+                        wallVertices[0] = neighbors[i].corners[2];
+                        wallVertices[1] = neighbors[i].corners[3];
+                        wallVertices[2] = tile.corners[0];
+                        wallVertices[3] = tile.corners[1];
+                        break;
                     }
                     else if (direction == Directions.West)
                     {
-                        wallVertices[0] = tile.corners[3];
-                        wallVertices[1] = tile.corners[0];
-                        wallVertices[2] = neighbors[i].corners[3];
-                        wallVertices[3] = neighbors[i].corners[0];
+                        wallVertices[0] = neighbors[i].corners[1];
+                        wallVertices[1] = neighbors[i].corners[2];
+                        wallVertices[2] = tile.corners[3];
+                        wallVertices[3] = tile.corners[0];
+                        break;
                     }
-                    return; //exit
                 }
             }
             //add these verts to the vertices list
