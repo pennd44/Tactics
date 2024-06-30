@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bottom : GridObject
 {
-    public Bottom(Vector3[] corners) : base(corners)
+    public Bottom(Vertex[] corners) : base(corners)
     {
     }
 }

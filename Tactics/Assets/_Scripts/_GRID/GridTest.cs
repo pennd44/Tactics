@@ -24,7 +24,7 @@ public class GridTest : MonoBehaviour
         for (int t = 0; t < mesh.vertices.Length; t++)
         {
             //do we need an id?
-            levelData.AllVerts.Add(new Vertex(t, mesh.vertices[t]));
+            levelData.AllVerts.Add(new Vertex( mesh.vertices[t]));
         }
         levelData.AllTris = new List<Tri>();
         for (int t = 0; t < mesh.triangles.Length; t+=3)
@@ -168,7 +168,7 @@ public class GridTest : MonoBehaviour
         for (int t = 0; t < mesh.vertices.Length; t++)
         {
             //do we need an id?
-            levelData.AllVerts.Add(new Vertex(t, mesh.vertices[t]));
+            levelData.AllVerts.Add(new Vertex( mesh.vertices[t]));
         }
     }
     //Get all Tris

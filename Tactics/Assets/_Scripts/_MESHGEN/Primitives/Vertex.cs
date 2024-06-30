@@ -3,11 +3,12 @@ using UnityEngine;
 [System.Serializable]
 public class Vertex
 {
+    static int id_counter = 0;
     public int id;
     public Vector3 pos;
-    public Vertex( int id, Vector3 pos)
+    public Vertex( Vector3 pos)
     {
-        this.id = id;
+        this.id = id_counter++;
         this.pos = pos;
     }
      public static bool operator ==(Vertex a, Vertex b)

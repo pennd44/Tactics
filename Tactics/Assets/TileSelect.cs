@@ -200,10 +200,10 @@ public class TileSelect : MonoBehaviour
                 //     triangles.RemoveAt((hit.triangleIndex + 1)*3 - 2);
                 //     triangles.RemoveAt((hit.triangleIndex + 1)*3 - 3);
                 // }
-                Vertex v0 = new Vertex(levelData.AllVerts.Count, p0.pos + Vector3.up);
-                Vertex v1 = new Vertex(levelData.AllVerts.Count, p1.pos + Vector3.up);
-                Vertex v2 = new Vertex(levelData.AllVerts.Count, p2.pos + Vector3.up);
-                Vertex v3 = new Vertex(levelData.AllVerts.Count, p3.pos + Vector3.up);
+                Vertex v0 = new Vertex(p0.pos + Vector3.up);
+                Vertex v1 = new Vertex(p1.pos + Vector3.up);
+                Vertex v2 = new Vertex(p2.pos + Vector3.up);
+                Vertex v3 = new Vertex(p3.pos + Vector3.up);
                 verticesList.Add(v0.pos);
                 verticesList.Add(v1.pos);
                 verticesList.Add(v2.pos);

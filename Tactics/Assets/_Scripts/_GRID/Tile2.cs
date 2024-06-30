@@ -14,7 +14,7 @@ public class Tile2 : GridObject{
     public Bottom bottom;
     public List<Tile2> neighbors = new List<Tile2>();
 
-    public Tile2(Vector3[] corners) : base(corners)
+    public Tile2(Vertex[] corners) : base(corners)
     {
         triangles = new int[6] { 2, 1, 0, 3, 2, 0 };
     }
@@ -25,12 +25,17 @@ public class Tile2 : GridObject{
         //INCOMPLETE
 
     }
+    public void Destroy(){
+        //destroy walls
+        //destroy bottom
+        //destroy self
+
+    }
     public void FindNeighborTiles(List<GridObject>[,] gridObjects){
 
         
     }
 // should I split into north, east, south, west?
-
     //bools for whether to render walls
 
     // public Tile2(Point point, float height, float thickness, TileShapes shape = TileShapes.Square){
