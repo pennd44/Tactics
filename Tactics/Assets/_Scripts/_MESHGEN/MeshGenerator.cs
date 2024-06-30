@@ -373,96 +373,105 @@ public class MeshGenerator : MonoBehaviour
     //     return false;
     // }
     //if there are no more neighbors  in that directionand no wall was generated, generate wall
-    void GenerateWall(Tile2 tile, Directions direction)
-    {
-        Point neighborPos = tile.pos + direction.ToPoint();
-        List<Tile2> neighbors = GetTile2s(neighborPos);
-        bool noWalls = false;
-        for (int i = 0; i < neighbors.Count; i++)
-        {
-            if (tile.height <= neighbors[i].height && tile.bottom.height >= neighbors[i].bottom.height)
-            {
-                noWalls = true;
-                return;
-            }
-        }
-        if (!noWalls)
-        {
-            Vertex[] wallVertices = new Vertex[4];
-            if (direction == Directions.North)
-            {
-                wallVertices[0] = tile.bottom.corners[3];
-                wallVertices[1] = tile.bottom.corners[2];
-                wallVertices[2] = tile.corners[2];
-                wallVertices[3] = tile.corners[3];
-            }
-            else if (direction == Directions.East)
-            {
-                wallVertices[0] = tile.bottom.corners[2];
-                wallVertices[1] = tile.bottom.corners[1];
-                wallVertices[2] = tile.corners[1];
-                wallVertices[3] = tile.corners[2];
-            }
-            else if (direction == Directions.South)
-            {
-                wallVertices[0] = tile.bottom.corners[1];
-                wallVertices[1] = tile.bottom.corners[0];
-                wallVertices[2] = tile.corners[0];
-                wallVertices[3] = tile.corners[1];
-            }
-            else if (direction == Directions.West)
-            {
-                wallVertices[0] = tile.bottom.corners[0];
-                wallVertices[1] = tile.bottom.corners[3];
-                wallVertices[2] = tile.corners[3];
-                wallVertices[3] = tile.corners[0];
-            }
 
-            for (int i = 0; i < neighbors.Count; i++)
-            {
-                if (tile.height > neighbors[i].height && tile.bottom.height < neighbors[i].height)
-                {
-                    //generate wall
-                    if (direction == Directions.North)
-                    {
-                        wallVertices[0] = neighbors[i].corners[0];
-                        wallVertices[1] = neighbors[i].corners[1];
-                        wallVertices[2] = tile.corners[2];
-                        wallVertices[3] = tile.corners[3];
-                        break;
-                    }
-                    else if (direction == Directions.East)
-                    {
-                        wallVertices[0] = neighbors[i].corners[3];
-                        wallVertices[1] = neighbors[i].corners[0];
-                        wallVertices[2] = tile.corners[1];
-                        wallVertices[3] = tile.corners[2];
-                        break;
-                    }
-                    else if (direction == Directions.South)
-                    {
-                        wallVertices[0] = neighbors[i].corners[2];
-                        wallVertices[1] = neighbors[i].corners[3];
-                        wallVertices[2] = tile.corners[0];
-                        wallVertices[3] = tile.corners[1];
-                        break;
-                    }
-                    else if (direction == Directions.West)
-                    {
-                        wallVertices[0] = neighbors[i].corners[1];
-                        wallVertices[1] = neighbors[i].corners[2];
-                        wallVertices[2] = tile.corners[3];
-                        wallVertices[3] = tile.corners[0];
-                        break;
-                    }
-                }
-            }
-            //add these verts to the vertices list
-            Wall wall = new Wall(direction, wallVertices);
-            tile.walls.Add(wall);
-            dummyData2[tile.pos.x, tile.pos.y].Add(wall);
-        }
-    }
+    // void GenerateWall(Tile2 tile, Directions direction)
+    // {
+    //     Point neighborPos = tile.pos + direction.ToPoint();
+    //     List<Tile2> neighbors = GetTile2s(neighborPos);
+    //     bool noWalls = false;
+    //     for (int i = 0; i < neighbors.Count; i++)
+    //     {
+    //         if (tile.height <= neighbors[i].height && tile.bottom.height >= neighbors[i].bottom.height)
+    //         {
+    //             noWalls = true;
+    //             return;
+    //         }
+    //     }
+    //     if (!noWalls)
+    //     {
+    //         Vertex[] wallVertices = new Vertex[4];
+    //         if (direction == Directions.North)
+    //         {
+    //             wallVertices[0] = tile.bottom.corners[3];
+    //             wallVertices[1] = tile.bottom.corners[2];
+    //             wallVertices[2] = tile.corners[2];
+    //             wallVertices[3] = tile.corners[3];
+    //         }
+    //         else if (direction == Directions.East)
+    //         {
+    //             wallVertices[0] = tile.bottom.corners[2];
+    //             wallVertices[1] = tile.bottom.corners[1];
+    //             wallVertices[2] = tile.corners[1];
+    //             wallVertices[3] = tile.corners[2];
+    //         }
+    //         else if (direction == Directions.South)
+    //         {
+    //             wallVertices[0] = tile.bottom.corners[1];
+    //             wallVertices[1] = tile.bottom.corners[0];
+    //             wallVertices[2] = tile.corners[0];
+    //             wallVertices[3] = tile.corners[1];
+    //         }
+    //         else if (direction == Directions.West)
+    //         {
+    //             wallVertices[0] = tile.bottom.corners[0];
+    //             wallVertices[1] = tile.bottom.corners[3];
+    //             wallVertices[2] = tile.corners[3];
+    //             wallVertices[3] = tile.corners[0];
+    //         }
+
+    //         for (int i = 0; i < neighbors.Count; i++)
+    //         {
+    //             if (tile.height > neighbors[i].height && tile.bottom.height < neighbors[i].height)
+    //             {
+    //                 //generate wall
+    //                 if (direction == Directions.North)
+    //                 {
+    //                     wallVertices[0] = neighbors[i].corners[0];
+    //                     wallVertices[1] = neighbors[i].corners[1];
+    //                     wallVertices[2] = tile.corners[2];
+    //                     wallVertices[3] = tile.corners[3];
+    //                     break;
+    //                 }
+    //                 else if (direction == Directions.East)
+    //                 {
+    //                     wallVertices[0] = neighbors[i].corners[3];
+    //                     wallVertices[1] = neighbors[i].corners[0];
+    //                     wallVertices[2] = tile.corners[1];
+    //                     wallVertices[3] = tile.corners[2];
+    //                     break;
+    //                 }
+    //                 else if (direction == Directions.South)
+    //                 {
+    //                     wallVertices[0] = neighbors[i].corners[2];
+    //                     wallVertices[1] = neighbors[i].corners[3];
+    //                     wallVertices[2] = tile.corners[0];
+    //                     wallVertices[3] = tile.corners[1];
+    //                     break;
+    //                 }
+    //                 else if (direction == Directions.West)
+    //                 {
+    //                     wallVertices[0] = neighbors[i].corners[1];
+    //                     wallVertices[1] = neighbors[i].corners[2];
+    //                     wallVertices[2] = tile.corners[3];
+    //                     wallVertices[3] = tile.corners[0];
+    //                     break;
+    //                 }
+    //             }
+    //         }
+    //         //add these verts to the vertices list
+    //         Wall wall = new Wall(direction, wallVertices);
+    //         tile.walls.Add(wall);
+    //         dummyData2[tile.pos.x, tile.pos.y].Add(wall);
+    //     }
+    // }
+    int[][] vertexIndices = new int[][]
+    {
+        new int[] { 3, 2, 2, 3 }, //north
+        new int[] { 2, 1, 1, 2 }, //east
+        new int[] { 1, 0, 0, 1 }, //south
+        new int[] { 0, 3, 3, 0 } //west
+    };
+
     void GenerateWall(Tile2 tile, Directions direction)
     {
         Point neighborPos = tile.pos + direction.ToPoint();
@@ -479,14 +488,8 @@ public class MeshGenerator : MonoBehaviour
         if (!noWalls)
         {
             Vertex[] wallVertices = new Vertex[4];
-            Dictionary<Directions, int[]> vertexIndices = new Dictionary<Directions, int[]>()
-            {
-                { Directions.North, new int[] { 3, 2, 2, 3 } },
-                { Directions.East, new int[] { 2, 1, 1, 2 } },
-                { Directions.South, new int[] { 1, 0, 0, 1 } },
-                { Directions.West, new int[] { 0, 3, 3, 0 } }
-            };
-            int[] indices = vertexIndices[direction];
+
+            int[] indices = vertexIndices[(int)direction];
             wallVertices[0] = tile.bottom.corners[indices[0]];
             wallVertices[1] = tile.bottom.corners[indices[1]];
             wallVertices[2] = tile.corners[indices[2]];
@@ -496,10 +499,11 @@ public class MeshGenerator : MonoBehaviour
             {
                 if (tile.height > neighbors[i].height && tile.bottom.height < neighbors[i].height)
                 {
+                    int neighborDirection = ((int)direction + 2) % 4;
                     //generate wall
-                    int[] neighborIndices = vertexIndices[direction + 2];
-                    wallVertices[0] = neighbors[i].corners[neighborIndices[0]];
-                    wallVertices[1] = neighbors[i].corners[neighborIndices[1]];
+                    int[] neighborIndices = vertexIndices[neighborDirection];
+                    wallVertices[0] = neighbors[i].corners[neighborIndices[1]];
+                    wallVertices[1] = neighbors[i].corners[neighborIndices[0]];
                     wallVertices[2] = tile.corners[indices[2]];
                     wallVertices[3] = tile.corners[indices[3]];
                     break;
