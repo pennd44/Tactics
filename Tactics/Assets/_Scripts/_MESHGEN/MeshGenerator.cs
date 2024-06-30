@@ -46,10 +46,11 @@ public class MeshGenerator : MonoBehaviour
                 dummyData2[i, j] = new List<GridObject>();
                 tileGrid[i, j] = new List<Tile2>();
                 Vertex[] corners = new Vertex[4];
-                corners[0] = new Vertex(new Vector3((float)(i - .5), height, (float)(j - .5)));
-                corners[1] = new Vertex(new Vector3((float)(i + .5), height, (float)(j - .5)));
-                corners[2] = new Vertex(new Vector3((float)(i + .5), height, (float)(j + .5)));
-                corners[3] = new Vertex(new Vector3((float)(i - .5), height, (float)(j + .5)));
+
+                corners[0] = new Vertex(new Vector3((float)(i - .5), UnityEngine.Random.Range(height - 1, height + 1), (float)(j - .5)));
+                corners[1] = new Vertex(new Vector3((float)(i + .5), UnityEngine.Random.Range(height - 1, height + 1), (float)(j - .5)));
+                corners[2] = new Vertex(new Vector3((float)(i + .5), UnityEngine.Random.Range(height - 1, height + 1), (float)(j + .5)));
+                corners[3] = new Vertex(new Vector3((float)(i - .5), UnityEngine.Random.Range(height - 1, height + 1), (float)(j + .5)));
                 Tile2 tile = new Tile2(corners);
                 dummyData2[i, j].Add(tile);
                 tileGrid[i, j].Add(tile);
@@ -61,39 +62,26 @@ public class MeshGenerator : MonoBehaviour
                 Bottom bottom = new Bottom(corners2);
                 dummyData2[i, j].Add(bottom);
                 tile.bottom = bottom;
-                //vertical walls
-                // Vector3 [] corners3 = new Vector3[4];
-                // corners3[0] = new Vector3((float)(i-.5), 1, (float)(j-.5));
-                // corners3[1] = new Vector3((float)(i+.5), 1, (float)(j-.5));
-                // corners3[2] = new Vector3((float)(i+.5), -1, (float)(j-.5));
-                // corners3[3] = new Vector3((float)(i-.5), -1, (float)(j-.5));
-                // Wall wall = new Wall(Directions.North, corners3);
-                // dummyData2[i,j].Add(wall);
-                // tile.walls.Add(wall);
-                // Vector3 [] corners4 = new Vector3[4];
-                // corners4[0] = new Vector3((float)(i+.5), 1, (float)(j-.5));
-                // corners4[1] = new Vector3((float)(i+.5), 1, (float)(j+.5));
-                // corners4[2] = new Vector3((float)(i+.5), -1, (float)(j+.5));
-                // corners4[3] = new Vector3((float)(i+.5), -1, (float)(j-.5));
-                // Wall wall2 = new Wall(Directions.East, corners4);
-                // dummyData2[i,j].Add(wall2);
-                // tile.walls.Add(wall2);
-                // Vector3 [] corners5 = new Vector3[4];
-                // corners5[0] = new Vector3((float)(i+.5), 1, (float)(j+.5));
-                // corners5[1] = new Vector3((float)(i-.5), 1, (float)(j+.5));
-                // corners5[2] = new Vector3((float)(i-.5), -1, (float)(j+.5));
-                // corners5[3] = new Vector3((float)(i+.5), -1, (float)(j+.5));
-                // Wall wall3 = new Wall(Directions.South, corners5);
-                // dummyData2[i,j].Add(wall3);
-                // tile.walls.Add(wall3);
-                // Vector3 [] corners6 = new Vector3[4];
-                // corners6[0] = new Vector3((float)(i-.5), 1, (float)(j+.5));
-                // corners6[1] = new Vector3((float)(i-.5), 1, (float)(j-.5));
-                // corners6[2] = new Vector3((float)(i-.5), -1, (float)(j-.5));
-                // corners6[3] = new Vector3((float)(i-.5), -1, (float)(j+.5));
-                // Wall wall4 = new Wall(Directions.West, corners6);
-                // dummyData2[i,j].Add(wall4);
-                // tile.walls.Add(wall4);
+
+                float height2 = 10 + UnityEngine.Random.Range(0, 4);
+                float bottomHeight2 = height2 - UnityEngine.Random.Range(1, 3);
+                Vertex[] corners3 = new Vertex[4];
+                corners3[0] = new Vertex(new Vector3((float)(i - .5), height2, (float)(j - .5)));
+                corners3[1] = new Vertex(new Vector3((float)(i + .5), height2, (float)(j - .5)));
+                corners3[2] = new Vertex(new Vector3((float)(i + .5), height2, (float)(j + .5)));
+                corners3[3] = new Vertex(new Vector3((float)(i - .5), height2, (float)(j + .5)));
+                Tile2 tile2 = new Tile2(corners3);
+                dummyData2[i, j].Add(tile2);
+                tileGrid[i, j].Add(tile2);
+                Vertex[] corners4 = new Vertex[4];
+                corners4[0] = new Vertex(new Vector3((float)(i - .5), bottomHeight2, (float)(j - .5)));
+                corners4[1] = new Vertex(new Vector3((float)(i + .5), bottomHeight2, (float)(j - .5)));
+                corners4[2] = new Vertex(new Vector3((float)(i + .5), bottomHeight2, (float)(j + .5)));
+                corners4[3] = new Vertex(new Vector3((float)(i - .5), bottomHeight2, (float)(j + .5)));
+                Bottom bottom2 = new Bottom(corners4);
+                dummyData2[i, j].Add(bottom2);
+                tile2.bottom = bottom2;
+
             }
         }
     }
@@ -312,6 +300,7 @@ public class MeshGenerator : MonoBehaviour
         }
         return tile2s;
     }
+    // do we need this?
     List<Tile2> GetNeighbors(Tile2 tile)
     {
         List<Tile2> neighbors = new List<Tile2>();
@@ -477,9 +466,16 @@ public class MeshGenerator : MonoBehaviour
         Point neighborPos = tile.pos + direction.ToPoint();
         List<Tile2> neighbors = GetTile2s(neighborPos);
         bool noWalls = false;
+        int[] indices = vertexIndices[(int)direction];
+        int neighborDirection = ((int)direction + 2) % 4;
+        int[] neighborIndices = vertexIndices[neighborDirection];
         for (int i = 0; i < neighbors.Count; i++)
         {
-            if (tile.height <= neighbors[i].height && tile.bottom.height >= neighbors[i].bottom.height)
+            // if (tile.height <= neighbors[i].height && tile.bottom.height >= neighbors[i].bottom.height)
+            if (tile.corners[indices[0]].pos.y <= neighbors[i].corners[neighborIndices[1]].pos.y &&
+            tile.corners[indices[1]].pos.y <= neighbors[i].corners[neighborIndices[0]].pos.y &&
+            tile.bottom.corners[indices[0]].pos.y >= neighbors[i].bottom.corners[neighborIndices[1]].pos.y &&
+            tile.bottom.corners[indices[1]].pos.y >= neighbors[i].bottom.corners[neighborIndices[0]].pos.y)
             {
                 noWalls = true;
                 return;
@@ -489,7 +485,6 @@ public class MeshGenerator : MonoBehaviour
         {
             Vertex[] wallVertices = new Vertex[4];
 
-            int[] indices = vertexIndices[(int)direction];
             wallVertices[0] = tile.bottom.corners[indices[0]];
             wallVertices[1] = tile.bottom.corners[indices[1]];
             wallVertices[2] = tile.corners[indices[2]];
@@ -497,11 +492,14 @@ public class MeshGenerator : MonoBehaviour
 
             for (int i = 0; i < neighbors.Count; i++)
             {
-                if (tile.height > neighbors[i].height && tile.bottom.height < neighbors[i].height)
+                // if (tile.height > neighbors[i].height && tile.bottom.height < neighbors[i].height)
+                if (tile.corners[indices[0]].pos.y > neighbors[i].corners[neighborIndices[1]].pos.y &&
+                tile.corners[indices[1]].pos.y > neighbors[i].corners[neighborIndices[0]].pos.y &&
+                tile.bottom.corners[indices[0]].pos.y < neighbors[i].corners[neighborIndices[1]].pos.y &&
+                tile.bottom.corners[indices[1]].pos.y < neighbors[i].corners[neighborIndices[0]].pos.y
+                )
                 {
-                    int neighborDirection = ((int)direction + 2) % 4;
                     //generate wall
-                    int[] neighborIndices = vertexIndices[neighborDirection];
                     wallVertices[0] = neighbors[i].corners[neighborIndices[1]];
                     wallVertices[1] = neighbors[i].corners[neighborIndices[0]];
                     wallVertices[2] = tile.corners[indices[2]];
