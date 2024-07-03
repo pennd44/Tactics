@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Tri
 {
+    static int idCounter = 0;
     public int Id;
     public Vertex First;
     // public int FirstIndex;
@@ -19,8 +20,8 @@ public class Tri
     public Vertex [] longestEdgePoints = new Vertex[2];
     public Vertex cornerPoint;
     
-    public Tri(int Id, Vertex first, Vertex second, Vertex third ){
-        this.Id = Id;
+    public Tri(Vertex first, Vertex second, Vertex third ){
+        this.Id = idCounter++;
         this.First = first;
         this.Second = second;
         this.Third = third;

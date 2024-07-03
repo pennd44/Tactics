@@ -24,11 +24,14 @@ public class TileSelect : MonoBehaviour
     };
     private Vector3 [] modifiedVerts;
     int [] tris = new int[6]{2, 1, 0, 3, 1, 2};
+
+    MeshGenerator meshGenerator;
     void Start()
     {
         // allVerts = levelData.AllVerts;
         // allTris = levelData.AllTris;
         // trianglesDict = levelData.TrianglesDict;
+        meshGenerator = GetComponent<MeshGenerator>();
         mesh = GetComponent<MeshFilter>().mesh;
         mesh.vertices = verts;
         mesh.triangles = tris;

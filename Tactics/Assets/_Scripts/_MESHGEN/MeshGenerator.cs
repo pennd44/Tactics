@@ -23,7 +23,7 @@ public class MeshGenerator : MonoBehaviour
 
     // List<Tile2> dummyData = new List<Tile2>();
     List<Tile2>[,] tileGrid = new List<Tile2>[10, 10];
-    List<GridObject>[,] dummyData2 = new List<GridObject>[10, 10];
+   public List<GridObject>[,] dummyData2 = new List<GridObject>[10, 10];
     // [ContextMenu("generate dummy data")]
     // public void GenerateDummyData(){
     //     for (int i = 0; i < 10; i++)
@@ -41,16 +41,25 @@ public class MeshGenerator : MonoBehaviour
         {
             for (int j = 0; j < 10; j++)
             {
-                float height = UnityEngine.Random.Range(0, 4);
-                float bottomHeight = height - UnityEngine.Random.Range(1, 3);
+                float height = UnityEngine.Random.Range(0.0f, 4.0f);
+                float bottomHeight = height - UnityEngine.Random.Range(1.0f, 3.0f);
                 dummyData2[i, j] = new List<GridObject>();
                 tileGrid[i, j] = new List<Tile2>();
                 Vertex[] corners = new Vertex[4];
+                float heightA = UnityEngine.Random.Range(height - 1.0f, height + 1.0f);
+                float heightB = UnityEngine.Random.Range(height - 1.0f, height + 1.0f);
+                float[] heights = new float[4];
+                heights[0] = heightA;
+                heights[1] = heightA;
+                heights[2] = heightB;
+                heights[3] = heightB;
+                int randomIndex = UnityEngine.Random.Range(0, 3);
 
-                corners[0] = new Vertex(new Vector3((float)(i - .5), UnityEngine.Random.Range(height - 1, height + 1), (float)(j - .5)));
-                corners[1] = new Vertex(new Vector3((float)(i + .5), UnityEngine.Random.Range(height - 1, height + 1), (float)(j - .5)));
-                corners[2] = new Vertex(new Vector3((float)(i + .5), UnityEngine.Random.Range(height - 1, height + 1), (float)(j + .5)));
-                corners[3] = new Vertex(new Vector3((float)(i - .5), UnityEngine.Random.Range(height - 1, height + 1), (float)(j + .5)));
+
+                corners[0] = new Vertex(new Vector3((float)(i - .5), heights[randomIndex], (float)(j - .5)));
+                corners[1] = new Vertex(new Vector3((float)(i + .5), heights[(randomIndex + 1) % 4], (float)(j - .5)));
+                corners[2] = new Vertex(new Vector3((float)(i + .5), heights[(randomIndex + 2) % 4], (float)(j + .5)));
+                corners[3] = new Vertex(new Vector3((float)(i - .5), heights[(randomIndex + 3) % 4], (float)(j + .5)));
                 Tile2 tile = new Tile2(corners);
                 dummyData2[i, j].Add(tile);
                 tileGrid[i, j].Add(tile);
