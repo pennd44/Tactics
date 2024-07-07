@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tri
 {
     static int idCounter = 0;
-    public int Id;
+    public int id;
     public Vertex First;
     // public int FirstIndex;
     public Vertex Second;
@@ -17,11 +17,12 @@ public class Tri
     public int longestEdgePoints2Index;
     public int cornerPointIndex;
 
-    public Vertex [] longestEdgePoints = new Vertex[2];
+    public Vertex[] longestEdgePoints = new Vertex[2];
     public Vertex cornerPoint;
-    
-    public Tri(Vertex first, Vertex second, Vertex third ){
-        this.Id = idCounter++;
+
+    public Tri(Vertex first, Vertex second, Vertex third)
+    {
+        this.id = idCounter++;
         this.First = first;
         this.Second = second;
         this.Third = third;
@@ -29,7 +30,8 @@ public class Tri
     }
 
 
-    private void SetUp(){
+    private void SetUp()
+    {
         float distance0 = Vector3.Distance(First.pos, Second.pos);
         float distance1 = Vector3.Distance(Second.pos, Third.pos);
         float distance2 = Vector3.Distance(Third.pos, First.pos);
@@ -42,7 +44,8 @@ public class Tri
             cornerPoint = Third;
             cornerPointIndex = Third.id;
         }
-        else if (distance1 > distance2){
+        else if (distance1 > distance2)
+        {
             longestEdgePoints[0] = Second;
             longestEdgePoints1Index = Second.id;
             longestEdgePoints[1] = Third;
@@ -50,7 +53,8 @@ public class Tri
             cornerPoint = First;
             cornerPointIndex = First.id;
         }
-        else{
+        else
+        {
             longestEdgePoints[0] = Third;
             longestEdgePoints1Index = Third.id;
             longestEdgePoints[1] = First;

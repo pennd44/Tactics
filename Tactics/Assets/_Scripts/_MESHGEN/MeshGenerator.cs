@@ -7,13 +7,16 @@ using UnityEngine;
 public class MeshGenerator : MonoBehaviour
 {
     [SerializeField] LevelData levelData;
-    private Mesh mesh;
+    public Mesh mesh;
     private int[] triangles;
     private Vector3[] vertices;
+    MeshCollider meshCollider;
     private void Start()
     {
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
+        meshCollider = GetComponent<MeshCollider>();
+        meshCollider.sharedMesh = mesh;
         GenerateGrid();
         UpdateMesh();
     }
@@ -23,7 +26,7 @@ public class MeshGenerator : MonoBehaviour
 
     // List<Tile2> dummyData = new List<Tile2>();
     List<Tile2>[,] tileGrid = new List<Tile2>[10, 10];
-   public List<GridObject>[,] dummyData2 = new List<GridObject>[10, 10];
+    public List<GridObject>[,] dummyData2 = new List<GridObject>[10, 10];
     // [ContextMenu("generate dummy data")]
     // public void GenerateDummyData(){
     //     for (int i = 0; i < 10; i++)
@@ -35,6 +38,8 @@ public class MeshGenerator : MonoBehaviour
     //         }
     //     }
     // }
+    //move later
+    public List<GridObject> gridObjects = new List<GridObject>();
     public void GenerateDummyData2()
     {
         for (int i = 0; i < 10; i++)
@@ -62,6 +67,7 @@ public class MeshGenerator : MonoBehaviour
                 corners[3] = new Vertex(new Vector3((float)(i - .5), heights[(randomIndex + 3) % 4], (float)(j + .5)));
                 Tile2 tile = new Tile2(corners);
                 dummyData2[i, j].Add(tile);
+                gridObjects.Add(tile);
                 tileGrid[i, j].Add(tile);
                 Vertex[] corners2 = new Vertex[4];
                 corners2[0] = new Vertex(new Vector3((float)(i - .5), bottomHeight, (float)(j - .5)));
@@ -70,6 +76,7 @@ public class MeshGenerator : MonoBehaviour
                 corners2[3] = new Vertex(new Vector3((float)(i - .5), bottomHeight, (float)(j + .5)));
                 Bottom bottom = new Bottom(corners2);
                 dummyData2[i, j].Add(bottom);
+                gridObjects.Add(bottom);
                 tile.bottom = bottom;
 
                 float height2 = 10 + UnityEngine.Random.Range(0, 4);
@@ -81,6 +88,7 @@ public class MeshGenerator : MonoBehaviour
                 corners3[3] = new Vertex(new Vector3((float)(i - .5), height2, (float)(j + .5)));
                 Tile2 tile2 = new Tile2(corners3);
                 dummyData2[i, j].Add(tile2);
+                gridObjects.Add(tile2);
                 tileGrid[i, j].Add(tile2);
                 Vertex[] corners4 = new Vertex[4];
                 corners4[0] = new Vertex(new Vector3((float)(i - .5), bottomHeight2, (float)(j - .5)));
@@ -89,6 +97,7 @@ public class MeshGenerator : MonoBehaviour
                 corners4[3] = new Vertex(new Vector3((float)(i - .5), bottomHeight2, (float)(j + .5)));
                 Bottom bottom2 = new Bottom(corners4);
                 dummyData2[i, j].Add(bottom2);
+                gridObjects.Add(bottom2);
                 tile2.bottom = bottom2;
 
             }
@@ -289,6 +298,7 @@ public class MeshGenerator : MonoBehaviour
         mesh.triangles = triangles;
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
+        meshCollider.sharedMesh = mesh;
     }
 
     List<Tile2> GetTile2s(Point pos)
@@ -519,6 +529,7 @@ public class MeshGenerator : MonoBehaviour
             //add these verts to the vertices list
             Wall wall = new Wall(direction, wallVertices);
             tile.walls.Add(wall);
+            gridObjects.Add(wall);
             dummyData2[tile.pos.x, tile.pos.y].Add(wall);
         }
     }

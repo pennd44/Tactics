@@ -10,11 +10,14 @@ public abstract class GridObject
     // public Vector3[] corners = new Vector3[4];
     public Vertex[] corners = new Vertex[4];
     public int[] triangles = new int[6];
+    public Tri[] tris = new Tri[2];
 
 
     public GridObject(Vertex[] corners)
     {
         this.corners = corners;
+        tris[0] = new Tri(corners[0], corners[1], corners[2]);
+        tris[1] = new Tri(corners[0], corners[2], corners[3]);
         // this.height = (corners[0].y + corners[1].y + corners[2].y + corners[3].y) / 4;
         // this.pos = new Point((int)((corners[0].x + corners[1].x + corners[2].x + corners[3].x) / 4), (int)((corners[0].z + corners[1].z + corners[2].z + corners[3].z) / 4));
         this.height = (corners[0].pos.y + corners[1].pos.y + corners[2].pos.y + corners[3].pos.y) / 4;
