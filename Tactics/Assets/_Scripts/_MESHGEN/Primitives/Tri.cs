@@ -19,6 +19,7 @@ public class Tri
 
     public Vertex[] longestEdgePoints = new Vertex[2];
     public Vertex cornerPoint;
+    public Tri compliment;
 
     public Tri(Vertex first, Vertex second, Vertex third)
     {

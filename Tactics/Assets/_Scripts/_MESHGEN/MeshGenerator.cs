@@ -40,6 +40,8 @@ public class MeshGenerator : MonoBehaviour
     // }
     //move later
     public List<GridObject> gridObjects = new List<GridObject>();
+    public List<Tri> tris = new List<Tri>();
+    public Dictionary<int, Tri> triangleDictionary = new Dictionary<int, Tri>();
     public void GenerateDummyData2()
     {
         for (int i = 0; i < 10; i++)
@@ -66,6 +68,8 @@ public class MeshGenerator : MonoBehaviour
                 corners[2] = new Vertex(new Vector3((float)(i + .5), heights[(randomIndex + 2) % 4], (float)(j + .5)));
                 corners[3] = new Vertex(new Vector3((float)(i - .5), heights[(randomIndex + 3) % 4], (float)(j + .5)));
                 Tile2 tile = new Tile2(corners);
+                tris.Add(tile.tris[0]);
+                tris.Add(tile.tris[1]);
                 dummyData2[i, j].Add(tile);
                 gridObjects.Add(tile);
                 tileGrid[i, j].Add(tile);
@@ -75,6 +79,8 @@ public class MeshGenerator : MonoBehaviour
                 corners2[2] = new Vertex(new Vector3((float)(i + .5), bottomHeight, (float)(j + .5)));
                 corners2[3] = new Vertex(new Vector3((float)(i - .5), bottomHeight, (float)(j + .5)));
                 Bottom bottom = new Bottom(corners2);
+                tris.Add(bottom.tris[0]);
+                tris.Add(bottom.tris[1]);
                 dummyData2[i, j].Add(bottom);
                 gridObjects.Add(bottom);
                 tile.bottom = bottom;
@@ -87,6 +93,8 @@ public class MeshGenerator : MonoBehaviour
                 corners3[2] = new Vertex(new Vector3((float)(i + .5), height2, (float)(j + .5)));
                 corners3[3] = new Vertex(new Vector3((float)(i - .5), height2, (float)(j + .5)));
                 Tile2 tile2 = new Tile2(corners3);
+                tris.Add(tile2.tris[0]);
+                tris.Add(tile2.tris[1]);
                 dummyData2[i, j].Add(tile2);
                 gridObjects.Add(tile2);
                 tileGrid[i, j].Add(tile2);
@@ -96,6 +104,8 @@ public class MeshGenerator : MonoBehaviour
                 corners4[2] = new Vertex(new Vector3((float)(i + .5), bottomHeight2, (float)(j + .5)));
                 corners4[3] = new Vertex(new Vector3((float)(i - .5), bottomHeight2, (float)(j + .5)));
                 Bottom bottom2 = new Bottom(corners4);
+                tris.Add(bottom2.tris[0]);
+                tris.Add(bottom2.tris[1]);
                 dummyData2[i, j].Add(bottom2);
                 gridObjects.Add(bottom2);
                 tile2.bottom = bottom2;
@@ -154,6 +164,14 @@ public class MeshGenerator : MonoBehaviour
                     {
                         trianglesList.Add(vertexCount + dummyData2[i, j][k].triangles[l]);
                     }
+                    Tri tri1 = dummyData2[i, j][k].tris[0];
+                    Tri tri2 = dummyData2[i, j][k].tris[1];
+                    
+                    triangleDictionary.Add(triangleCount, tri1);
+                    triangleDictionary.Add(triangleCount + 1, tri2);
+
+
+
                     vertexCount += dummyData2[i, j][k].corners.Length;
                     triangleCount += dummyData2[i, j][k].triangles.Length;
                 }
@@ -531,6 +549,8 @@ public class MeshGenerator : MonoBehaviour
             tile.walls.Add(wall);
             gridObjects.Add(wall);
             dummyData2[tile.pos.x, tile.pos.y].Add(wall);
+            tris.Add(wall.tris[0]);
+            tris.Add(wall.tris[1]);
         }
     }
 }

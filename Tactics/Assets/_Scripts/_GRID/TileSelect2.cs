@@ -16,6 +16,7 @@ public class TileSelect2 : MonoBehaviour
     };
     private Vector3[] modifiedVerts;
     int[] tris = new int[6] { 2, 1, 0, 3, 1, 2 };
+    // private int[] tris = new int[6] { 0, 1, 2, 2, 1, 3 };
     // int[] tris = new int[3] { 2, 1, 0 };
 
     [SerializeField] Mesh generatedMesh;
@@ -57,8 +58,14 @@ public class TileSelect2 : MonoBehaviour
     // }
 
 
-    int quadIndex = 0;
+    // int quadIndex = 0;
+
+
+
+
+
     // Update is called once per frame
+    Tri tri;
     void Update()
     {
         generatedMesh = meshGenerator.mesh;
@@ -67,38 +74,49 @@ public class TileSelect2 : MonoBehaviour
         GridObject hoveredGridObject = null;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            foreach (var gridObject in meshGenerator.gridObjects)
+            Debug.Log("hit.triangleIndex: " + hit.triangleIndex);
+            // foreach (var gridObject in meshGenerator.gridObjects)
+            // {
+            meshGenerator.triangleDictionary.TryGetValue(hit.triangleIndex * 3, out Tri tri);
+            if (tri != null)
             {
-                
-                if (gridObject.tris.Any(tri => tri.id == hit.triangleIndex))
-                //problem is that the hit.triangleIndex is not the same as the id of the tri in the gridObject
-
-                {
-                    hoveredGridObject = gridObject;
-                    // Found the gridObject containing the Tri with the specified id
-                    // Do something with the gridObject
-
-                    break;
-                }
+                Vector3 p0 = tri.cornerPoint.pos;
+                Vector3 p1 = tri.longestEdgePoints[0].pos;
+                Vector3 p2 = tri.longestEdgePoints[1].pos;
+                Vector3 p3 = tri.compliment.cornerPoint.pos;
+                modifiedVerts[0] = p0;
+                modifiedVerts[2] = p1;
+                modifiedVerts[1] = p2;
+                modifiedVerts[3] = p3;
+                mesh.vertices = modifiedVerts;
+                mesh.RecalculateNormals();
+                mesh.RecalculateBounds();
             }
+                // Vector3 p0 = generatedMesh.vertices[generatedMesh.triangles[hit.triangleIndex * 3]];
+                // Vector3 p1 = generatedMesh.vertices[generatedMesh.triangles[hit.triangleIndex * 3 + 1]];
+                // Vector3 p2 = generatedMesh.vertices[generatedMesh.triangles[hit.triangleIndex * 3 + 2]];
+                // Vector3 p3 = generatedMesh.vertices[generatedMesh.triangles[meshGenerator.triangleDictionary[hit.triangleIndex] * 3]];
+            //     if (gridObject.tris.Any(tri => tri.id == hit.triangleIndex))
+            //     //problem is that the hit.triangleIndex is not the same as the id of the tri in the gridObject
 
-            if (hoveredGridObject == null)
-            {
-                return;
-            }
-            Vector3 p0 = hoveredGridObject.tris[0].cornerPoint.pos;
-            Vector3 p1 = hoveredGridObject.tris[0].longestEdgePoints[0].pos;
-            Vector3 p2 = hoveredGridObject.tris[0].longestEdgePoints[1].pos;
-            Vector3 p3 = hoveredGridObject.tris[1].cornerPoint.pos;
+            //     {
+            //         hoveredGridObject = gridObject;
+            //         // Found the gridObject containing the Tri with the specified id
+            //         // Do something with the gridObject
 
+            //         break;
+            //     }
+            // }
 
-            modifiedVerts[0] = p0;
-            modifiedVerts[2] = p1;
-            modifiedVerts[1] = p2;
-            modifiedVerts[3] = p3;
-            mesh.vertices = modifiedVerts;
-            mesh.RecalculateNormals();
-            mesh.RecalculateBounds();
+            // if (hoveredGridObject == null)
+            // {
+            //     return;
+            // }
+            // Vector3 p0 = hoveredGridObject.tris[0].cornerPoint.pos;
+            // Vector3 p1 = hoveredGridObject.tris[0].longestEdgePoints[0].pos;
+            // Vector3 p2 = hoveredGridObject.tris[0].longestEdgePoints[1].pos;
+            // Vector3 p3 = hoveredGridObject.tris[1].cornerPoint.pos;
+
 
             // MeshCollider meshCollider = hit.collider as MeshCollider;
             // Mesh hitMesh = meshCollider.sharedMesh;
