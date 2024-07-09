@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 [Serializable]
-public class Tile2 : GridObject{
-    
+public class Tile2 : GridObject
+{
+
     //TODO: seperate functional vertices from rendering vertices
     public int id;
     public float thickness;
@@ -16,26 +17,34 @@ public class Tile2 : GridObject{
 
     public Tile2(Vertex[] corners) : base(corners)
     {
-        triangles = new int[6] { 2, 1, 0, 3, 2, 0 };
+        // triangles = new int[6] { 2, 1, 0, 3, 2, 0 };
+        this.triangles = new int[6] { 2, 1, 0, 3, 2, 0 };
+        tris[0] = new Tri(corners[2], corners[1], corners[0]);
+        tris[1] = new Tri(corners[3], corners[2], corners[0]);
+        tris[0].compliment = tris[1];
+        tris[1].compliment = tris[0];
     }
-    public void Setup(Wall[] walls, Tile2[] neighbors, Bottom bottom){
+    public void Setup(Wall[] walls, Tile2[] neighbors, Bottom bottom)
+    {
         this.walls = new List<Wall>(walls);
         this.neighbors = new List<Tile2>(neighbors);
         this.bottom = bottom;
         //INCOMPLETE
 
     }
-    public void Destroy(){
+    public void Destroy()
+    {
         //destroy walls
         //destroy bottom
         //destroy self
 
     }
-    public void FindNeighborTiles(List<GridObject>[,] gridObjects){
+    public void FindNeighborTiles(List<GridObject>[,] gridObjects)
+    {
 
-        
+
     }
-// should I split into north, east, south, west?
+    // should I split into north, east, south, west?
     //bools for whether to render walls
 
     // public Tile2(Point point, float height, float thickness, TileShapes shape = TileShapes.Square){
@@ -112,7 +121,7 @@ public class Tile2 : GridObject{
     //         // vertices[13] = new Vector3((float)(point.x + .5), height, (float)(point.y + .5));
     //         // vertices[14] = new Vector3((float)(point.x + .5), height - thickness, (float)(point.y - .5));
     //         // vertices[15] = new Vector3((float)(point.x + .5), height - thickness, (float)(point.y + .5));
-            
+
     //         //Front wall
     //         // vertices.Add(new Vector3((float)(point.x -.5), height, (float)(point.y + .5)));
     //         // vertices.Add(new Vector3((float)(point.x + .5), height, (float)(point.y + .5)));
@@ -133,7 +142,7 @@ public class Tile2 : GridObject{
     //         // vertices[21] = new Vector3((float)(point.x -.5), height, (float)(point.y - .5));
     //         // vertices[22] = new Vector3((float)(point.x -.5), height - thickness, (float)(point.y + .5));
     //         // vertices[23] = new Vector3((float)(point.x -.5), height - thickness, (float)(point.y - .5));
-            
+
     //         //Top
     //         // triangles.Add(0);
     //         // triangles.Add(2);
@@ -187,7 +196,7 @@ public class Tile2 : GridObject{
     //         // triangles.Add(18);
     //         // triangles.Add(19);
     //         // triangles.Add(17);
-            
+
     //         // triangles[18] = 2;
     //         // triangles[19] = 6;
     //         // triangles[20] = 3;

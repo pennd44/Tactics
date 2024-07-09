@@ -74,7 +74,7 @@ public class TileSelect2 : MonoBehaviour
         GridObject hoveredGridObject = null;
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            Debug.Log("hit.triangleIndex: " + hit.triangleIndex);
+            // Debug.Log("hit.triangleIndex: " + hit.triangleIndex);
             // foreach (var gridObject in meshGenerator.gridObjects)
             // {
             meshGenerator.triangleDictionary.TryGetValue(hit.triangleIndex * 3, out Tri tri);
@@ -92,10 +92,10 @@ public class TileSelect2 : MonoBehaviour
                 mesh.RecalculateNormals();
                 mesh.RecalculateBounds();
             }
-                // Vector3 p0 = generatedMesh.vertices[generatedMesh.triangles[hit.triangleIndex * 3]];
-                // Vector3 p1 = generatedMesh.vertices[generatedMesh.triangles[hit.triangleIndex * 3 + 1]];
-                // Vector3 p2 = generatedMesh.vertices[generatedMesh.triangles[hit.triangleIndex * 3 + 2]];
-                // Vector3 p3 = generatedMesh.vertices[generatedMesh.triangles[meshGenerator.triangleDictionary[hit.triangleIndex] * 3]];
+            // Vector3 p0 = generatedMesh.vertices[generatedMesh.triangles[hit.triangleIndex * 3]];
+            // Vector3 p1 = generatedMesh.vertices[generatedMesh.triangles[hit.triangleIndex * 3 + 1]];
+            // Vector3 p2 = generatedMesh.vertices[generatedMesh.triangles[hit.triangleIndex * 3 + 2]];
+            // Vector3 p3 = generatedMesh.vertices[generatedMesh.triangles[meshGenerator.triangleDictionary[hit.triangleIndex] * 3]];
             //     if (gridObject.tris.Any(tri => tri.id == hit.triangleIndex))
             //     //problem is that the hit.triangleIndex is not the same as the id of the tri in the gridObject
 
@@ -123,7 +123,13 @@ public class TileSelect2 : MonoBehaviour
             // Vector3[] vertices = hitMesh.vertices;
             // List<Vector3> verticesList = hitMesh.vertices.ToList();
             // List<int> triangles = hitMesh.triangles.ToList();
-            // if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
+            {
+                List<Tri> wallTris;
+                wallTris = meshGenerator.tris.Where(tri => tri.cornerPoint.pos.x == tri.longestEdgePoints[0].pos.x && tri.cornerPoint.pos.z == tri.longestEdgePoints[0].pos.z).ToList();
+                //Debug
+                Debug.Log("wallTris.Count: " + wallTris.Count);
+            }
             // {
             //     Tri tri1 = levelData.AllTris[hit.triangleIndex];
             //     Tri tri2 = levelData.AllTris[levelData.TrianglesDict[hit.triangleIndex]];

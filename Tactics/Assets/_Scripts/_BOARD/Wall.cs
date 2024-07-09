@@ -16,7 +16,12 @@ public class Wall : GridObject
     public int[] triangles = new int[6];
     public Wall(Directions direction, Vertex[] corners) : base(corners)
     {
-        triangles = new int[6] { 2, 1, 0, 3, 2, 0 };
+        // triangles = new int[6] { 2, 1, 0, 3, 2, 0 };
+        // this.triangles = new int[6] { 2, 1, 0, 3, 2, 0 };
+        // tris[0] = new Tri(corners[2], corners[1], corners[0]);
+        // tris[1] = new Tri(corners[3], corners[2], corners[0]);
+        // tris[0].compliment = tris[1];
+        // tris[1].compliment = tris[0];
 
         this._direction = direction;
         this.to_height = (corners[0].pos.y + corners[1].pos.y) / 2;
@@ -41,6 +46,12 @@ public class Wall : GridObject
             this.pos = new Point((int)((corners[3].pos.x + corners[0].pos.x) / 2 + 0.5), (int)((corners[3].pos.z + corners[0].pos.z) / 2));
             // this.triangles = new int[6] { 0, 1, 2, 0, 2, 3 };
         }
+        this.triangles = new int[6] { 0, 1, 2, 0, 2, 3 };
+
+        tris[0] = new Tri(corners[0], corners[1], corners[2]);
+        tris[1] = new Tri(corners[0], corners[2], corners[3]);
+        tris[0].compliment = tris[1];
+        tris[1].compliment = tris[0];
     }
 
 }
