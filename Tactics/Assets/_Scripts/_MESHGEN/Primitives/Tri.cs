@@ -6,6 +6,7 @@ public class Tri
 {
     static int idCounter = 0;
     public int id;
+    public int index;
     public Vertex First;
     // public int FirstIndex;
     public Vertex Second;

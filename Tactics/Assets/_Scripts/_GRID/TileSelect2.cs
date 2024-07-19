@@ -125,10 +125,37 @@ public class TileSelect2 : MonoBehaviour
             // List<int> triangles = hitMesh.triangles.ToList();
             if (Input.GetMouseButtonDown(0))
             {
-                List<Tri> wallTris;
-                wallTris = meshGenerator.tris.Where(tri => tri.cornerPoint.pos.x == tri.longestEdgePoints[0].pos.x && tri.cornerPoint.pos.z == tri.longestEdgePoints[0].pos.z).ToList();
-                //Debug
-                Debug.Log("wallTris.Count: " + wallTris.Count);
+                // List<Tri> wallTris;
+                // wallTris = meshGenerator.tris.Where(tri => tri.cornerPoint.pos.x == tri.longestEdgePoints[0].pos.x && tri.cornerPoint.pos.z == tri.longestEdgePoints[0].pos.z).ToList();
+                // //Debug
+                // Debug.Log("wallTris.Count: " + wallTris.Count);
+                // Move the hit tile down by 1 unit
+                Vector3[] vertices = generatedMesh.vertices;
+                int[] triangles = generatedMesh.triangles;
+
+                // Get the indices of the vertices for the hit triangle
+                int vertexIndex1 = triangles[hit.triangleIndex * 3];
+                int vertexIndex2 = triangles[hit.triangleIndex * 3 + 1];
+                int vertexIndex3 = triangles[hit.triangleIndex * 3 + 2];
+                int vertexIndex4 = triangles[meshGenerator.tris[hit.triangleIndex].compliment.index * 3];
+
+                // Move the vertices down by 1 unit
+                vertices[vertexIndex1] -= Vector3.up;
+                vertices[vertexIndex2] -= Vector3.up;
+                vertices[vertexIndex3] -= Vector3.up;
+                vertices[vertexIndex4] -= Vector3.up;
+                
+
+                // Update the mesh vertices and recalculate normals and bounds
+                generatedMesh.vertices = vertices;
+                generatedMesh.RecalculateNormals();
+                generatedMesh.RecalculateBounds();
+            }
+            if(Input.GetMouseButtonDown(1))
+            {
+                Debug.Log("Mesh.Triangles: " + generatedMesh.triangles.Length);
+                Debug.Log("Tri Index Length" + meshGenerator.tris.Count * 3);
+                Debug.Log("Tri Index Length" + meshGenerator.tris[generatedMesh.triangles.Length / 3].index * 3);
             }
             // {
             //     Tri tri1 = levelData.AllTris[hit.triangleIndex];

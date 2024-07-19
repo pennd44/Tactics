@@ -52,6 +52,7 @@ public class Wall : GridObject
         tris[1] = new Tri(corners[0], corners[2], corners[3]);
         tris[0].compliment = tris[1];
         tris[1].compliment = tris[0];
+        // Debug.Log("Wall Triangles: " + tris[0].ToString() + " " + tris[1].ToString());
     }
 
 }

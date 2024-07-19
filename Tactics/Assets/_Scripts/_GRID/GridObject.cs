@@ -25,7 +25,7 @@ public abstract class GridObject
         // this.pos = new Point((int)((corners[0].x + corners[1].x + corners[2].x + corners[3].x) / 4), (int)((corners[0].z + corners[1].z + corners[2].z + corners[3].z) / 4));
         this.height = (corners[0].pos.y + corners[1].pos.y + corners[2].pos.y + corners[3].pos.y) / 4;
         this.pos = new Point((int)((corners[0].pos.x + corners[1].pos.x + corners[2].pos.x + corners[3].pos.x) / 4), (int)((corners[0].pos.z + corners[1].pos.z + corners[2].pos.z + corners[3].pos.z) / 4));
-
+        // Debug.Log("created go " + this.pos);
         // this.triangles = new int[6] { 0, 1, 2, 0, 2, 3 };
     }
 
