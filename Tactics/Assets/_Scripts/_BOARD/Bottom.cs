@@ -12,4 +12,8 @@ public class Bottom : GridObject
         tris[0].compliment = tris[1];
         tris[1].compliment = tris[0];
     }
+    public override void InitializeTriangles()
+    {
+        triangles = new int[6] { 0, 1, 2, 0, 2, 3 };
+    }
 }

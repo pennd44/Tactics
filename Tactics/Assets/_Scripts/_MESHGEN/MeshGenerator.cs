@@ -112,6 +112,7 @@ public class MeshGenerator : MonoBehaviour
 
             }
         }
+        AddWalls();
     }
     void AddWalls()
     {
@@ -144,7 +145,6 @@ public class MeshGenerator : MonoBehaviour
     void GenerateGrid()
     {
         GenerateDummyData2();
-        AddWalls();
         int triangleCount = 0;
         int vertexCount = 0;
         List<Vector3> verticesList = new List<Vector3>();
@@ -167,39 +167,54 @@ public class MeshGenerator : MonoBehaviour
             // }
             // Debug.Log("Wall Count: " + walls.Count);
     //DEBUG------------------------------------------------------------------
+
+        Debug.Log("Start");
+        
         for (int i = 0; i < dummyData2.GetLength(0); i++)
         {
             for (int j = 0; j < dummyData2.GetLength(1); j++)
             {
                 for (int k = 0; k < dummyData2[i, j].Count; k++)
                 {
-                    for (int l = 0; l < 4; l++)
-                    {
-                        verticesList.Add(dummyData2[i, j][k].corners[l].pos);
-                    }
-                    for (int l = 0; l < 6; l++)
-                    {
-                        trianglesList.Add(vertexCount + dummyData2[i, j][k].triangles[l]);
-                    }
-                    Tri tri1 = dummyData2[i, j][k].tris[0];
-                    Tri tri2 = dummyData2[i, j][k].tris[1];
-                    tri1.index = triangleCount;
-                    tri2.index = triangleCount + 1;
-                    
-                    triangleDictionary.Add(triangleCount, tri1);
-                    triangleDictionary.Add(triangleCount + 1, tri2);
-                    tris.Add(tri1);
-                    tris.Add(tri2);
+                    if(dummyData2[i, j][k] is Wall)
+                        {
+                            GridObject wall = (Wall)dummyData2[i, j][k];
+                                        Debug.Log("Wall triangles array : " + wall.triangles[0].ToString() + " " + wall.triangles[1].ToString() + " " + wall.triangles[2].ToString() + " " + wall.triangles[3].ToString() + " " + wall.triangles[4].ToString() + " " + wall.triangles[5].ToString());
+
+                            for (int l = 0; l < 4; l++)
+                            {
+                                verticesList.Add(dummyData2[i, j][k].corners[l].pos);
+                            }
+                            for (int l = 0; l < 6; l++)
+                            {
+                                Debug.Log(" Befpre Triangle " + l + ": " + ( dummyData2[i, j][k].triangles[l]));
+                                Debug.Log(" TBefore Triangle " + l + ": " + ( wall.triangles[l]));
+                                trianglesList.Add(vertexCount + dummyData2[i, j][k].triangles[l]);
+                               dummyData2[i, j][k].triangles.ToList().ForEach(Console.WriteLine);
+                                Debug.Log("After Triangle " + l + ": " + ( dummyData2[i, j][k].triangles[l]));
+                                Debug.Log("TAfter Triangle " + l + ": " + ( wall.triangles[l]));
+                                
+                            }
+                            Tri tri1 = dummyData2[i, j][k].tris[0];
+                            Tri tri2 = dummyData2[i, j][k].tris[1];
+                            tri1.index = triangleCount;
+                            tri2.index = triangleCount + 1;
+                            
+                            triangleDictionary.Add(triangleCount, tri1);
+                            triangleDictionary.Add(triangleCount + 1, tri2);
+                            tris.Add(tri1);
+                            tris.Add(tri2);
 
 
 
-                    vertexCount += dummyData2[i, j][k].corners.Length;
-                    triangleCount += dummyData2[i, j][k].triangles.Length;
+                            vertexCount += dummyData2[i, j][k].corners.Length;
+                            triangleCount += dummyData2[i, j][k].triangles.Length;
+                        }
                 }
             }
         }
-        vertices = verticesList.ToArray();
-        triangles = trianglesList.ToArray();
+                    vertices = verticesList.ToArray();
+                    triangles = trianglesList.ToArray();
 
 
 
@@ -567,8 +582,14 @@ public class MeshGenerator : MonoBehaviour
             }
             //add these verts to the vertices list
             Wall wall = new Wall(direction, wallVertices);
+            Debug.Log("Wall triangles array : " + wall.triangles[0].ToString() + " " + wall.triangles[1].ToString() + " " + wall.triangles[2].ToString() + " " + wall.triangles[3].ToString() + " " + wall.triangles[4].ToString() + " " + wall.triangles[5].ToString());
+            // Debug.Log("wall tris" + wall.tris[0].ToString() + " " + wall.tris[1].ToString());
             tile.walls.Add(wall);
             gridObjects.Add(wall);
+            if (dummyData2[tile.pos.x, tile.pos.y] == null)
+            {
+                dummyData2[tile.pos.x, tile.pos.y] = new List<GridObject>();
+            }
             dummyData2[tile.pos.x, tile.pos.y].Add(wall);
             // Debug.Log("Wall created " + wallVertices[0].pos + " " + wallVertices[1].pos + " " + wallVertices[2].pos + " " + wallVertices[3].pos);
             // tris.Add(wall.tris[0]);

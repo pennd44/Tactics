@@ -156,6 +156,10 @@ public class TileSelect2 : MonoBehaviour
                 Debug.Log("Mesh.Triangles: " + generatedMesh.triangles.Length);
                 Debug.Log("Tri Index Length" + meshGenerator.tris.Count * 3);
                 Debug.Log("Tri Index Length" + meshGenerator.tris[generatedMesh.triangles.Length / 3].index * 3);
+                // Draw a gizmo on vertex 4
+                Vector3 vertex4 = generatedMesh.vertices[generatedMesh.triangles[meshGenerator.tris[hit.triangleIndex].compliment.index * 3]];
+                Gizmos.color = Color.red;
+                Gizmos.DrawSphere(vertex4, 0.1f);
             }
             // {
             //     Tri tri1 = levelData.AllTris[hit.triangleIndex];

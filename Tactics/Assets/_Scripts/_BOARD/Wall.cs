@@ -13,7 +13,7 @@ public class Wall : GridObject
     private float from_height;
     public Vertex[] corners = new Vertex[4];
     // public Vector3[] vertices;
-    public int[] triangles = new int[6];
+    public int[] triangles = new int[6] { 0, 1, 2, 0, 2, 3 };
     public Wall(Directions direction, Vertex[] corners) : base(corners)
     {
         // triangles = new int[6] { 2, 1, 0, 3, 2, 0 };
@@ -46,7 +46,8 @@ public class Wall : GridObject
             this.pos = new Point((int)((corners[3].pos.x + corners[0].pos.x) / 2 + 0.5), (int)((corners[3].pos.z + corners[0].pos.z) / 2));
             // this.triangles = new int[6] { 0, 1, 2, 0, 2, 3 };
         }
-        this.triangles = new int[6] { 0, 1, 2, 0, 2, 3 };
+        int [] ints = new int[6] { 0, 1, 2, 0, 2, 3 };
+        triangles = ints;
 
         tris[0] = new Tri(corners[0], corners[1], corners[2]);
         tris[1] = new Tri(corners[0], corners[2], corners[3]);
@@ -54,5 +55,9 @@ public class Wall : GridObject
         tris[1].compliment = tris[0];
         // Debug.Log("Wall Triangles: " + tris[0].ToString() + " " + tris[1].ToString());
     }
+    public override void InitializeTriangles()
+    {
+        triangles = new int[6] { 0, 1, 2, 0, 2, 3 };
+    }       
 
 }

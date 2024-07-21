@@ -16,6 +16,8 @@ public abstract class GridObject
 
     public GridObject(Vertex[] corners)
     {
+        triangles = new int[6];
+        InitializeTriangles();
         this.corners = corners;
         // tris[0] = new Tri(corners[0], corners[1], corners[2]);
         // tris[1] = new Tri(corners[0], corners[2], corners[3]);
@@ -28,6 +30,7 @@ public abstract class GridObject
         // Debug.Log("created go " + this.pos);
         // this.triangles = new int[6] { 0, 1, 2, 0, 2, 3 };
     }
+    abstract void InitializeTriangles();
 
 
     public Vector3[] vertices;
