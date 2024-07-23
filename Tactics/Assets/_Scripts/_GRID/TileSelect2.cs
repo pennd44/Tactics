@@ -60,12 +60,25 @@ public class TileSelect2 : MonoBehaviour
 
     // int quadIndex = 0;
 
-
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.blue;
+        for (int i = 0; i < drawnVerts.Length; i++)
+        {
+            Gizmos.DrawSphere(generatedMesh.vertices[drawnVerts[i]], 0.1f);
+        }
+        Gizmos.color = Color.red;
+        for (int i = 0; i < drawnVectors.Length; i++)
+        {
+            Gizmos.DrawSphere(drawnVectors[i], 0.1f);
+        }
+    }
 
 
 
     // Update is called once per frame
     Tri tri;
+    private int [] drawnVerts = new int[4];
+    private Vector3 [] drawnVectors = new Vector3[4];  
     void Update()
     {
         generatedMesh = meshGenerator.mesh;
@@ -130,20 +143,53 @@ public class TileSelect2 : MonoBehaviour
                 // //Debug
                 // Debug.Log("wallTris.Count: " + wallTris.Count);
                 // Move the hit tile down by 1 unit
-                Vector3[] vertices = generatedMesh.vertices;
-                int[] triangles = generatedMesh.triangles;
+
+                
+
+                // Vector3[] vertices = generatedMesh.vertices;
+                // int[] triangles = generatedMesh.triangles;
+                Tri tri1 = meshGenerator.triangleDictionary[hit.triangleIndex * 3];
+                // Tri tri2 = meshGenerator.tris[meshGenerator.triangleDictionary[hit.triangleIndex]];
+                Tri tri2 = tri1.compliment;
+                
+                //get the mesh.vertices index of the corner point of the triangle
+                int cornerPointIndex = tri1.cornerPointIndex;
+                int cornerPointIndex2 = tri2.cornerPointIndex;
+                //get the mesh.vertices index of the longest edge point of the triangle
+                int longestEdgePointIndex = tri1.longestEdgePoints1Index;
+                int longestEdgePointIndex2 = tri1.longestEdgePoints2Index;
+
+ 
+                // Draw gizmos on the modified vertices
+                Vector3 [] vertices = generatedMesh.vertices;
+
+                vertices[cornerPointIndex] -= Vector3.up;
+                vertices[longestEdgePointIndex] -= Vector3.up;
+                vertices[longestEdgePointIndex2] -= Vector3.up;
+                vertices[cornerPointIndex2] -= Vector3.up;
+                
+                drawnVectors[0] = tri1.cornerPoint.pos;
+                drawnVectors[1] = tri1.longestEdgePoints[0].pos;
+                drawnVectors[2] = tri1.longestEdgePoints[1].pos;
+                drawnVectors[3] = tri2.cornerPoint.pos;
+
+                drawnVerts[0] = cornerPointIndex;
+                drawnVerts[1] = longestEdgePointIndex;
+                drawnVerts[2] = longestEdgePointIndex2;
+                drawnVerts[3] = cornerPointIndex2;
+
 
                 // Get the indices of the vertices for the hit triangle
-                int vertexIndex1 = triangles[hit.triangleIndex * 3];
-                int vertexIndex2 = triangles[hit.triangleIndex * 3 + 1];
-                int vertexIndex3 = triangles[hit.triangleIndex * 3 + 2];
-                int vertexIndex4 = triangles[meshGenerator.tris[hit.triangleIndex].compliment.index * 3];
+                // int vertexIndex1 = triangles[hit.triangleIndex * 3];
+                // int vertexIndex2 = triangles[hit.triangleIndex * 3 + 1];
+                // int vertexIndex3 = triangles[hit.triangleIndex * 3 + 2];
+                // int vertexIndex4 = triangles[meshGenerator.tris[hit.triangleIndex].compliment.index * 3];
 
                 // Move the vertices down by 1 unit
-                vertices[vertexIndex1] -= Vector3.up;
-                vertices[vertexIndex2] -= Vector3.up;
-                vertices[vertexIndex3] -= Vector3.up;
-                vertices[vertexIndex4] -= Vector3.up;
+                // vertices[vertexIndex1] -= Vector3.up;
+                // vertices[vertexIndex2] -= Vector3.up;
+                // vertices[vertexIndex3] -= Vector3.up;
+                // vertices[vertexIndex4] -= Vector3.up;
                 
 
                 // Update the mesh vertices and recalculate normals and bounds

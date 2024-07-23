@@ -31,6 +31,16 @@ public class Tri
         SetUp();
     }
 
+    public void SetIndex(int index)
+    {
+        this.index = index; 
+        First.index = index;
+        Second.index = index + 1;
+        Third.index = index + 2;
+        longestEdgePoints1Index += index;
+        longestEdgePoints2Index += index;
+        cornerPointIndex += index;
+    }
 
     private void SetUp()
     {
@@ -40,29 +50,29 @@ public class Tri
         if (distance0 > distance1 && distance0 > distance2)
         {
             longestEdgePoints[0] = First;
-            longestEdgePoints1Index = First.id;
+            longestEdgePoints1Index = 0;
             longestEdgePoints[1] = Second;
-            longestEdgePoints2Index = Second.id;
+            longestEdgePoints2Index = 1;
             cornerPoint = Third;
-            cornerPointIndex = Third.id;
+            cornerPointIndex = 2;
         }
         else if (distance1 > distance2)
         {
             longestEdgePoints[0] = Second;
-            longestEdgePoints1Index = Second.id;
+            longestEdgePoints1Index = 1;
             longestEdgePoints[1] = Third;
-            longestEdgePoints2Index = Third.id;
+            longestEdgePoints2Index = 2;
             cornerPoint = First;
-            cornerPointIndex = First.id;
+            cornerPointIndex = 0;
         }
         else
         {
             longestEdgePoints[0] = Third;
-            longestEdgePoints1Index = Third.id;
+            longestEdgePoints1Index = 2;
             longestEdgePoints[1] = First;
-            longestEdgePoints2Index = First.id;
+            longestEdgePoints2Index = 0;
             cornerPoint = Second;
-            cornerPointIndex = Second.id;
+            cornerPointIndex = 1;
         }
     }
     public override string ToString()

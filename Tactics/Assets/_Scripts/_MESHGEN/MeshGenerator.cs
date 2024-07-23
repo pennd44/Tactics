@@ -176,40 +176,38 @@ public class MeshGenerator : MonoBehaviour
             {
                 for (int k = 0; k < dummyData2[i, j].Count; k++)
                 {
-                    if(dummyData2[i, j][k] is Wall)
-                        {
-                            GridObject wall = (Wall)dummyData2[i, j][k];
-                                        Debug.Log("Wall triangles array : " + wall.triangles[0].ToString() + " " + wall.triangles[1].ToString() + " " + wall.triangles[2].ToString() + " " + wall.triangles[3].ToString() + " " + wall.triangles[4].ToString() + " " + wall.triangles[5].ToString());
+                    GridObject wall = dummyData2[i, j][k];
 
-                            for (int l = 0; l < 4; l++)
-                            {
-                                verticesList.Add(dummyData2[i, j][k].corners[l].pos);
-                            }
-                            for (int l = 0; l < 6; l++)
-                            {
-                                Debug.Log(" Befpre Triangle " + l + ": " + ( dummyData2[i, j][k].triangles[l]));
-                                Debug.Log(" TBefore Triangle " + l + ": " + ( wall.triangles[l]));
-                                trianglesList.Add(vertexCount + dummyData2[i, j][k].triangles[l]);
-                               dummyData2[i, j][k].triangles.ToList().ForEach(Console.WriteLine);
-                                Debug.Log("After Triangle " + l + ": " + ( dummyData2[i, j][k].triangles[l]));
-                                Debug.Log("TAfter Triangle " + l + ": " + ( wall.triangles[l]));
-                                
-                            }
-                            Tri tri1 = dummyData2[i, j][k].tris[0];
-                            Tri tri2 = dummyData2[i, j][k].tris[1];
-                            tri1.index = triangleCount;
-                            tri2.index = triangleCount + 1;
-                            
-                            triangleDictionary.Add(triangleCount, tri1);
-                            triangleDictionary.Add(triangleCount + 1, tri2);
-                            tris.Add(tri1);
-                            tris.Add(tri2);
+                    for (int l = 0; l < 4; l++)
+                    {
+                        verticesList.Add(dummyData2[i, j][k].corners[l].pos);
+                    }
+                    for (int l = 0; l < 6; l++)
+                    {
+                        // Debug.Log(" Befpre Triangle " + l + ": " + ( dummyData2[i, j][k].triangles[l]));
+                        // Debug.Log(" TBefore Triangle " + l + ": " + ( wall.triangles[l]));
+                        trianglesList.Add(vertexCount + dummyData2[i, j][k].triangles[l]);
+                        // Debug.Log("After Triangle " + l + ": " + ( dummyData2[i, j][k].triangles[l]));
+                        // Debug.Log("TAfter Triangle " + l + ": " + ( wall.triangles[l]));
+                        
+                    }
+                    Tri tri1 = dummyData2[i, j][k].tris[0];
+                    Tri tri2 = dummyData2[i, j][k].tris[1];
+                    tri1.SetIndex(triangleCount * 3);
+                    tri2.SetIndex((triangleCount + 1) * 3);
+                    
+                    // triangleDictionary.Add(triangleCount, tri1);
+                    // triangleDictionary.Add(triangleCount + 1, tri2);
+                    triangleDictionary.Add(tri1.index, tri1);
+                    triangleDictionary.Add(tri2.index, tri2);
+                    tris.Add(tri1);
+                    tris.Add(tri2);
 
 
 
-                            vertexCount += dummyData2[i, j][k].corners.Length;
-                            triangleCount += dummyData2[i, j][k].triangles.Length;
-                        }
+                    vertexCount += dummyData2[i, j][k].corners.Length;
+                    triangleCount += 2; 
+                    // KEEP THIS LINE FOR NOW triangleCount += dummyData2[i, j][k].triangles.Length;
                 }
             }
         }

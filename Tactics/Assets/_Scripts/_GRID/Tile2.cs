@@ -32,10 +32,10 @@ public class Tile2 : GridObject
         //INCOMPLETE
 
     }
-    public override void InitializeTriangles()
-    {
-        triangles = new int[6] { 2, 1, 0, 3, 2, 0 };
-    }
+    // public override void InitializeTriangles()
+    // {
+    //     triangles = new int[6] { 2, 1, 0, 3, 2, 0 };
+    // }
     public void Destroy()
     {
         //destroy walls

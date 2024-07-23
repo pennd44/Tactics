@@ -55,9 +55,9 @@ public class Wall : GridObject
         tris[1].compliment = tris[0];
         // Debug.Log("Wall Triangles: " + tris[0].ToString() + " " + tris[1].ToString());
     }
-    public override void InitializeTriangles()
-    {
-        triangles = new int[6] { 0, 1, 2, 0, 2, 3 };
-    }       
+    // public override void InitializeTriangles()
+    // {
+    //     triangles = new int[6] { 0, 1, 2, 0, 2, 3 };
+    // }       
 
 }

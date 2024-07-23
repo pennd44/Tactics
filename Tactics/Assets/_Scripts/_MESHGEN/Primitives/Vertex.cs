@@ -5,6 +5,7 @@ public class Vertex
 {
     static int id_counter = 0;
     public int id;
+    public int index;
     public Vector3 pos;
     public Vertex( Vector3 pos)
     {
