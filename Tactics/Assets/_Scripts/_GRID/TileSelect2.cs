@@ -60,7 +60,8 @@ public class TileSelect2 : MonoBehaviour
 
     // int quadIndex = 0;
 
-    private void OnDrawGizmos() {
+    private void OnDrawGizmos()
+    {
         Gizmos.color = Color.blue;
         for (int i = 0; i < drawnVerts.Length; i++)
         {
@@ -77,8 +78,8 @@ public class TileSelect2 : MonoBehaviour
 
     // Update is called once per frame
     Tri tri;
-    private int [] drawnVerts = new int[4];
-    private Vector3 [] drawnVectors = new Vector3[4];  
+    private int[] drawnVerts = new int[4] { 0, 1, 2, 3 };
+    private Vector3[] drawnVectors = new Vector3[4] { Vector3.zero, Vector3.zero, Vector3.zero, Vector3.zero };
     void Update()
     {
         generatedMesh = meshGenerator.mesh;
@@ -144,14 +145,14 @@ public class TileSelect2 : MonoBehaviour
                 // Debug.Log("wallTris.Count: " + wallTris.Count);
                 // Move the hit tile down by 1 unit
 
-                
+
 
                 // Vector3[] vertices = generatedMesh.vertices;
                 // int[] triangles = generatedMesh.triangles;
                 Tri tri1 = meshGenerator.triangleDictionary[hit.triangleIndex * 3];
                 // Tri tri2 = meshGenerator.tris[meshGenerator.triangleDictionary[hit.triangleIndex]];
                 Tri tri2 = tri1.compliment;
-                
+
                 //get the mesh.vertices index of the corner point of the triangle
                 int cornerPointIndex = tri1.cornerPointIndex;
                 int cornerPointIndex2 = tri2.cornerPointIndex;
@@ -159,15 +160,15 @@ public class TileSelect2 : MonoBehaviour
                 int longestEdgePointIndex = tri1.longestEdgePoints1Index;
                 int longestEdgePointIndex2 = tri1.longestEdgePoints2Index;
 
- 
-                // Draw gizmos on the modified vertices
-                Vector3 [] vertices = generatedMesh.vertices;
 
-                vertices[cornerPointIndex] -= Vector3.up;
-                vertices[longestEdgePointIndex] -= Vector3.up;
-                vertices[longestEdgePointIndex2] -= Vector3.up;
-                vertices[cornerPointIndex2] -= Vector3.up;
-                
+                // Draw gizmos on the modified vertices
+                Vector3[] vertices = generatedMesh.vertices;
+
+                // vertices[cornerPointIndex] -= Vector3.up;
+                // vertices[longestEdgePointIndex] -= Vector3.up;
+                // vertices[longestEdgePointIndex2] -= Vector3.up;
+                // vertices[cornerPointIndex2] -= Vector3.up;
+
                 drawnVectors[0] = tri1.cornerPoint.pos;
                 drawnVectors[1] = tri1.longestEdgePoints[0].pos;
                 drawnVectors[2] = tri1.longestEdgePoints[1].pos;
@@ -177,6 +178,11 @@ public class TileSelect2 : MonoBehaviour
                 drawnVerts[1] = longestEdgePointIndex;
                 drawnVerts[2] = longestEdgePointIndex2;
                 drawnVerts[3] = cornerPointIndex2;
+
+                // drawnVerts[0] = tri1.First.index;
+                // drawnVerts[1] = tri1.Second.index;
+                // drawnVerts[2] = tri1.Third.index;
+                // drawnVerts[3] = tri2.First.index;
 
 
                 // Get the indices of the vertices for the hit triangle
@@ -190,14 +196,14 @@ public class TileSelect2 : MonoBehaviour
                 // vertices[vertexIndex2] -= Vector3.up;
                 // vertices[vertexIndex3] -= Vector3.up;
                 // vertices[vertexIndex4] -= Vector3.up;
-                
+
 
                 // Update the mesh vertices and recalculate normals and bounds
                 generatedMesh.vertices = vertices;
                 generatedMesh.RecalculateNormals();
                 generatedMesh.RecalculateBounds();
             }
-            if(Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1))
             {
                 Debug.Log("Mesh.Triangles: " + generatedMesh.triangles.Length);
                 Debug.Log("Tri Index Length" + meshGenerator.tris.Count * 3);

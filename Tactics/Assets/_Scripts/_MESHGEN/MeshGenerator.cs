@@ -149,27 +149,27 @@ public class MeshGenerator : MonoBehaviour
         int vertexCount = 0;
         List<Vector3> verticesList = new List<Vector3>();
         List<int> trianglesList = new List<int>();
-    //DEBUG------------------------------------------------------------------
-            // Debug.Log("start");
-            //         List<Wall> walls = new List<Wall>();
-            // for (int i = 0; i < dummyData2.GetLength(0); i++)
-            // {
-            //     for (int j = 0; j < dummyData2.GetLength(1); j++)
-            //     {
-            //         for (int k = 0; k < dummyData2[i, j].Count; k++)
-            //         {
-            //             if (dummyData2[i, j][k] is Wall)
-            //             {
-            //                 walls.Add((Wall)dummyData2[i, j][k]);
-            //             }
-            //         }
-            //     }
-            // }
-            // Debug.Log("Wall Count: " + walls.Count);
-    //DEBUG------------------------------------------------------------------
+        //DEBUG------------------------------------------------------------------
+        // Debug.Log("start");
+        //         List<Wall> walls = new List<Wall>();
+        // for (int i = 0; i < dummyData2.GetLength(0); i++)
+        // {
+        //     for (int j = 0; j < dummyData2.GetLength(1); j++)
+        //     {
+        //         for (int k = 0; k < dummyData2[i, j].Count; k++)
+        //         {
+        //             if (dummyData2[i, j][k] is Wall)
+        //             {
+        //                 walls.Add((Wall)dummyData2[i, j][k]);
+        //             }
+        //         }
+        //     }
+        // }
+        // Debug.Log("Wall Count: " + walls.Count);
+        //DEBUG------------------------------------------------------------------
 
         Debug.Log("Start");
-        
+
         for (int i = 0; i < dummyData2.GetLength(0); i++)
         {
             for (int j = 0; j < dummyData2.GetLength(1); j++)
@@ -189,13 +189,14 @@ public class MeshGenerator : MonoBehaviour
                         trianglesList.Add(vertexCount + dummyData2[i, j][k].triangles[l]);
                         // Debug.Log("After Triangle " + l + ": " + ( dummyData2[i, j][k].triangles[l]));
                         // Debug.Log("TAfter Triangle " + l + ": " + ( wall.triangles[l]));
-                        
+
                     }
                     Tri tri1 = dummyData2[i, j][k].tris[0];
                     Tri tri2 = dummyData2[i, j][k].tris[1];
                     tri1.SetIndex(triangleCount * 3);
                     tri2.SetIndex((triangleCount + 1) * 3);
-                    
+
+
                     // triangleDictionary.Add(triangleCount, tri1);
                     // triangleDictionary.Add(triangleCount + 1, tri2);
                     triangleDictionary.Add(tri1.index, tri1);
@@ -206,13 +207,13 @@ public class MeshGenerator : MonoBehaviour
 
 
                     vertexCount += dummyData2[i, j][k].corners.Length;
-                    triangleCount += 2; 
+                    triangleCount += 2;
                     // KEEP THIS LINE FOR NOW triangleCount += dummyData2[i, j][k].triangles.Length;
                 }
             }
         }
-                    vertices = verticesList.ToArray();
-                    triangles = trianglesList.ToArray();
+        vertices = verticesList.ToArray();
+        triangles = trianglesList.ToArray();
 
 
 
@@ -599,7 +600,7 @@ public class MeshGenerator : MonoBehaviour
         int vertexIndex = mesh.triangles[tri.id * 3];
         return vertexIndex;
     }
-    
+
 }
 
 // void GenerateQuad(Quad quad){

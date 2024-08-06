@@ -5,24 +5,25 @@ using System.Collections.Generic;
 public class WalkMovement : BattleMovement
 {
     //Maybe replace with Scriptable Objects
-    public WalkMovement(BattleMovementStateMachine stateMachine) : base(stateMachine){}
-    public override bool ExpandSearch (Tile from, Tile to)
+    public WalkMovement(BattleMovementStateMachine stateMachine) : base(stateMachine) { }
+    public override bool ExpandSearch(Tile from, Tile to)
     {
-        if((Mathf.Abs(from.height - to.height) > unit.jumpHeight))
+        if ((Mathf.Abs(from.height - to.height) > unit.jumpHeight))
             return false;
-        if ( to.occupied)
+        if (to.occupied)
             return false;
         Tile currentTileCeiling = board.GetCeiling(from);
         Tile targetTileCeiling = board.GetCeiling(to);
         if (currentTileCeiling != null)
         {
-            if ((currentTileCeiling.height-to.height) < 2){
+            if ((currentTileCeiling.height - to.height) < 2)
+            {
                 return false;
             }
         }
         if (targetTileCeiling != null)
         {
-            if((targetTileCeiling.height - to.height) < 2)
+            if ((targetTileCeiling.height - to.height) < 2)
             {
                 return false;
             }
@@ -45,11 +46,13 @@ public class WalkMovement : BattleMovement
         }
         for (int i = 1; i < targets.Count; i++)
         {
-            Tile from = targets[i-1];
+            Tile from = targets[i - 1];
             Tile to = targets[i];
             // Directions dir = from.GetDirections(to);
             // if (unit.dir != dir)
             // yield return StartCoroutine(ITurn(to.transform.position));
+            from.ExitTile(unit);
+            to.EnterTile(unit);
             if (Mathf.Abs(from.height - to.height) < 1)
                 yield return stateMachine.StartCoroutine(Walk(to));
             else if (from.height > to.height)
@@ -67,7 +70,7 @@ public class WalkMovement : BattleMovement
         while (unit.gameObject.transform.position != tilePosition)
         {
             Turn(tilePosition);
-            CameraFollow(); 
+            CameraFollow();
             unit.transform.position = Vector3.MoveTowards(unit.gameObject.transform.position, tilePosition, 5.0f * Time.deltaTime);
             yield return null;
         }
@@ -82,12 +85,13 @@ public class WalkMovement : BattleMovement
         unit.transform.rotation = Quaternion.Slerp(unit.transform.rotation, lookRotation, Time.deltaTime * 5f);
 
     }
-    public IEnumerator JumpUp(Tile target){
-       Vector3 playerPosition = unit.gameObject.transform.position;
+    public IEnumerator JumpUp(Tile target)
+    {
+        Vector3 playerPosition = unit.gameObject.transform.position;
         Vector3 tilePosition = target.gameObject.transform.position;
         Vector3 tileY = new Vector3(playerPosition.x, tilePosition.y, playerPosition.z);
         unit.unitAnimator.SetTrigger("Jump");
-        while(unit.gameObject.transform.position.y != tilePosition.y)
+        while (unit.gameObject.transform.position.y != tilePosition.y)
         {
             Turn(tilePosition);
             unit.transform.position = Vector3.MoveTowards(unit.gameObject.transform.position, tileY, 5.0f * Time.deltaTime);
@@ -102,18 +106,19 @@ public class WalkMovement : BattleMovement
         unit.unitAnimator.SetBool("Falling", false);
         // unit.unitAnimator.SetFloat("Speed", 0);
     }
-    public IEnumerator JumpDown(Tile target){
-       Vector3 playerPosition = unit.gameObject.transform.position;
+    public IEnumerator JumpDown(Tile target)
+    {
+        Vector3 playerPosition = unit.gameObject.transform.position;
         Vector3 tilePosition = target.gameObject.transform.position;
         Vector3 tileXZ = new Vector3(tilePosition.x, playerPosition.y, tilePosition.z);
         unit.unitAnimator.SetTrigger("Jump");
-        while(unit.gameObject.transform.position.x != tilePosition.x && unit.gameObject.transform.position.z != tilePosition.z)
+        while (unit.gameObject.transform.position.x != tilePosition.x && unit.gameObject.transform.position.z != tilePosition.z)
         {
-            Turn(tilePosition); 
+            Turn(tilePosition);
             unit.transform.position = Vector3.MoveTowards(unit.gameObject.transform.position, tileXZ, 5.0f * Time.deltaTime);
             yield return null;
         }
-         unit.unitAnimator.SetBool("Falling", true);
+        unit.unitAnimator.SetBool("Falling", true);
         while (unit.gameObject.transform.position != tilePosition)
         {
             // Turn(tilePosition); 
@@ -123,5 +128,5 @@ public class WalkMovement : BattleMovement
         unit.unitAnimator.SetBool("Falling", false);
         // unit.unitAnimator.SetFloat("Speed", 0);
     }
-    
+
 }

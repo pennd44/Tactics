@@ -8,7 +8,7 @@ using System;
 public class Board : MonoBehaviour
 {
     public List<Tile> tiles;
-    private Point[] dirs = new Point[4]
+    public Point[] dirs = new Point[4]
     {
         new Point(0, 1),
         new Point(0, -1),
@@ -17,24 +17,27 @@ public class Board : MonoBehaviour
     };
     public void SelectTiles(List<Tile> tiles, Material material)
     {
-        for (int i = tiles.Count - 1; i >= 0; --i){
+        for (int i = tiles.Count - 1; i >= 0; --i)
+        {
             tiles[i].changeHighlight(material);
             tiles[i].selectable = true;
         }
     }
     public void DeSelectTiles(List<Tile> tiles)
     {
-        for (int i = tiles.Count - 1; i >= 0; --i){
+        for (int i = tiles.Count - 1; i >= 0; --i)
+        {
             // tiles[i].GetComponent<Renderer>().material.color= tiles[i].originalColor;
             tiles[i].removeHighlight();
             tiles[i].selectable = false;
         }
     }
-    public List<Tile> Selectables(List<Tile> tiles){
+    public List<Tile> Selectables(List<Tile> tiles)
+    {
         List<Tile> selectables = new List<Tile>();
         for (int i = 0; i < tiles.Count; i++)
         {
-            if(tiles[i].selectable)
+            if (tiles[i].selectable)
                 selectables.Add(tiles[i]);
         }
         return selectables;
@@ -74,7 +77,7 @@ public class Board : MonoBehaviour
     //     return retValue;
     // }
 
-//Turn this search below back on 
+    //Turn this search below back on 
 
     // public List<Tile> Search (Tile start, Func<Tile, Tile, bool> addTile)
     // {
@@ -108,7 +111,7 @@ public class Board : MonoBehaviour
 
     //     return retValue;
     // }
-    public List<Tile> Search (Tile start, Func<Tile, Tile, bool> addTile)
+    public List<Tile> Search(Tile start, Func<Tile, Tile, bool> addTile)
     {
         List<Tile> retValue = new List<Tile>();
         retValue.Add(start);
@@ -118,15 +121,15 @@ public class Board : MonoBehaviour
         Queue<Tile> checkNow = new Queue<Tile>();
         start.distance = 0;
         checkNow.Enqueue(start);
-        while(checkNow.Count > 0)
+        while (checkNow.Count > 0)
         {
             Tile t = checkNow.Dequeue();
-            for(int i = 0; i < 4; ++i)
+            for (int i = 0; i < 4; ++i)
             {
                 List<Tile> nextTiles = GetTiles(t.pos + dirs[i]);
-                if(nextTiles == null)
+                if (nextTiles == null)
                     continue;
-                for(int j = 0; j < nextTiles.Count; ++j)
+                for (int j = 0; j < nextTiles.Count; ++j)
                 {
                     Tile next = nextTiles[j];
                     if (next == null || next.distance <= t.distance + 1)
@@ -140,13 +143,14 @@ public class Board : MonoBehaviour
                     }
                 }
             }
-            if(checkNow.Count == 0)
+            if (checkNow.Count == 0)
                 SwapReference(ref checkNow, ref checkNext);
         }
 
         return retValue;
     }
-    void SwapReference (ref Queue<Tile> a, ref Queue<Tile> b){
+    void SwapReference(ref Queue<Tile> a, ref Queue<Tile> b)
+    {
         Queue<Tile> temp = a;
         a = b;
         b = temp;
@@ -171,7 +175,8 @@ public class Board : MonoBehaviour
         }
     }
 
-    private void Awake() {
+    private void Awake()
+    {
         tiles = UnityEngine.Object.FindObjectsOfType<Tile>().ToList();
     }
     public LevelData levelData;
@@ -189,7 +194,8 @@ public class Board : MonoBehaviour
         }
     }
 
-    public Tile getTile(Point p){
+    public Tile getTile(Point p)
+    {
         foreach (Tile t in tiles)
         {
             if (t.pos == p)
@@ -200,7 +206,8 @@ public class Board : MonoBehaviour
         return null;
     }
 
-    public Tile GetCeiling(Tile t){
+    public Tile GetCeiling(Tile t)
+    {
         List<Tile> tilesAtCurrentPosition = GetTiles(t.pos);
         Tile currentTileCeiling = null;
         float currentCeilingHeight = float.MaxValue; // to make sure we’re only getting the nearest ceiling
@@ -213,12 +220,13 @@ public class Board : MonoBehaviour
                 currentCeilingHeight = currentTileCeiling.height;
             }
         }
-        if(currentTileCeiling != null)
+        if (currentTileCeiling != null)
             return currentTileCeiling;
         return null;
     }
 
-    public List<Tile> GetTiles(Point p){
+    public List<Tile> GetTiles(Point p)
+    {
         List<Tile> ts = new List<Tile>();
         foreach (Tile t in tiles)
         {
@@ -232,11 +240,12 @@ public class Board : MonoBehaviour
         else
             return null;
     }
-    public Tile getClosestTile(Vector3 v){
+    public Tile getClosestTile(Vector3 v)
+    {
         Tile closest = null;
         float closestDistance = float.MaxValue;
 
-        for(int i = 0; i < tiles.Count; i++)
+        for (int i = 0; i < tiles.Count; i++)
         {
 
             var distance = Vector3.Distance(v, tiles[i].transform.position);
@@ -258,11 +267,12 @@ public class Board : MonoBehaviour
     }
 
 
-    public void exitBattle(){
+    public void exitBattle()
+    {
         for (int i = 0; i < tiles.Count; i++)
         {
             tiles[i].occupied = false;
-            tiles[i].content = null;   
-        }       
+            tiles[i].content = null;
+        }
     }
 }

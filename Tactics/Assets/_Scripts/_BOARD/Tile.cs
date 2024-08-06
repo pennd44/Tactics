@@ -23,25 +23,71 @@ public class Tile : MonoBehaviour
     //for diggable check thickness
     //if wall is over half unit height, knockback smacks them into the wall, otherwise they trip over the wall
 
-// if jump reaches wall you can climb
+    // if jump reaches wall you can climb
     public bool occupied = false;
     public bool selected = false;
     public bool selectable = false;
     public bool visited = false;
     public int cost = 1;
 
-    private void Awake() {
+    Board board;
+
+    private void Awake()
+    {
         pos = new Point(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.z));
         height = transform.position.y;
         originalMaterial = gameObject.GetComponent<Renderer>().material;
+        board = GetComponentInParent<Board>();
     }
-    public void changeHighlight(Material material){
-        Material [] newMaterials = new Material [] {originalMaterial, material};
+    public void changeHighlight(Material material)
+    {
+        Material[] newMaterials = new Material[] { originalMaterial, material };
         GetComponent<Renderer>().materials = newMaterials;
     }
-    public void removeHighlight(){
-        Material [] newMaterials = new Material [] {originalMaterial};
+    public void removeHighlight()
+    {
+        Material[] newMaterials = new Material[] { originalMaterial };
         GetComponent<Renderer>().materials = newMaterials;
     }
+    public event System.Action<Entity> OnEntityEnterTile;
+    public event System.Action<Entity> OnEntityExitTile;
+
+    private Entity currentEntity;
+
+    public List<Tile> GetNeighbors()
+    {
+        List<Tile> neighbors = new List<Tile>();
+        for (int i = 0; i < 4; i++)
+        {
+            Tile neighbor = board.getTile(pos + board.dirs[i]);
+            if (neighbor != null)
+            {
+                neighbors.Add(neighbor);
+            }
+        }
+        return neighbors;
+    }
+    public void EnterTile(Entity entity)
+    {
+        currentEntity = entity;
+        occupied = true;
+        OnEntityEnterTile?.Invoke(entity);
+    }
+
+    public void ExitTile(Entity entity)
+    {
+        if (currentEntity != null)
+        {
+            occupied = false;
+            OnEntityExitTile?.Invoke(currentEntity);
+            currentEntity = null;
+        }
+    }
+    public event System.Action<Entity> OnEntityPassThroughTile;
+    public void PassthroughTile(Entity entity)
+    {
+        OnEntityPassThroughTile?.Invoke(entity);
+    }
+
 
 }

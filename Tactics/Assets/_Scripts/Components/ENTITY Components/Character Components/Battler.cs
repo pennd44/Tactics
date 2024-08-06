@@ -20,4 +20,11 @@ public class Battler : MonoBehaviour
     //     mover = GetComponent<BattleMovementStateMachine>();
     //     equipmentLoadout = GetComponent<EquipmentLoadout>();
     // }
+
+
+    // public void HitOnLeaveTile
+
+    public event System.Action<Entity> GetHit;
+
+
 }

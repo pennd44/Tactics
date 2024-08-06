@@ -26,4 +26,5 @@ public class Vertex
             return false;
         return pos == ((Vertex)obj).pos;
     }
+    
 }
