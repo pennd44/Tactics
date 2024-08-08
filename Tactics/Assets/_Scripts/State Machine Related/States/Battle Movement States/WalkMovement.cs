@@ -100,12 +100,10 @@ public class WalkMovement : BattleMovement
         while (unit.gameObject.transform.position != tilePosition)
         {
             // Turn(tilePosition); 
-            Debug.Log(unit.gameObject.transform.position.y);
-            Debug.Log(tilePosition.y);
             unit.transform.position = Vector3.MoveTowards(unit.gameObject.transform.position, tilePosition, 2.0f * Time.deltaTime);
             yield return null;
         }
-        Debug.Log("Landed");
+
         unit.unitAnimator.SetBool("Falling", false);
         // unit.unitAnimator.SetFloat("Speed", 0);
     }
@@ -125,12 +123,9 @@ public class WalkMovement : BattleMovement
         while (unit.gameObject.transform.position != tilePosition)
         {
             // Turn(tilePosition);
-            Debug.Log(unit.gameObject.transform.position.y);
-            Debug.Log(tilePosition.y);
             unit.transform.position = Vector3.MoveTowards(unit.gameObject.transform.position, tilePosition, 5.0f * Time.deltaTime);
             yield return null;
         }
-        Debug.Log("Landed");
         unit.unitAnimator.SetBool("Falling", false);
         // unit.unitAnimator.SetFloat("Speed", 0);
     }

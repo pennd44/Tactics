@@ -87,10 +87,8 @@ public class ActionSelectState : BattleState
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("clicked");
             if (hitTile.selectable)
             {
-                Debug.Log("hitTile is selectable");
                 stateMachine.StartCoroutine(mover.currentMovement.ITurn(hitTile.transform.position));
                 
                 unit.tiles = ability.GetTilesInAOE(board, hitTile);
