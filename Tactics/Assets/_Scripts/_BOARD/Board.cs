@@ -117,7 +117,7 @@ public class Board : MonoBehaviour
         retValue.Add(start);
 
         ClearSearch();
-        Queue<Tile> checkNext = new Queue<Tile>();
+        // Queue<Tile> checkNext = new Queue<Tile>();
         Queue<Tile> checkNow = new Queue<Tile>();
         start.distance = 0;
         checkNow.Enqueue(start);
@@ -138,13 +138,13 @@ public class Board : MonoBehaviour
                     {
                         next.distance = t.distance + 1;
                         next.prev = t;
-                        checkNext.Enqueue(next);
+                        checkNow.Enqueue(next);
                         retValue.Add(next);
                     }
                 }
             }
-            if (checkNow.Count == 0)
-                SwapReference(ref checkNow, ref checkNext);
+            // if (checkNow.Count == 0)
+            //     SwapReference(ref checkNow, ref checkNext);
         }
 
         return retValue;
