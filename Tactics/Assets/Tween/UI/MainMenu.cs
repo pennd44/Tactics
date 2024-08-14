@@ -2,13 +2,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
 using System.Threading;
-
+public interface IMainMenu : IDependency<IMainMenu>
+{
+    void Setup(bool hasSavedGame);
+    UniTask TransitionIn();
+    UniTask<MainMenuOption> SelectMenuOption();
+    UniTask TransitionOut();
+}
 public enum MainMenuOption
 {
     NewGame,
     Continue
 }
-public class MainMenu : MonoBehaviour
+public class MainMenu : MonoBehaviour, IMainMenu
 {
     [SerializeField] RectTransform rootPanel;
     [SerializeField] CanvasGroup rootGroup;
@@ -17,33 +23,25 @@ public class MainMenu : MonoBehaviour
     [SerializeField] Layout onscreen;
     [SerializeField] Button continueButton;
     [SerializeField] Button newGameButton;
-        //Good example of async either or
-    void Start()
-    {
-        DemoFlow().Forget();
-    }
-    async UniTask DemoFlow()
-    {
-        while (true)
-        {
-            Setup(Random.value > 0.5f);
-            await TransitionIn();
-            var option = await SelectMenuOption();
-            Debug.Log("Selected: " + option.ToString());
-            await TransitionOut();
-        }
-    }
-    void Setup(bool hasSavedGame)
+    CancellationTokenSource cts = new CancellationTokenSource();
+    public void Setup(bool hasSavedGame)
     {
         continueButton.gameObject.SetActive(hasSavedGame);
     }
-    async UniTask TransitionIn()
+    public async UniTask TransitionIn()
     {
-        var cts = new CancellationTokenSource();
         await UniTask.WhenAny(
             Enter(cts),
             SkipEnter(cts));
-        cts.Dispose();
+    }
+    void CancelToken()
+    {
+        if (cts != null)
+        {
+            cts.Cancel();
+            cts.Dispose();
+            cts = null;
+        }
     }
     async UniTask Enter(CancellationTokenSource cts)
     {
@@ -52,7 +50,7 @@ public class MainMenu : MonoBehaviour
         rootGroup.alpha = 1;
         await rootPanel.Layout(offscreen, onscreen, 5).Play(cts.Token);
         await menuGroup.FadeIn(1).Play(cts.Token);
-        cts.Cancel();
+       CancelToken();
     }
     async UniTask SkipEnter(CancellationTokenSource cts)
     {
@@ -61,7 +59,7 @@ public class MainMenu : MonoBehaviour
             await UniTask.NextFrame(cts.Token);
             if (Input.anyKey)
             {
-                cts.Cancel();
+                CancelToken();
                 rootPanel.SetLayout(onscreen);
                 menuGroup.alpha = 1;
                 break;
@@ -83,8 +81,18 @@ public class MainMenu : MonoBehaviour
             await handler.OnClickAsync();
         }
     }
-    async UniTask TransitionOut()
+    public async UniTask TransitionOut()
     {
         await rootGroup.FadeOut().Play();
+        await rootGroup.FadeOut().Play(this.GetCancellationTokenOnDestroy());
+    }
+    void OnEnable()
+    {
+        IMainMenu.Register(this);
+    }
+    void OnDisable()
+    {
+        CancelToken();
+        IMainMenu.Reset();
     }
 }
