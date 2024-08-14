@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Items;
-public class Character : Entity
+public class Character : MonoBehaviour
 {
     /// <summary>
     /// how to split up: Battle Movement, Battle Acter?, Abitlity, Equiper, Stats, EntityAnimator,
@@ -192,9 +192,9 @@ public class Character : Entity
             tile.OnEntityEnterTile -= HandleEnemyEnterTile;
         }
     }
-    private void HandleEnemyEnterTile(Entity entity)
+    private void HandleEnemyEnterTile(Character character)
     {
-        battleStateMachine.StartCoroutine(OpportunityAttack(entity as Character));
+        battleStateMachine.StartCoroutine(OpportunityAttack(character));
         // OpportunityAttack(entity as Character);
     }
 

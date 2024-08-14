@@ -49,10 +49,10 @@ public class Tile : MonoBehaviour
         Material[] newMaterials = new Material[] { originalMaterial };
         GetComponent<Renderer>().materials = newMaterials;
     }
-    public event System.Action<Entity> OnEntityEnterTile;
-    public event System.Action<Entity> OnEntityExitTile;
+    public event System.Action<Character> OnEntityEnterTile;
+    public event System.Action<Character> OnEntityExitTile;
 
-    private Entity currentEntity;
+    private Character currentCharacter;
 
     public List<Tile> GetNeighbors()
     {
@@ -67,26 +67,26 @@ public class Tile : MonoBehaviour
         }
         return neighbors;
     }
-    public void EnterTile(Entity entity)
+    public void EnterTile(Character character)
     {
-        currentEntity = entity;
+        currentCharacter = character;
         occupied = true;
-        OnEntityEnterTile?.Invoke(entity);
+        OnEntityEnterTile?.Invoke(character);
     }
 
-    public void ExitTile(Entity entity)
+    public void ExitTile(Character character)
     {
-        if (currentEntity != null)
+        if (currentCharacter != null)
         {
             occupied = false;
-            OnEntityExitTile?.Invoke(currentEntity);
-            currentEntity = null;
+            OnEntityExitTile?.Invoke(currentCharacter);
+            currentCharacter = null;
         }
     }
-    public event System.Action<Entity> OnEntityPassThroughTile;
-    public void PassthroughTile(Entity entity)
+    public event System.Action<Character> OnEntityPassThroughTile;
+    public void PassthroughTile(Character character)
     {
-        OnEntityPassThroughTile?.Invoke(entity);
+        OnEntityPassThroughTile?.Invoke(character);
     }
 
 

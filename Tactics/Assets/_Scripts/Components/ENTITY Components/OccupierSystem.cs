@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class EntitySystem : MonoBehaviour
+public abstract class OccupierSystem : MonoBehaviour
 {
     protected Entity entity;
     protected virtual void Awake() {

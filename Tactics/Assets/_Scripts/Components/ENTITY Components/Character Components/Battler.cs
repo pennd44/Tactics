@@ -24,7 +24,7 @@ public class Battler : MonoBehaviour
 
     // public void HitOnLeaveTile
 
-    public event System.Action<Entity> GetHit;
+    // public event System.Action<Entity> GetHit;
 
 
 }
